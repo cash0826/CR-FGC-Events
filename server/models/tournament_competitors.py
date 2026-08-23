@@ -36,3 +36,6 @@ class TournamentCompetitor(db.Model):
     if not isinstance(value, int):
       raise ValueError(f"{key} must be an integer")
     return value
+  
+  def __repr__(self):
+    return f"<TournamentCompetitor id={self.id} user_id={self.user_id}>"

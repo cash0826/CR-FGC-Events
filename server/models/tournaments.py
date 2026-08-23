@@ -22,7 +22,7 @@ class Tournament(db.Model):
     back_populates='tournaments'
   )
   
-  # Has tournament_competitors, Matches, Standings, and Brackets
+  # Has (many) tournament_competitors, Matches and Standings
   competitors = db.relationship(
     'TournamentCompetitor',
     back_populates='tournament',
@@ -41,6 +41,7 @@ class Tournament(db.Model):
     cascade='all, delete-orphan'
   )
   
+  # Has (one) bracket 
   bracket = db.relationship(
     'Bracket',
     back_populates='tournament',

@@ -12,18 +12,11 @@ class Match(db.Model):
   # status allowed per validation: pending, in_progress, cancelled, completed
   
   # Foreign Keys
-  tournament_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+  tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'), nullable=False)
   winner_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=True)
   
-  # -------------
-  # Relationships
-  # -------------
-  
   # Belongs to
-  tournament = db.relationship(
-    'Tournament',
-    back_populates='match'
-  )
+  tournament = db.relationship('Tournament', back_populates='match')
   
   # Has many
   players = db.relationship(
@@ -33,10 +26,7 @@ class Match(db.Model):
   )
   
   # Has one
-  winner = db.relationship(
-    'Player',
-    foreign_keys=[winner_id]
-  )
+  winner = db.relationship('Player', foreign_keys=[winner_id])
   
   # Validation
   @validates('status')

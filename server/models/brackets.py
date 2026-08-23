@@ -8,11 +8,8 @@ class Bracket(db.Model):
   url = db.Column(db.Text, nullable=False)
   tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'), nullable=False)
   
-  # Relationship
-  tournament = db.relationship(
-    'Tournament',
-    back_populates='bracket'
-  )
+  # Belongs to one
+  tournament = db.relationship('Tournament', back_populates='bracket')
   
   @validates('tournament_id')
   def validate_int_fields(self, key, value):
@@ -22,10 +19,3 @@ class Bracket(db.Model):
   
   def __repr__(self):
     return f"<Bracket id={self.id} url={self.url}>"
-  
-  # If you want brackets to group matchs
-  # matches = db.relationship(
-  #   'Match', 
-  #   back_populates='bracket', 
-  #   cascade='all, delete-orphan
-  # )

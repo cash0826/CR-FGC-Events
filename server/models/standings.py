@@ -9,7 +9,7 @@ class Standing(db.Model):
   points = db.Column(db.Integer, nullable=False)
   tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.id'), nullable=False)
   
-  #  Relationships
+  # Belongs to one
   competitor = db.relationship('TournamentCompetitor', back_populates='standings')
   tournament = db.relationship('Tournament', back_populates='standings')
 
