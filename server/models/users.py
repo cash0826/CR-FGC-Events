@@ -39,27 +39,27 @@ class User(db.Model):
   # Relationships
   # --------------
   
-  # User → Roles (global RBAC). Many to Many 
+  # User → Roles  
   roles = db.relationship(
     'UserRole',
     back_populates='user',
     cascade='all, delete-orphan'
   )
-  
-  # User → Event Host. One to Many
+
+  # User → Event Host
   hosted_events = db.relationship(
     'Event',
     back_populates='host',
     cascade='all, delete-orphan'
   )
   
-  # User → Event Attendees. Many to Many
+  # User → Event Attendees
   event_attendance = db.relationship(
     'EventAttendee',
     back_populates="user",
     cascade='all, delete-orphan'
   )
-  # User → Tournament Competitors. Many to Many
+  # User → Tournament Competitors
   tournament_competitions = db.relationship(
     'TournamentCompetitor',
     back_populates='user',
