@@ -9,31 +9,14 @@ class MatchSchema(Schema):
     validate=validate.OneOf(["pending", "in_progress", "completed", "cancelled"])
   )
   
-  event_id = fields.Int(required=True)
+  tournament_id = fields.Int(required=True)
   winner_id = fields.Int(allow_none=True)
   
   # Has many
-  players = fields.List(
-    fields.Nested(
-      'PlayerSchema',
-      only=('id', 'attendee'),
-      dump_only=True
-    )
-  )
+  players = fields.Nested(PlayerSchema, many=True, dump_only=True)
   
-  # Belongs to a single object  
-  event = fields.Nested(
-    'EventSchema',
-    only=('id', 'name', 'game'),
-    dump_only=True
-  )
-  
-  winner = fields.Nested(
-    'TournamentAttendeeSchema',
-    only=('id', 'user'),
-    dump_only=True
-  )
-  
+  # Has one
+  winner = fields.Nested(PlayerSchema, dump_only=True)
   
 # Note for future change. Consider adding Bracket to relate to Match
 # For now, they both belong to a single event but are separate tables

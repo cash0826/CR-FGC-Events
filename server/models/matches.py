@@ -19,7 +19,7 @@ class Match(db.Model):
   # Relationships
   # -------------
   
-  # Belong to
+  # Belongs to
   tournament = db.relationship(
     'Tournament',
     back_populates='match'
@@ -32,7 +32,7 @@ class Match(db.Model):
     cascade='all, delete-orphan'
   )
   
-  # Winner is one of
+  # Has one
   winner = db.relationship(
     'Player',
     foreign_keys=[winner_id]

@@ -7,7 +7,7 @@ class Tournament(db.Model):
   
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(255), nullable=False)
-  start = db.Column(db.DateTime, nullable=False)
+  start_time = db.Column(db.DateTime, nullable=False)
   registration_deadline = db.Column(db.DateTime, nullable=False)
   game = db.Column(db.String(255), nullable=True)
   platform = db.Column(db.String(255), nullable=True)
@@ -41,7 +41,7 @@ class Tournament(db.Model):
     cascade='all, delete-orphan'
   )
   
-  brackets = db.relationship(
+  bracket = db.relationship(
     'Bracket',
     back_populates='tournament',
     cascade='all, delete-orphan'

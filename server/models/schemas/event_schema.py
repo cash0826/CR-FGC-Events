@@ -1,46 +1,24 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields
 
 class EventSchema(Schema):
   id = fields.Int(dump_only=True)
-  name = fields.Str(required=True, validate=validate.Length(min=1, max=255))
+  name = fields.Str(required=True)
   start = fields.DateTime(required=True)
-  registration_deadline = fields.DateTime(required=True)
-  game = fields.Str(allow_none=True, validate=validate.Length(max=255))
-  platform = fields.Str(allow_none=True, validate=validate.Length(max=255))
-  line_up_type = fields.Str(required=True)
+  end = fields.DateTime(allow_none=True)
+  in_person = fields.Bool(allow_none=True)
+  location = fields.Str(allow_none=True)
+  description = fields.Str(allow_none=True)
+  tie_breaking_rule = fields.Str(allow_none=True)
+  created_at = fields.DateTime(dump_only=True)
   
-  tournament_id = fields.Int(required=True)
+  # POST/PUT 
+  host_id = fields.Int(required=True)
   
-  # Belongs to a single Tournament
-  tournament = fields.Nested(
-    'TournamentSchema',
-    only=('id', 'name', 'start'),
-    dump_only=True
-  )
-  
-  # Has Matches, Standings, and Brackets (Nested Relationships)
-  matches = fields.List(
-    fields.Nested(
-      'MatchSchema',
-      only=('id', 'player_1', 'player_2'),
-      dump_only=True
-    )
-  )
-  
-  standings = fields.List(
-    fields.Nested(
-      'StandingSchema',
-      only=('id', 'user', 'points'),
-      dump_only=True
-    )
-  )
-  
-  brackets = fields.List(
-    fields.Nested(
-      'BracketSchema',
-      only=('id', 'url'),
-      dump_only=True
-    )
-  )
-  
+  # Has one Host (read-only)
+  host = fields.Nested(UserSchema, dump_only=True)
+  # Has many (read-only)
+  attendees = fields.Nested(EventAttendeeSchema, many=True, dump_only=True)
+  tournaments = fields.Nested('TournamentSchema', many=True, dump_only=True)
+
+
   

@@ -11,7 +11,7 @@ class Bracket(db.Model):
   # Relationship
   tournament = db.relationship(
     'Tournament',
-    back_populates='brackets'
+    back_populates='bracket'
   )
   
   @validates('tournament_id')
