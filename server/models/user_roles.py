@@ -20,7 +20,7 @@ class UserRole(db.Model):
   
   role = db.relationship(
     'Role', 
-    back_populates='user_roles'
+    back_populates='users'
   )
   
   # Validation

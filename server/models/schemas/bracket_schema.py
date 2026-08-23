@@ -2,12 +2,5 @@ from marshmallow from Schema, fields, validate
 
 class BracketSchema(Schema):
   id = fields.Int(dump_only=True)
-  
   url = fields.Str(required=True)
   event_id = fields.Int(required=True)
-  
-  event = fields.Nested(
-    'EventSchema',
-    only=('id', 'name'),
-    dump_only=True
-  )

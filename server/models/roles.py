@@ -10,7 +10,7 @@ class Role(db.Model):
   is_system_role = db.Column(db.Boolean, nullable=False, default=False)
   
   # Relationships
-  user_roles = db.relationship(
+  users = db.relationship(
     'UserRole',
     back_populates='role',
     cascade='all, delete-orphan'

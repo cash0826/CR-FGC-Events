@@ -9,6 +9,7 @@ class UserSchema(Schema):
   bio = fields.Str(allow_none=True)
   profile_pic_url = fields.Str(validate=validate.Length(max=500))
   contact_number = fields.Str(validate=validate.Length(max=50))
+  
   x_user = fields.Str(validate=validate.Length(max=255))
   discord_user = fields.Str(validate=validate.Length(max=255))
   twitch_tv_user = fields.Str(validate=validate.Length(max=255))
@@ -20,17 +21,9 @@ class UserSchema(Schema):
   created_at = fields.DateTime(dump_only=True)
   updated_at = fields.DateTime(dump_only=True)
   
-  roles = fields.List(
-    fields.Nested('UserRoleSchema', only=('id', 'role_id'))
-  )
-
-  hosted_tournaments = fields.List(
-    fields.Nested('TournamentSchema', exclude=('host',))
-  )
-  
-  tournament_attendance = fields.List(
-    fields.Nested('TournamentAttendeeSchema', only=('id', 'tournament_id'))
-  )
+  roles = fields.Nested(UserRoleSchema, many=True, dump_only=True)
+  event_attendance = fields.Nested('EventAttendeeSchema', many=True, dump_only=True)
+  tournament_competitions = fields.Nested('TournamentCompetitorSchema', many=True, dump_only=True)
   
   # When serializing, remember that Marshmallow will allow clients to send id, created_at, and updated_at. 
   # Use dump_only=True so that clients cannot send this information

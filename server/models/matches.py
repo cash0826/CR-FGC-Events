@@ -12,13 +12,12 @@ class Match(db.Model):
   # status allowed per validation: pending, in_progress, cancelled, completed
   
   # Foreign Keys
-  event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
-  winner_id = db.Column(db.Integer, db.ForeignKey('tournament_attendees.id'), nullable=True)
+  tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'), nullable=False)
+  winner_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=True)
   
-  # -------------
-  # Relationships
-  # -------------
-
+  # Belongs to
+  tournament = db.relationship('Tournament', back_populates='match')
+  
   # Has many
   players = db.relationship(
     'Player',
@@ -26,16 +25,8 @@ class Match(db.Model):
     cascade='all, delete-orphan'
   )
   
-  # Belong to
-  event = db.relationship(
-    'Event',
-    back_populates='matches'
-  )
-
-  winner = db.relationship(
-    'TournamentAttendee',
-    foreign_keys=[winner_id]
-  )
+  # Has one
+  winner = db.relationship('Player', foreign_keys=[winner_id])
   
   # Validation
   @validates('status')

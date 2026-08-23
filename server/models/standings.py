@@ -5,25 +5,15 @@ class Standing(db.Model):
   __tablename__ = 'standings'
   
   id = db.Column(db.Integer, primary_key=True)
-  
-  # Statistics
-  # Includes player and event relationships
-  player_id = db.Column(db.Integer, db.ForeignKey('tournament_attendees.id'), nullable=False)
+  competitor_id = db.Column(db.Integer, db.ForeignKey('tournament_competitors.id'), nullable=False)
   points = db.Column(db.Integer, nullable=False)
-  event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+  tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.id'), nullable=False)
   
-  #  Relationships
-  player = db.relationship(
-    'TournamentAttendee',
-    foreign_keys=[player_id]
-  )
-  
-  event = db.relationship(
-    'Event',
-    back_populates='standings'
-  )
-  
-  @validates('player_id', 'event_id', 'points')
+  # Belongs to one
+  competitor = db.relationship('TournamentCompetitor', back_populates='standings')
+  tournament = db.relationship('Tournament', back_populates='standings')
+
+  @validates('competitor_id', 'tournament_id', 'points')
   def validate_int_fields(self, key, value):
     if not isinstance(value, int):
       raise ValueError(f"{key} must be an integer")
@@ -32,4 +22,4 @@ class Standing(db.Model):
     return value
       
   def __repr__(self):
-    return f"<Standing player={self.player_id} points={self.points}>"
+    return f"<Standing competitor_id={self.competitor_id} points={self.points}>"
