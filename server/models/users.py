@@ -46,17 +46,23 @@ class User(db.Model):
     cascade='all, delete-orphan'
   )
   
-  # User → Tournament Host. One to Many
-  hosted_tournaments = db.relationship(
-    'Tournament',
+  # User → Event Host. One to Many
+  hosted_events = db.relationship(
+    'Event',
     back_populates='host',
-    foreign_keys='Tournament.host_id'
+    cascade='all, delete-orphan'
   )
   
-  # User → Tournament Attendees. Many to Many
-  tournament_attendance = db.relationship(
-    'TournamentAttendee',
+  # User → Event Attendees. Many to Many
+  event_attendance = db.relationship(
+    'EventAttendee',
     back_populates="user",
+    cascade='all, delete-orphan'
+  )
+  # User → Tournament Competitors. Many to Many
+  tournament_competitions = db.relationship(
+    'TournamentCompetitor',
+    back_populates='user',
     cascade='all, delete-orphan'
   )
 

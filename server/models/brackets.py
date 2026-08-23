@@ -6,16 +6,15 @@ class Bracket(db.Model):
   
   id = db.Column(db.Integer, primary_key=True)
   url = db.Column(db.Text, nullable=False)
-  
-  event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+  tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'), nullable=False)
   
   # Relationship
-  event = db.relationship(
-    'Event',
+  tournament = db.relationship(
+    'Tournament',
     back_populates='brackets'
   )
   
-  @validates('event_id')
+  @validates('tournament_id')
   def validate_int_fields(self, key, value):
     if not isinstance(value, int):
       raise ValueError(f"{key} must be an integer")
