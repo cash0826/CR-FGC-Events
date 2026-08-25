@@ -1,7 +1,13 @@
 from random import choice
 from faker import Faker
+import datetime
 from config import app, db
-from models import User
+from models import (
+    User, Role, UserRole, 
+    Event, EventAttendee, 
+    Tournament, TournamentCompetitor, 
+    Match, Player, Standing, Bracket
+)
 
 fake = Faker()
 
@@ -34,11 +40,13 @@ with app.app_context():
     email= 'test@email.com',
     username= 'test_user',
     full_name= 'John Doe',
-    date_of_birth= datetime.date(1990, 1, 1),
+    date_of_birth=datetime.date(1990, 1, 1),
   )
   test.password_hash = 'testpassword'
   
-  db.session.add([admin, test])
+  db.session.add(admin)
+  db.session.add(test)
+  # ALT: db.session.add_all([admin, test])
   db.session.commit()
   
   # 
