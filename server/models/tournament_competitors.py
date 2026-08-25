@@ -2,7 +2,7 @@ from app import db
 from sqlalchemy.orm import validates
 
 class TournamentCompetitor(db.Model):
-  __tablename__ = 'tournament_competitors',
+  __tablename__ = 'tournament_competitors'
   
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
@@ -22,6 +22,7 @@ class TournamentCompetitor(db.Model):
   players = db.relationship(
     'Player',
     back_populates='competitor',
+    foreign_keys='Player.competitor_id',
     cascade='all, delete-orphan'
   )
   

@@ -16,12 +16,13 @@ class Match(db.Model):
   winner_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=True)
   
   # Belongs to
-  tournament = db.relationship('Tournament', back_populates='match')
+  tournament = db.relationship('Tournament', back_populates='matches')
   
   # Has many
   players = db.relationship(
     'Player',
     back_populates='match',
+    foreign_keys='Player.match_id',
     cascade='all, delete-orphan'
   )
   

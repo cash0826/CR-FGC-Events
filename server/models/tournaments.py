@@ -17,7 +17,7 @@ class Tournament(db.Model):
   event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
   
   # Belongs to Event
-  Event = db.relationship(
+  event = db.relationship(
     'Event',
     back_populates='tournaments'
   )

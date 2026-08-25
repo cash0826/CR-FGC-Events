@@ -7,12 +7,20 @@ class Player(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   
   # Foreign Keys
-  competitor_id = db.Column(db.Integer, db.ForeignKey('tournament_competitor.id'),nullable=False) 
+  competitor_id = db.Column(db.Integer, db.ForeignKey('tournament_competitors.id'), nullable=False)
   match_id = db.Column(db.Integer, db.ForeignKey('matches.id'), nullable=False)
   
   # Relationship
-  competitor = db.relationship('TournamentCompetitor', back_populates='players')
-  match = db.relationship('Match', back_populates='players')
+  competitor = db.relationship(
+    'TournamentCompetitor',
+    back_populates='players',
+    foreign_keys=[competitor_id]
+  )
+  match = db.relationship(
+    'Match',
+    back_populates='players',
+    foreign_keys=[match_id]
+  )
   
   # Validation
   @validates('competitor_id', 'match_id')
