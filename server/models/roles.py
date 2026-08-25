@@ -1,4 +1,4 @@
-from app import db
+from config import db
 from sqlalchemy.orm import validates
 
 class Role(db.Model):
