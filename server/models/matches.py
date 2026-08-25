@@ -13,7 +13,7 @@ class Match(db.Model):
   
   # Foreign Keys
   tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'), nullable=False)
-  winner_id = db.Column(db.Integer, db.ForeignKey('players.id'), nullable=True)
+  winner_id = db.Column(db.Integer, db.ForeignKey('tournament_competitors.id'), nullable=True)
   
   # Belongs to
   tournament = db.relationship('Tournament', back_populates='matches')
@@ -27,7 +27,7 @@ class Match(db.Model):
   )
   
   # Has one
-  winner = db.relationship('Player', foreign_keys=[winner_id])
+  winner = db.relationship('TournamentCompetitor', foreign_keys=[winner_id])
   
   # Validation
   @validates('status')
@@ -41,9 +41,9 @@ class Match(db.Model):
   def validate_winner(self, key, value):
     if value is None:
       return value
-    player_ids = {p.player_id for p in self.players}
-    if value not in player_ids:
-      raise ValueError("Winner must be one of the match players.")
+    competitor_ids = {p.competitor_id for p in self.players}
+    if value not in competitor_ids:
+      raise ValueError("Winner must be one of the match competitors.")
     return value
 
   def __repr__(self):

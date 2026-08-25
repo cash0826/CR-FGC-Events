@@ -123,7 +123,8 @@ def test_tournament_and_match_tables_are_defined():
         ["id", "round", "start_time", "status", "tournament_id", "winner_id"],
     )
     assert_foreign_key(Match, "tournament_id", "tournaments.id")
-    assert_foreign_key(Match, "winner_id", "players.id")
+    assert_foreign_key(Match, "winner_id", "tournament_competitors.id")
+    assert Match.winner.property.mapper.class_ is TournamentCompetitor
 
 
 def test_competitor_and_standing_tables_are_defined():
