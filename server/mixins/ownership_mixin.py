@@ -1,5 +1,9 @@
 from flask_jwt_extended import get_jwt_identity
 
+# Controller calls require_owner(instance)
+# If the user is not the owner, the mixin will return a 403 response
+# If the user is the owner, it returns None and the controller continues
+
 class OwnershipMixin:
 
     owner_field = "user_id"   # subclasses can override this

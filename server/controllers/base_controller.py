@@ -11,9 +11,16 @@ class BaseController(Resource):
 
     service = None      # Subclasses must set this
     schema = None       # Marshmallow schema (optional but recommended)
-    ownership = None     # mixin instance, optional
+    ownership = None    # mixin instance, optional
+    rbac = None         # RBAC
 
     def get(self, instance_id=None):
+        
+        if self.rbac:
+            auth_error = self.rbac.require_roles()
+            if auth_error:
+                return auth_error
+        
         # Detail route: /resource/<id>
         if instance_id is not None:
             instance = self.service.get_by_id(instance_id)
@@ -43,6 +50,12 @@ class BaseController(Resource):
         return response, 200
         
     def post(self):
+
+        if self.rbac:
+            auth_error = self.rbac.require_roles()
+            if auth_error:
+                return auth_error
+            
         data = request.get_json()
         instance, error = self.service.create(data)
 
@@ -54,6 +67,12 @@ class BaseController(Resource):
         return self.schema.dump(instance), 201
 
     def patch(self, instance_id):
+
+        if self.rbac:
+            auth_error = self.rbac.require_roles()
+            if auth_error:
+                return auth_error
+            
         instance = self.service.get_by_id(instance_id)
         if not instance:
             return {"error": "not_found"}, 404
@@ -73,6 +92,12 @@ class BaseController(Resource):
         return self.schema.dump(updated), 200
 
     def delete(self, instance_id):
+
+        if self.rbac:
+            auth_error = self.rbac.require_roles()
+            if auth_error:
+                return auth_error
+            
         instance = self.service.get_by_id(instance_id)
         if not instance:
             return {"error": "not_found"}, 404
