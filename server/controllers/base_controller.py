@@ -11,6 +11,7 @@ class BaseController(Resource):
 
     service = None      # Subclasses must set this
     schema = None       # Marshmallow schema (optional but recommended)
+    ownership = None     # mixin instance, optional
 
     def get(self, instance_id=None):
         # Detail route: /resource/<id>
@@ -53,24 +54,36 @@ class BaseController(Resource):
         return self.schema.dump(instance), 201
 
     def patch(self, instance_id):
-        data = request.get_json()
-        instance, error = self.service.update(instance_id, data)
-
-        if error == "not_found":
+        instance = self.service.get_by_id(instance_id)
+        if not instance:
             return {"error": "not_found"}, 404
+        # OwnershipMixin
+        if self.ownership:
+            auth_error = self.ownership.require_owner(instance)
+            if auth_error:
+                return auth_error
+
+        data = request.get_json()
+        updated, error = self.service.update(instance_id, data)
+        
         if error == "duplicate":
             return {"error": "duplicate"}, 409
         if error:
             return {"error": "invalid_data"}, 400
-
-        return self.schema.dump(instance), 200
+        return self.schema.dump(updated), 200
 
     def delete(self, instance_id):
+        instance = self.service.get_by_id(instance_id)
+        if not instance:
+            return {"error": "not_found"}, 404
+        # OwnershipMixin
+        if self.ownership:
+            auth_error =self.ownership.require_owner(instance)
+            if auth_error:
+                return auth_error
+        
         success, error = self.service.delete(instance_id)
 
-        if error == "not_found":
-            return {"error": "not_found"}, 404
         if error:
             return {"error": "delete_failed"}, 400
-
         return {"message": "deleted"}, 200
