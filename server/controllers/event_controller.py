@@ -1,6 +1,6 @@
 from flask import request, abort
 from flask_restful import Resource
-from flask_jwt_extended import get_jwt_identity, jwt_required
+from flask_jwt_extended import jwt_required
 from schemas.event_schema import EventSchema
 from services.events_service import EventService
 from services.auth_service import AuthService

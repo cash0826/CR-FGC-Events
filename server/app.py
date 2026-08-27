@@ -8,25 +8,35 @@ from models import (
 from controllers import (
     Me, Register, Login,
     Users, Profile,
-    Events, ViewEventDetails
+    Events, ViewEventDetails,
+    EventTournaments, ViewTournamentDetails,
 )
 
 # Resources / Controllers
 
-# --- AuthController ---
+# --- Auth ---
 api.add_resource(Me, '/api/me')
 api.add_resource(Register, '/api/register')
 api.add_resource(Login, '/api/login')
 
-# --- UserController ---
+# --- User ---
 api.add_resource(Users, '/api/users', '/api/users/<int:id>')
 api.add_resource(Profile, '/api/profile', '/api/profile/<int:id>')
 
-# --- EventsController ---
+# --- Events ---
 api.add_resource(Events, '/api/events', '/api/events/<int:id>')
 api.add_resource(ViewEventDetails, '/api/events/<int:id>')
 
-# --- TournamentsController ---
+# --- Tournaments ---
+api.add_resource(
+    EventTournaments, 
+    '/api/events/<int:event_id>/tournaments',
+    '/api/events/<int:event_id>/tournaments/<int:tournaments_id>'
+)
+api.add_resource(
+    ViewTournamentDetails,
+    '/api/events/<int:event_id>/tournaments/<int:tournaments_id>'
+)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5555)
