@@ -11,12 +11,15 @@ class UserService:
   # Handles hashing, validation, and persistance
   def create_user(data):
     email = data.get('email')
-    if User.query.filter_by(enail=email).first():
-      return {"errors": ["Email already exists"]}, 400
+    username = data.get('username')
+    if User.query.filter_by(email=email).first():
+      return None, "duplicate_email"
+    if User.query.filter_by(username=username).first():
+      return None, "duplicate_username"
     
     user = User(
       email=email,
-      username=data.get('username'),
+      username=username,
       full_name=data.get('full_name'),
       date_of_birth=data.get('date_of_birth'),
     )
