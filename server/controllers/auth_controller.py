@@ -2,7 +2,7 @@ from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, create_access_token, jwt_required
 from services.users_service import UserService
-from schemas.user_schema import UserSchema
+from models.schemas.user_schema import UserSchema
 
 # global contact schema instance for serialization
 user_schema = UserSchema()

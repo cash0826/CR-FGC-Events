@@ -8,4 +8,4 @@ class EventAttendeeSchema(Schema):
   event_id = fields.Int(required=True)
   
   # GET
-  user = fields.Nested(UserSchema, dump_only=True)
+  user = fields.Nested('UserSchema', dump_only=True)

@@ -14,8 +14,8 @@ class AuthService:
     Returns a list of role names for the given user.
     If user_id is None, users the JWT identity.
     """
-    if user_id = None:
-      user_id = get_jwt_identity()
+    if user_id == None:
+      user_id ==get_jwt_identity()
     roles = UserService.get_roles_for_user(user_id)
     return roles or []
   
@@ -26,7 +26,7 @@ class AuthService:
     """
     if roles is None:
       roles = AuthService.get_roles_for_user()
-    if "admin" is not in roles:
+    if "admin" not in roles:
       abort(403, description="Admin role required")
       
   @staticmethod

@@ -15,9 +15,9 @@ class EventSchema(Schema):
   host_id = fields.Int(required=True)
   
   # Has one Host (read-only)
-  host = fields.Nested(UserSchema, dump_only=True)
+  host = fields.Nested('UserSchema', dump_only=True)
   # Has many (read-only)
-  attendees = fields.Nested(EventAttendeeSchema, many=True, dump_only=True)
+  attendees = fields.Nested('EventAttendeeSchema', many=True, dump_only=True)
   tournaments = fields.Nested('TournamentSchema', many=True, dump_only=True)
 
 

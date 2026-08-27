@@ -1,7 +1,7 @@
 from flask import request, abort
 from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from schemas.user_schema import UserSchema
+from models.schemas.user_schema import UserSchema
 from services.users_service import UserService
 from services.auth_service import AuthService
 

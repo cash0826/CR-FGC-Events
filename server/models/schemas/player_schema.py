@@ -6,4 +6,4 @@ class PlayerSchema(Schema):
   competitor_id = fields.Int(required=True, dump_only=True)
   match_id = fields.Int(required=True)
   
-  competitor = fields.Nested(TournamentCompetitorSchema, dump_only=True)
+  competitor = fields.Nested('TournamentCompetitorSchema', dump_only=True)

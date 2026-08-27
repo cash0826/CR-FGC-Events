@@ -1,4 +1,4 @@
-from marshmallow from Schema, fields, validate
+from marshmallow import Schema, fields, validate
 
 class BracketSchema(Schema):
   id = fields.Int(dump_only=True)

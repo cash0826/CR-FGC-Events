@@ -1,7 +1,7 @@
 from flask import request, abort
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required
-from schemas.tournament_schema import TournamentSchema
+from models.schemas.tournament_schema import TournamentSchema
 from services.tournaments_service import TournamentService
 from services.events_service import EventService
 from services.auth_service import AuthService
@@ -36,7 +36,7 @@ class EventTournaments(Resource):
       
     new_tournament, error = TournamentService.create_tournament(event_id=event_id, data=data)
     
-    if error = "duplicate":
+    if error == "duplicate":
       return {"error": "duplicate"}, 409
     if error:
       return {"error": "invalid_data"}, 400
