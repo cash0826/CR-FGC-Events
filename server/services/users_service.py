@@ -1,6 +1,8 @@
 from sqlalchemy.exc import IntegrityError
 from config import db
 from models.users import User
+from models.role import Role
+from models.user_roles import UserRoles
 
 # Services control queries, commits, rollbacks and try/except blocks
 # Omitting using base_service so I can refer back to a service layer. User also requires pw hashing
@@ -51,6 +53,16 @@ class UserService:
   # Lists all users, helpful for admin dashboards, search and pagination
   def get_all_users():
     return User.query.all()
+  
+  @staticmethod
+  def get_roles_for_user(user_id):
+    roles = (
+      db.session.query(Role.name)
+      .join(UserRoles, UserRoles.role_id == Role.id)
+      .filter(UserRoles.user_id == user_id)
+      .all()
+    )
+    return [r[0] for r in roles]
 
   @staticmethod
   # Supports profile editing and settings
