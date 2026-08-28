@@ -5,19 +5,16 @@ from .event_controller import Events, ViewEventDetails
 from .tournament_controller import EventTournaments, ViewTournamentDetails
 from .tournament_competitor_controller import Competitors
 from .match_controller import ViewMatches, Matches
+from .standing_controller import Standings, StandingDetails
+from .bracket_controller import Bracket, BracketDetails
 
 __all__ = [
-  'Me',
-  'Register',
-  'Login',
-  'Users',
-  'Profile',
-  'UserRoles',
-  'Events', 
-  'ViewEventDetails',
-  'EventTournaments',
-  'ViewTournamentDetails',
+  'Me', 'Register', 'Login',
+  'Users', 'Profile', 'UserRoles',
+  'Events', 'ViewEventDetails',
+  'EventTournaments', 'ViewTournamentDetails',
   'Competitors',
-  'ViewMatches',
-  'Matches'
+  'ViewMatches', 'Matches',
+  'Standings', 'StandingDetails',
+  'Bracket', 'BracketDetails'
 ]

@@ -12,7 +12,9 @@ from controllers import (
     Events, ViewEventDetails,
     EventTournaments, ViewTournamentDetails,
     Competitors,
-    ViewMatches, Matches
+    ViewMatches, Matches,
+    Standings, StandingDetail,
+    Bracket, BracketDetails
 )
 
 # Resources / Controllers
@@ -64,6 +66,26 @@ api.add_resource(
     Matches,
     '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches',
     '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches/<int:match_id>'
+)
+
+# --- Standings ---
+api.add_resource(
+    Standings,
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/standings',
+)
+api.add_resource(
+    StandingDetail,
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/standings/<int:standing_id>'
+)
+
+# --- Brackets ---
+api.add_resource(
+    Bracket,
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/bracket',
+)
+api.add_resource(
+    BracketDetails,
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/bracket/<int:bracket_id>'
 )
 
 if __name__ == "__main__":
