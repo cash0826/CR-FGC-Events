@@ -154,7 +154,7 @@ def test_admin_and_controller_post_delete_flows(client):
     new_payload = {
         'email': 'newuser@example.com',
         'username': 'newuser',
-        'password': 'pass123',
+        'password': 'pass1234',
         'full_name': 'New User',
         'date_of_birth': '1992-02-02'
     }

@@ -3,10 +3,18 @@ from flask_jwt_extended import get_jwt_identity
 from flask import abort
 
 class AuthService:
+
+  @staticmethod
+  def _current_user_id():
+    identity = get_jwt_identity()
+    try:
+      return int(identity)
+    except (TypeError, ValueError):
+      abort(401, description="Invalid user identity")
   
   @staticmethod
   def get_current_user_id():
-    return get_jwt_identity()
+    return AuthService._current_user_id()
   
   @staticmethod
   def get_roles_for_user(user_id=None):
@@ -15,7 +23,12 @@ class AuthService:
     If user_id is None, users the JWT identity.
     """
     if user_id == None:
-      user_id = get_jwt_identity()
+      user_id = AuthService._current_user_id()
+    else:
+      try:
+        user_id = int(user_id)
+      except (TypeError, ValueError):
+        abort(401, description="Invalid user identity")
     roles = UserService.get_roles_for_user(user_id)
     return roles or []
   
@@ -44,7 +57,7 @@ class AuthService:
     """
     Abort unless the user is the owner or an admin
     """
-    current_user_id = get_jwt_identity()
+    current_user_id = AuthService._current_user_id()
     
     if roles is None:
       roles = AuthService.get_roles_for_user(current_user_id)
