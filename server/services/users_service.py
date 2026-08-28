@@ -3,6 +3,7 @@ from config import db
 from models.users import User
 from models.roles import Role
 from models.user_roles import UserRole
+from datetime import datetime
 
 # Services control queries, commits, rollbacks and try/except blocks
 # Omitting using base_service so I can refer back to a service layer. User also requires pw hashing
@@ -12,21 +13,41 @@ class UserService:
   @staticmethod
   # Handles hashing, validation, and persistance
   def create_user(data):
+    
+    # Validation
     email = data.get('email')
-    username = data.get('username')
     if User.query.filter_by(email=email).first():
       return None, "duplicate_email"
+    
+    username = data.get('username')
     if User.query.filter_by(username=username).first():
       return None, "duplicate_username"
+    
+    dob = data.get('date_of_birth')
+    if dob is None:
+      return None, "date_of_birth is required"
+    parsed_dob = None
+    if isinstance(dob, str):
+      # Expect ISO date like 'YYYY-MM-DD'
+      try:
+        parsed_dob = datetime.strptime(dob, "%Y-%m-%d").date()
+      except ValueError:
+        return None, "date_of_birth must be in YYYY-MM-DD format."
+    elif isinstance(dob, datetime):
+      parsed_dob = dob.date()
+    elif isinstance(dob, date):
+      parsed_dob = dob
+    else:
+      return None, "date_of_birth must be a date or ISO string (YYYY-MM-DD)."
     
     user = User(
       email=email,
       username=username,
       full_name=data.get('full_name'),
-      date_of_birth=data.get('date_of_birth'),
+      date_of_birth=parsed_dob
     )
     raw_password = data.get('password')
-    user.password_hash = password
+    user.password_hash = raw_password
     
     try:
       db.session.add(user)

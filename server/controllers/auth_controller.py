@@ -3,6 +3,7 @@ from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, create_access_token, jwt_required
 from services.users_service import UserService
 from models.schemas.user_schema import UserSchema
+from datetime import datetime
 
 # global contact schema instance for serialization
 user_schema = UserSchema()
@@ -21,7 +22,24 @@ class Me(Resource):
 class Register(Resource):
   def post(self):
     data = request.get_json()
+    if not data:
+      abort(400, description="Missing JSON data")
+      
     user, error = UserService.create_user(data)
+    
+    if error == "duplicate_email":
+      return {"error": "duplicate_email"}, 409
+    if error == "duplicate_username":
+      return {"error": "duplicate_username"}, 409
+    if error == "date_of_birth is required":
+      return {"error": "date_of_birth is required"}, 400
+    if error == "date_of_birth must be in YYYY-MM-DD format":
+      return {"error": "date_of_birth must be in YYYY-MM-DD format"}, 400
+    if error == "date_of_birth must be a date or ISO string (YYYY-MM-DD).":
+      return {"error": "date_of_birth must be a date or ISO string (YYYY-MM-DD)."}, 400
+    if error:
+      return {"error": "invalid_data"}, 400
+  
     token = create_access_token(identity=user.id)
     return {
       "message": "Registered",
