@@ -11,6 +11,7 @@ from controllers import (
     UserRoles,
     Events, ViewEventDetails,
     EventTournaments, ViewTournamentDetails,
+    Competitors,
 )
 
 # Resources / Controllers
@@ -45,6 +46,14 @@ api.add_resource(
     ViewTournamentDetails,
     '/api/events/<int:event_id>/tournaments/<int:tournaments_id>'
 )
+
+# --- Competitors ---
+api.add_resource(
+    Competitors,
+    '/api/events/<int:event_id>/tournaments/<int:tournaments_id>/competitors',
+    '/api/events/<int:event_id>/tournaments/<int:tournaments_id>/competitors/<int:id>'
+)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5555)
