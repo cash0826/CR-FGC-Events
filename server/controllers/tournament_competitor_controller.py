@@ -22,7 +22,7 @@ class Competitors(Resource):
       return {"error": "tournament_not_found"}, 404
     
     competitors = TournamentCompetitorService.get_all(filters={"tournament_id": tournament_id})
-    return competitors_schema.dump(competitors)
+    return competitors_schema.dump(competitors), 200
   
   # POST /events/<event_id>/tournaments/<tournament_id>/competitors
   @jwt_required()
@@ -45,7 +45,7 @@ class Competitors(Resource):
       return {"error": "already_registered"}, 409
     if error:
       return {"error": "invalid_data"}, 400
-    return competitor_schema.dump(competitor)
+    return competitor_schema.dump(competitor), 201
   
   # DELETE /events/<event_id>/tournaments/<tournament_id>/competitors/<competitor_id>
   @jwt_required()

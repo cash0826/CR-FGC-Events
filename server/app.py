@@ -12,6 +12,7 @@ from controllers import (
     Events, ViewEventDetails,
     EventTournaments, ViewTournamentDetails,
     Competitors,
+    ViewMatches, Matches
 )
 
 # Resources / Controllers
@@ -40,20 +41,30 @@ api.add_resource(ViewEventDetails, '/api/events/<int:id>')
 api.add_resource(
     EventTournaments, 
     '/api/events/<int:event_id>/tournaments',
-    '/api/events/<int:event_id>/tournaments/<int:tournaments_id>'
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>'
 )
 api.add_resource(
     ViewTournamentDetails,
-    '/api/events/<int:event_id>/tournaments/<int:tournaments_id>'
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>'
 )
 
 # --- Competitors ---
 api.add_resource(
     Competitors,
-    '/api/events/<int:event_id>/tournaments/<int:tournaments_id>/competitors',
-    '/api/events/<int:event_id>/tournaments/<int:tournaments_id>/competitors/<int:id>'
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/competitors',
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/competitors/<int:competitor_id>'
 )
 
+# --- Matches ---
+api.add_resource(
+    ViewMatches,
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches',
+)
+api.add_resource(
+    Matches,
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches',
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches/<int:match_id>'
+)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5555)

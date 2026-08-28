@@ -4,6 +4,7 @@ from .user_role_controller import UserRoles
 from .event_controller import Events, ViewEventDetails
 from .tournament_controller import EventTournaments, ViewTournamentDetails
 from .tournament_competitor_controller import Competitors
+from .match_controller import ViewMatches, Matches
 
 __all__ = [
   'Me',
@@ -16,5 +17,7 @@ __all__ = [
   'ViewEventDetails',
   'EventTournaments',
   'ViewTournamentDetails',
-  'Competitors'
+  'Competitors',
+  'ViewMatches',
+  'Matches'
 ]
