@@ -8,6 +8,7 @@ from models import (
 from controllers import (
     Me, Register, Login,
     Users, Profile,
+    UserRoles,
     Events, ViewEventDetails,
     EventTournaments, ViewTournamentDetails,
 )
@@ -22,6 +23,13 @@ api.add_resource(Login, '/api/login')
 # --- User ---
 api.add_resource(Users, '/api/users', '/api/users/<int:id>')
 api.add_resource(Profile, '/api/profile', '/api/profile/<int:id>')
+
+# --- UserRoles ---
+api.add_resource(
+    UserRoles, 
+    '/api/users/<int:user_id>/roles',
+    '/api/users/<int:user_id>/roles/<string:role_name>'
+)
 
 # --- Events ---
 api.add_resource(Events, '/api/events', '/api/events/<int:id>')

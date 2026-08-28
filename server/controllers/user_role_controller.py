@@ -2,13 +2,13 @@ from flask import request, abort
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required
 from services.users_service import UserService
-from services.user_roles_service import UserRolesService
+from services.user_roles_service import UserRoleService
 from services.auth_service import AuthService
 
 # -------------------------
 # Admin-only Role Management
 # -------------------------
-class AssignRole(Resource):
+class UserRoles(Resource):
   
   # POST /users/<user_id>/roles
   @jwt_required()
