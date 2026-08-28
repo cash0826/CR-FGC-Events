@@ -34,7 +34,7 @@ class Events(Resource):
     }, 200
   
   # post /events
-  @jwt_required
+  @jwt_required()
   def post(self):
     AuthService.require_host_or_admin()
     
@@ -51,7 +51,7 @@ class Events(Resource):
     return event_schema.dump(new_event), 201
   
   # patch /events/<id>
-  @jwt_required
+  @jwt_required()
   def patch(self, id):
     event = EventService.get_by_id(instance_id=id)
     if not event:
@@ -72,7 +72,7 @@ class Events(Resource):
     return event_schema.dump(updated_event), 200
 
   # delete /events/<id>
-  @jwt_required
+  @jwt_required()
   def delete(self, id):
     event = EventService.get_by_id(instance_id=id)
     if not event:

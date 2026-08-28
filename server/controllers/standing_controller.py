@@ -5,7 +5,7 @@ from services.events_service import EventService
 from services.tournaments_service import TournamentService
 from services.standings_service import StandingService
 from services.auth_service import AuthService
-from models.schema.standing_schema import StandingSchema
+from models.schemas.standing_schema import StandingSchema
 
 standing_schema = StandingSchema()
 standings_schema = StandingSchema(many=True)
