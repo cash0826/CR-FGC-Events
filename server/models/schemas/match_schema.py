@@ -13,10 +13,10 @@ class MatchSchema(Schema):
   winner_id = fields.Int(allow_none=True)
   
   # Has many
-  players = fields.Nested(PlayerSchema, many=True, dump_only=True)
+  players = fields.Nested('PlayerSchema', many=True, dump_only=True)
   
   # Has one
-  winner = fields.Nested(PlayerSchema, dump_only=True)
+  winner = fields.Nested('PlayerSchema', dump_only=True)
   
 # Note for future change. Consider adding Bracket to relate to Match
 # For now, they both belong to a single event but are separate tables

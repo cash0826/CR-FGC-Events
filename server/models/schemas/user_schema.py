@@ -21,7 +21,7 @@ class UserSchema(Schema):
   created_at = fields.DateTime(dump_only=True)
   updated_at = fields.DateTime(dump_only=True)
   
-  roles = fields.Nested(UserRoleSchema, many=True, dump_only=True)
+  roles = fields.Nested('UserRoleSchema', many=True, dump_only=True)
   event_attendance = fields.Nested('EventAttendeeSchema', many=True, dump_only=True)
   tournament_competitions = fields.Nested('TournamentCompetitorSchema', many=True, dump_only=True)
   

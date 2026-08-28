@@ -7,4 +7,4 @@ class StandingSchema(Schema):
   points = fields.Int(required=True, validate=validate.Range(min=0))
   tournament_id = fields.Int(required=True)
   
-  competitor = fields.Nested(TournamentCompetitorSchema, dump_only=True)
+  competitor = fields.Nested('TournamentCompetitorSchema', dump_only=True)

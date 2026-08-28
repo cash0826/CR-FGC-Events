@@ -1,4 +1,4 @@
-from app import db
+from config import db
 from sqlalchemy.orm import validates
 
 class Standing(db.Model):
@@ -7,7 +7,7 @@ class Standing(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   competitor_id = db.Column(db.Integer, db.ForeignKey('tournament_competitors.id'), nullable=False)
   points = db.Column(db.Integer, nullable=False)
-  tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.id'), nullable=False)
+  tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'), nullable=False)
   
   # Belongs to one
   competitor = db.relationship('TournamentCompetitor', back_populates='standings')

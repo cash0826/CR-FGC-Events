@@ -1,4 +1,4 @@
-from app import db
+from config import db
 from sqlalchemy.orm import validates
 
 class EventAttendee(db.Model):
@@ -8,7 +8,7 @@ class EventAttendee(db.Model):
   
   # Foreign Keys to store User and Event
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-  event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+  event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
   
   # Relationship Mapping
   user = db.relationship(

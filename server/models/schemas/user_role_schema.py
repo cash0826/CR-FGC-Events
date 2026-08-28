@@ -8,5 +8,5 @@ class UserRoleSchema(Schema):
   role_id = fields.Int(required=True)
   
   # Single-object relationships (belongs to)
-  role = fields.Nested(RoleSchema, dump_only=True )
+  role = fields.Nested('RoleSchema', dump_only=True )
   

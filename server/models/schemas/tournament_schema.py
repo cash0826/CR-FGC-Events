@@ -12,7 +12,7 @@ class TournamentSchema(Schema):
   event_id = fields.Int(required=True)
   
   # Has many Competitors, Matches, Standings, and Brackets
-  competitors = fields.Nested(TournamentCompetitorSchema, many=True, dump_only=True)
+  competitors = fields.Nested('TournamentCompetitorSchema', many=True, dump_only=True)
   matches = fields. Nested("MatchSchema", many=True, dump_only=True)
   standings = fields.Nested('StandingSchema', many=True, dump_only=True)
   bracket = fields.Nested('BracketSchema', dump_only=True)

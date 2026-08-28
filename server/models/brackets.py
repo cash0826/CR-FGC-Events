@@ -1,4 +1,4 @@
-from db import db
+from config import db
 from sqlalchemy.orm import validates
 
 class Bracket(db.Model):
