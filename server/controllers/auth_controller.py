@@ -40,7 +40,7 @@ class Register(Resource):
     if error:
       return {"error": "invalid_data"}, 400
   
-    token = create_access_token(identity=user.id)
+    token = create_access_token(identity=str(user.id))
     return {
       "message": "Registered",
       "token": token,
@@ -56,7 +56,7 @@ class Login(Resource):
     password = data.get("password")
     user = UserService.get_user_by_email(email)
     if user and user.authenticate(password):
-      token = create_access_token(identity=user.id)
+      token = create_access_token(identity=str(user.id))
       return {
         "message": "Logged_In",
         "token": token,

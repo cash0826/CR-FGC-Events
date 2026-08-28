@@ -15,7 +15,7 @@ class AuthService:
     If user_id is None, users the JWT identity.
     """
     if user_id == None:
-      user_id ==get_jwt_identity()
+      user_id = get_jwt_identity()
     roles = UserService.get_roles_for_user(user_id)
     return roles or []
   

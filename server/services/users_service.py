@@ -4,6 +4,7 @@ from models.users import User
 from models.roles import Role
 from models.user_roles import UserRole
 from datetime import datetime
+from services.user_roles_service import UserRoleService
 
 # Services control queries, commits, rollbacks and try/except blocks
 # Omitting using base_service so I can refer back to a service layer. User also requires pw hashing
@@ -53,6 +54,7 @@ class UserService:
       db.session.add(user)
       db.session.commit()
       return user, None
+      UserRolesService.assign_role(user.id, "viewer")
     except IntegrityError:
       db.session.rollback()
       return None, "duplicate"
