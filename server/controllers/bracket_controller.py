@@ -5,7 +5,7 @@ from services.events_service import EventService
 from services.tournaments_service import TournamentService
 from services.brackets_service import BracketService
 from services.auth_service import AuthService
-from models.schema.bracket_schema import BracketSchema
+from models.schemas.bracket_schema import BracketSchema
 
 bracket_schema = BracketSchema()
 
@@ -20,7 +20,9 @@ class Bracket(Resource):
     if not tournament:
       return {"error": "tournament_not_found"}, 404
     
-    bracket = BracketService.get_all(filters={"tournament_id": tournament_id})
+    bracket = BracketService.get_all(filters={"tournament_id": tournament_id}).first()
+    if not bracket:
+      return {}, 200
     return bracket_schema.dump(bracket), 200
   
   # POST /events/<event_id>/tournaments/<tournament_id>/bracket
@@ -68,7 +70,7 @@ class BracketDetails(Resource):
     if not data:
       abort(400, description="Missing JSON data")
       
-    updated_bracket = BracketService.update(bracket_id, data)
+    updated_bracket, error = BracketService.update(bracket_id, data)
     if error:
       return {"error": error}, 400
     return bracket_schema.dump(updated_bracket), 200

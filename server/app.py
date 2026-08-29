@@ -13,7 +13,7 @@ from controllers import (
     EventTournaments, ViewTournamentDetails,
     Competitors,
     ViewMatches, Matches,
-    Standings, StandingDetail,
+    Standings, StandingDetails,
     Bracket, BracketDetails
 )
 
@@ -36,7 +36,7 @@ api.add_resource(
 )
 
 # --- Events ---
-api.add_resource(Events, '/api/events', '/api/events/<int:id>')
+api.add_resource(Events, '/api/events')
 api.add_resource(ViewEventDetails, '/api/events/<int:id>')
 
 # --- Tournaments ---
@@ -74,7 +74,7 @@ api.add_resource(
     '/api/events/<int:event_id>/tournaments/<int:tournament_id>/standings',
 )
 api.add_resource(
-    StandingDetail,
+    StandingDetails,
     '/api/events/<int:event_id>/tournaments/<int:tournament_id>/standings/<int:standing_id>'
 )
 

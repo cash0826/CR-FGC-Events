@@ -22,7 +22,7 @@ class EventTournaments(Resource):
     return tournaments_schema.dump(event_tournaments), 200
   
   # post events/<event_id>/tournaments
-  @jwt_required
+  @jwt_required()
   def post(self, event_id):
     event = EventService.get_by_id(instance_id=event_id)
     if not event:
@@ -43,7 +43,7 @@ class EventTournaments(Resource):
     return tournament_schema.dump(new_tournament), 201
   
   # patch /events/<event_id>/tournaments/<tournaments_id>
-  @jwt_required
+  @jwt_required()
   def patch(self, event_id, tournament_id):
     event = EventService.get_by_id(instance_id=event_id)
     if not event:
@@ -67,7 +67,7 @@ class EventTournaments(Resource):
     return tournament_schema(updated_tournament), 200
   
   # delete /events/<event_id>/tournaments/<tournaments_id>
-  @jwt_required
+  @jwt_required()
   def delete(self, event_id, tournament_id):
     event = EventService.get_by_id(instance_id=event_id)
     if not event:

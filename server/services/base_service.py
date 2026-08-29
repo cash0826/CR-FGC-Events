@@ -33,8 +33,12 @@ class BaseService:
         return cls.model.query.filter_by(id=instance_id).first()
 
     @classmethod
-    def get_all(cls):
-        return cls.model.query.all()
+    def get_all(cls, filters=None):
+        # Return a query object so callers can paginate or further filter
+        q = cls.model.query
+        if filters:
+            q = q.filter_by(**filters)
+        return q
 
     @classmethod
     def update(cls, instance_id, data):

@@ -1,5 +1,6 @@
 from models.tournaments import Tournament
 from .base_service import BaseService
+from datetime import datetime
 
 class TournamentService(BaseService):
   model = Tournament
@@ -10,5 +11,14 @@ class TournamentService(BaseService):
   
   @classmethod
   def create_tournament(cls, event_id, data):
+    # parse datetime strings
+    try:
+      if 'start_time' in data and isinstance(data['start_time'], str):
+        data['start_time'] = datetime.fromisoformat(data['start_time'])
+      if 'registration_deadline' in data and isinstance(data['registration_deadline'], str):
+        data['registration_deadline'] = datetime.fromisoformat(data['registration_deadline'])
+    except Exception:
+      return None, 'invalid_date'
+
     data["event_id"] = event_id
     return cls.create(data)

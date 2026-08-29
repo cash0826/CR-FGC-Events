@@ -6,4 +6,10 @@ class TournamentCompetitorSchema(Schema):
   tournament_id = fields.Int(required=True)
   
   # Belongs to one User
-  user = fields.Nested('UserSchema', dump_only=True)
+  # Keep the embedded user shallow so serializing a competitor cannot recurse
+  # through User.tournament_competitions back to this competitor.
+  user = fields.Nested(
+    'UserSchema',
+    only=('id', 'email', 'username', 'full_name'),
+    dump_only=True
+  )

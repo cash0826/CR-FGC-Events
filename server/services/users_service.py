@@ -3,7 +3,7 @@ from config import db
 from models.users import User
 from models.roles import Role
 from models.user_roles import UserRole
-from datetime import datetime
+from datetime import datetime, date
 from services.user_roles_service import UserRoleService
 
 # Services control queries, commits, rollbacks and try/except blocks
@@ -75,7 +75,8 @@ class UserService:
   @staticmethod
   # Lists all users, helpful for admin dashboards, search and pagination
   def get_all_users():
-    return User.query.all()
+      # Return a query so callers can paginate/filter as needed
+      return User.query
   
   @staticmethod
   def get_roles_for_user(user_id):
