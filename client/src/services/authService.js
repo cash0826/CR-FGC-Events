@@ -13,7 +13,7 @@ export function getCurrentUser() {
   return api.get('/me')
 }
 
-// Profile - GET/PATCH
+// Profile (user) - GET/PATCH
 export function getProfile() {
   return api.get('/profile')
 }

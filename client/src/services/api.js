@@ -25,7 +25,6 @@ export async function apiFetch(path, { headers, ...options } ={} ) {
     const msg = 
       errorData.error || `Request failed with status ${response.status}`
     throw new Error(msg);
-    return null
   }
 
   return data
@@ -34,6 +33,6 @@ export async function apiFetch(path, { headers, ...options } ={} ) {
 export const api = {
   get: (path) => apiFetch(path),
   post: (path, body) => apiFetch(path, { method: 'POST', body: JSON.stringify(body) }),
-  put: (path, body) => apiFetch(path, { method: 'PUT', body: JSON.stringify(body) }),
+  patch: (path, body) => apiFetch(path, { method: 'PATCH', body: JSON.stringify(body) }),
   delete: (path) => apiFetch(path, { method: 'DELETE' }),
 }
