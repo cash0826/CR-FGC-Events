@@ -50,7 +50,7 @@ def auth_bearer(token):
 
 def test_signup_login_and_me(client):
     # Signup
-    r = signup_user(client, 'alice@example.com', 'alice', 'password123')
+    r = signup(client, 'alice@example.com', 'alice', 'password123')
     assert r.status_code == 201
     data = r.get_json()
     assert 'token' in data
@@ -67,7 +67,7 @@ def test_signup_login_and_me(client):
 
 def test_event_tournament_and_match_flow(client):
     # Signup a user and give them host role so they can create events
-    r = signup_user(client, 'host@example.com', 'hostuser', 'password123')
+    r = signup(client, 'host@example.com', 'hostuser', 'password123')
     assert r.status_code == 201
     token = r.get_json()['token']
     user = r.get_json()['user']
