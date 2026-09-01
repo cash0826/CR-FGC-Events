@@ -22,3 +22,20 @@ export function deleteEventTournament(eventId, tournamentId) {
 export function getTournament(eventId, tournamentId) {
   return api.get(`/events/${eventId}/tournaments/${tournamentId}`)
 }
+
+/* Manage Competitors */
+
+// get tournament competitors (public)
+export function getTournamentCompetitors(eventId, tournamentId) {
+  return api.get(`/events/${eventId}/tournaments/${tournamentId}/competitors`)
+}
+
+// register as a competitor (public)
+export function register(eventId, tournamentId, userId) {
+  return api.post(`/events/${eventId}/tournaments/${tournamentId}/competitors`, userId)
+}
+
+// delete a tournament competitor (admin or owner)
+export function deleteCompetitor(eventId, tournamentId, userId) {
+  return api.delete(`/events/${eventId}/tournaments/${tournamentId}/competitors/${userId}`, )
+}
