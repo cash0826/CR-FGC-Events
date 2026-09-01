@@ -6,7 +6,7 @@ from models import (
     Match, Player, Standing, Bracket
 )
 from controllers import (
-    Me, Register, Login,
+    Me, Signup, Login,
     Users, Profile,
     UserRoles,
     Events, ViewEventDetails,
@@ -21,7 +21,7 @@ from controllers import (
 
 # --- Auth ---
 api.add_resource(Me, '/api/me')
-api.add_resource(Register, '/api/register')
+api.add_resource(Signup, '/api/signup')
 api.add_resource(Login, '/api/login')
 
 # --- User ---
