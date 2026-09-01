@@ -22,7 +22,7 @@ def client():
         db.drop_all()
 
 
-def register_user(client, email, username, password, full_name="Test User", dob="1990-01-01"):
+def signup(client, email, username, password, full_name="Test User", dob="1990-01-01"):
     payload = {
         "email": email,
         "username": username,
@@ -30,7 +30,7 @@ def register_user(client, email, username, password, full_name="Test User", dob=
         "full_name": full_name,
         "date_of_birth": dob
     }
-    resp = client.post('/api/register', json=payload)
+    resp = client.post('/api/signup', json=payload)
     return resp
 
 
@@ -48,9 +48,9 @@ def auth_bearer(token):
     return {"Authorization": f"Bearer {token}"}
 
 
-def test_register_login_and_me(client):
-    # Register
-    r = register_user(client, 'alice@example.com', 'alice', 'password123')
+def test_signup_login_and_me(client):
+    # Signup
+    r = signup_user(client, 'alice@example.com', 'alice', 'password123')
     assert r.status_code == 201
     data = r.get_json()
     assert 'token' in data
@@ -66,8 +66,8 @@ def test_register_login_and_me(client):
 
 
 def test_event_tournament_and_match_flow(client):
-    # Register a user and give them host role so they can create events
-    r = register_user(client, 'host@example.com', 'hostuser', 'password123')
+    # Signup a user and give them host role so they can create events
+    r = signup_user(client, 'host@example.com', 'hostuser', 'password123')
     assert r.status_code == 201
     token = r.get_json()['token']
     user = r.get_json()['user']
@@ -132,7 +132,7 @@ def test_event_tournament_and_match_flow(client):
 
 def test_admin_and_controller_post_delete_flows(client):
     # Create an admin user and assign admin role
-    r = register_user(client, 'admin@example.com', 'adminuser', 'password123')
+    r = signup(client, 'admin@example.com', 'adminuser', 'password123')
     assert r.status_code == 201
     admin_token = r.get_json()['token']
     admin_user = r.get_json()['user']
@@ -174,7 +174,7 @@ def test_admin_and_controller_post_delete_flows(client):
 
     # --- Competitors / Standings / Bracket flows (controller-level) ---
     # Create host and competitor users
-    rh = register_user(client, 'host2@example.com', 'host2', 'password123')
+    rh = signup(client, 'host2@example.com', 'host2', 'password123')
     assert rh.status_code == 201
     host_token = rh.get_json()['token']
     host_user = rh.get_json()['user']
@@ -184,7 +184,7 @@ def test_admin_and_controller_post_delete_flows(client):
         db.session.add(UserRole(user_id=host_id, role_id=host_role.id))
         db.session.commit()
 
-    rc = register_user(client, 'comp@example.com', 'compy', 'password123')
+    rc = signup(client, 'comp@example.com', 'compy', 'password123')
     assert rc.status_code == 201
     comp_token = rc.get_json()['token']
     comp_user = rc.get_json()['user']

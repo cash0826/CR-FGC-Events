@@ -18,8 +18,8 @@ class Me(Resource):
       return {"error": "not_found"}, 404
     return user_schema.dump(user), 200
     
-# /register POST
-class Register(Resource):
+# /signup POST
+class Signup(Resource):
   def post(self):
     data = request.get_json()
     if not data:
