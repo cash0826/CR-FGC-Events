@@ -8,11 +8,11 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [submitting, setSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setSubmitting(true)
+    setIsSubmitting(true)
     setError('')
     try {
       await authenticateUser({ email, password })
@@ -20,7 +20,7 @@ function Login() {
     } catch (error) {
       setError(error.message || 'unable to log in')
     } finally {
-      setSubmitting(false)
+      setIsSubmitting(false)
     }
   }
 
@@ -47,12 +47,12 @@ function Login() {
           />
         </label>
         {error && <p role="alert">{error}</p>}
-        <button type="submit" disabled={submitting}>
-          {submitting ? 'Logging in…' : 'Log in'}
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Logging in…' : 'Log in'}
         </button>
       </form>
       <p>
-        Need an account? <Link to="/register">Register</Link>
+        Need an account? <Link to="/signup">Signup</Link>
       </p>
     </>
   )
