@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
 import { listEvents } from "../services/eventService";
+import EventListItem from "../components/eventitem/EventListItem";
 
 function Home() {
   const [events, setEvents] = useState([])
@@ -29,7 +29,14 @@ function Home() {
         <h1>CR FGC Upcoming Events</h1>
       </header>
       <main>
-        <Outlet context={{ events, setEvents }} />
+        <ul>
+          {events.map(event => (
+            <EventListItem 
+              key={event.id}
+              event={event}
+            />
+          ))}
+        </ul>
       </main>
     </>
   )

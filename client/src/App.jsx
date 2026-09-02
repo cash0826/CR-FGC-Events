@@ -26,29 +26,31 @@ function App() {
       <NavBar/>
 
       {/* Public Routes */}
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Signup />} />
-      <Route path="/unauthorized" element={<Unauthorized />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
 
-      {/* Protected - any authenticated user */}
-      <Route element={<ProtectedRoute/>}>
-        <Route path="/profile" element={<Profile />} />
-      </Route>
+        {/* Protected - any authenticated user */}
+        <Route element={<ProtectedRoute/>}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
 
-      {/* Host or admin */}
-      <Route element={<RequireRole roles={["host", "admin"]} />}>
-        <Route path="/events/create" element={<CreateEvent /> } />
-      </Route>
+        {/* Host or admin */}
+        <Route element={<RequireRole roles={["host", "admin"]} />}>
+          <Route path="/events/create" element={<CreateEvent /> } />
+        </Route>
 
-      {/* Public event/tournament pages */}
-      <Route path="/events/:eventId" element={<EventDetails />} />
-      <Route path="/events/:eventId/tournaments/:tournamentId" element={<TournamentDetails />} />
-      <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Matches />} />
-      <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Standings />} />
-      <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Bracket />} />
+        {/* Public event/tournament pages */}
+        <Route path="/events/:eventId" element={<EventDetails />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId" element={<TournamentDetails />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Matches />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Standings />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Bracket />} />
 
-      <Route path="*" element={<NotFound/> }> </Route>
+        <Route path="*" element={<NotFound/> }/>
+      </Routes>
 
       <Footer/>
     </>
