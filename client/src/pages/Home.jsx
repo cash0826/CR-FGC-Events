@@ -10,7 +10,7 @@ function Home() {
   useEffect( ()=> {
     listEvents()
       .then((data) => {
-        setEvents( data || [] );
+        setEvents( data.events || [] );
         setLoading(false)
       })
       .catch((error)=> {
@@ -30,7 +30,7 @@ function Home() {
       </header>
       <main>
         <ul>
-          {events.map(event => (
+          {events.map((event) => (
             <EventListItem 
               key={event.id}
               event={event}
