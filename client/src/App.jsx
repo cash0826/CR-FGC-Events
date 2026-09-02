@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom"
 // Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Unauthorized from "./pages/Unauthorized";
 import CreateEvent from "./pages/CreateEvent";
@@ -28,13 +28,12 @@ function App() {
       {/* Public Routes */}
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/register" element={<Signup />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
 
       {/* Protected - any authenticated user */}
       <Route element={<ProtectedRoute/>}>
         <Route path="/profile" element={<Profile />} />
-        <Route path="/events/create" element={<CreateEvent />} />
       </Route>
 
       {/* Host or admin */}
