@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom"
 // Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Unauthorized from "./pages/Unauthorized";
 import CreateEvent from "./pages/CreateEvent";
@@ -26,30 +26,31 @@ function App() {
       <NavBar/>
 
       {/* Public Routes */}
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/unauthorized" element={<Unauthorized />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
 
-      {/* Protected - any authenticated user */}
-      <Route element={<ProtectedRoute/>}>
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/events/create" element={<CreateEvent />} />
-      </Route>
+        {/* Protected - any authenticated user */}
+        <Route element={<ProtectedRoute/>}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
 
-      {/* Host or admin */}
-      <Route element={<RequireRole roles={["host", "admin"]} />}>
-        <Route path="/events/create" element={<CreateEvent /> } />
-      </Route>
+        {/* Host or admin */}
+        <Route element={<RequireRole roles={["host", "admin"]} />}>
+          <Route path="/events/create" element={<CreateEvent /> } />
+        </Route>
 
-      {/* Public event/tournament pages */}
-      <Route path="/events/:eventId" element={<EventDetails />} />
-      <Route path="/events/:eventId/tournaments/:tournamentId" element={<TournamentDetails />} />
-      <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Matches />} />
-      <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Standings />} />
-      <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Bracket />} />
+        {/* Public event/tournament pages */}
+        <Route path="/events/:eventId" element={<EventDetails />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId" element={<TournamentDetails />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Matches />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Standings />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Bracket />} />
 
-      <Route path="*" element={<NotFound/> }> </Route>
+        <Route path="*" element={<NotFound/> }/>
+      </Routes>
 
       <Footer/>
     </>

@@ -1,10 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 function RequireRole({ roles }) {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isLoading } = useAuth();
 
-  if (!isAuthenticated) {
+  if (isLoading) {
+    return null; // or a spinner component
+  }
+  
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 
@@ -12,7 +16,9 @@ function RequireRole({ roles }) {
     return <Navigate to="/unauthorized" replace />;
   }
 
-  const hasRole = roles.some(role => user.roles.includes(role));
+  const hasRole = user.roles.some((userRole) =>
+    roles.includes(userRole.role?.name)
+  )
 
   if (!hasRole) {
     return <Navigate to="/unauthorized" replace />;

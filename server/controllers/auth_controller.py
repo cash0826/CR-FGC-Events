@@ -31,12 +31,6 @@ class Signup(Resource):
       return {"error": "duplicate_email"}, 409
     if error == "duplicate_username":
       return {"error": "duplicate_username"}, 409
-    if error == "date_of_birth is required":
-      return {"error": "date_of_birth is required"}, 400
-    if error == "date_of_birth must be in YYYY-MM-DD format":
-      return {"error": "date_of_birth must be in YYYY-MM-DD format"}, 400
-    if error == "date_of_birth must be a date or ISO string (YYYY-MM-DD).":
-      return {"error": "date_of_birth must be a date or ISO string (YYYY-MM-DD)."}, 400
     if error:
       return {"error": "invalid_data"}, 400
   

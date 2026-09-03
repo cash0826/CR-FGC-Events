@@ -24,28 +24,10 @@ class UserService:
     if User.query.filter_by(username=username).first():
       return None, "duplicate_username"
     
-    dob = data.get('date_of_birth')
-    if dob is None:
-      return None, "date_of_birth is required"
-    parsed_dob = None
-    if isinstance(dob, str):
-      # Expect ISO date like 'YYYY-MM-DD'
-      try:
-        parsed_dob = datetime.strptime(dob, "%Y-%m-%d").date()
-      except ValueError:
-        return None, "date_of_birth must be in YYYY-MM-DD format."
-    elif isinstance(dob, datetime):
-      parsed_dob = dob.date()
-    elif isinstance(dob, date):
-      parsed_dob = dob
-    else:
-      return None, "date_of_birth must be a date or ISO string (YYYY-MM-DD)."
-    
     user = User(
       email=email,
       username=username,
       full_name=data.get('full_name'),
-      date_of_birth=parsed_dob
     )
     raw_password = data.get('password')
     user.password_hash = raw_password

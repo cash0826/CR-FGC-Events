@@ -74,7 +74,10 @@ Change into the client directory and install node dependencies for the frontend.
 1. 
 
 ## Known Challenges or Limitations
-- 
+- Need to update server - datetime.utcnow deprecated
+- /me fetch from AuthContext returning 401 - not being stored locally
+- update user data model, schemas, controllers, services, tests with "first_name"
+- revise dob storage for more secure storage
 
 ## Other small features to include
 - 

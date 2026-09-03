@@ -22,13 +22,12 @@ def client():
         db.drop_all()
 
 
-def signup(client, email, username, password, full_name="Test User", dob="1990-01-01"):
+def signup(client, email, username, password, full_name="Test User"):
     payload = {
         "email": email,
         "username": username,
         "password": password,
-        "full_name": full_name,
-        "date_of_birth": dob
+        "full_name": full_name
     }
     resp = client.post('/api/signup', json=payload)
     return resp
@@ -155,8 +154,7 @@ def test_admin_and_controller_post_delete_flows(client):
         'email': 'newuser@example.com',
         'username': 'newuser',
         'password': 'pass1234',
-        'full_name': 'New User',
-        'date_of_birth': '1992-02-02'
+        'full_name': 'New User'
     }
     cr = client.post('/api/users', json=new_payload, headers=auth_bearer(admin_token))
     assert cr.status_code == 201

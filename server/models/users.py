@@ -15,7 +15,6 @@ class User(db.Model):
   _password_hash = db.Column(db.String(255), nullable=False)
   
   # Profile Information
-  date_of_birth = db.Column(db.Date, nullable=False)
   bio = db.Column(db.Text, nullable=True)
   profile_pic_url = db.Column(db.String(500), nullable=True)
   
@@ -102,13 +101,6 @@ class User(db.Model):
     if not re.match(pattern, number):
         raise ValueError("Phone number must be 7–15 digits, optional leading +.")
     return number
-
-  # DOB Validation
-  @validates("date_of_birth")
-  def validate_dob(self, key, value):
-    if value is None:
-      raise ValueError("date_of_birth is required.")
-    return value
 
   # Profile_Pic_URL Validation
   @validates("profile_pic_url")

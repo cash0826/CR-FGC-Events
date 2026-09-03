@@ -57,7 +57,6 @@ def test_user_model_has_expected_columns():
             "username",
             "full_name",
             "_password_hash",
-            "date_of_birth",
             "bio",
             "profile_pic_url",
             "contact_number",

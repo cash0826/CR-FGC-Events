@@ -47,32 +47,28 @@ with app.app_context():
   admin = User(
     email='admin@email.com',
     username='admin_user',
-    full_name='Melanie Rodriguez',
-    date_of_birth=dt.date(1996, 8, 26),
+    full_name='Melanie Rodriguez'
   )
   admin.password_hash = 'adminpassword'
 
   host1 = User(
     email= 'host1@email.com',
     username= 'host1_user',
-    full_name= 'Host1',
-    date_of_birth=dt.date(1990, 1, 1),
+    full_name= 'Host1'
   )
   host1.password_hash = 'host1password'
 
   host2 = User(
     email= 'host2@email.com',
     username= 'host2_user',
-    full_name= 'Host2',
-    date_of_birth=dt.date(1990, 1, 1),
+    full_name= 'Host2'
   )
   host2.password_hash = 'host2password'
   
   player = User(
     email= 'player@email.com',
     username= 'player_user',
-    full_name= 'Player',
-    date_of_birth=dt.date(2000, 1, 1),
+    full_name= 'Player'
   )
   player.password_hash = 'playerpassword'
   
