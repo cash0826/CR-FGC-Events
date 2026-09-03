@@ -16,7 +16,9 @@ function RequireRole({ roles }) {
     return <Navigate to="/unauthorized" replace />;
   }
 
-  const hasRole = roles.some(role => user.roles.includes(role));
+  const hasRole = user.roles.some((userRole) =>
+    roles.includes(userRole.role?.name)
+  )
 
   if (!hasRole) {
     return <Navigate to="/unauthorized" replace />;

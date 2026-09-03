@@ -4,6 +4,8 @@ import { useAuth } from "../hooks/useAuth";
 function NavBar() {
   const { user, logout } = useAuth();
 
+  // TODO If user has "admin" or "host" role, return a complete NavBar including create event
+
   return (
     <nav>
       {user ? (

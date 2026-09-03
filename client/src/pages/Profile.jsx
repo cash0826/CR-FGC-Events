@@ -9,10 +9,10 @@ function Profile() {
     <div>
       <h2>Your Profile</h2>
       {user.profile_pic_url ? <img src={user.profile_pic_url} alt={user.username}></img> : <p>No image</p> }
-      <p>{user.username}</p>
-      <p>{user.full_name}</p>
-      <p>{user.email}</p>
-      <>{user.contact_number}</>
+      <h3>Username:</h3><p>{user.username}</p>
+      <h3>Name:</h3><p>{user.full_name}</p>
+      <h3>Email:</h3><p>{user.email}</p>
+      <h3>Phone to Contact:</h3><p>{user.contact_number}</p>
       <button type="button" onClick={logout}>Log out</button>
     </div>
   )
