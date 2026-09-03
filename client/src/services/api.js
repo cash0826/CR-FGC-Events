@@ -9,7 +9,7 @@ export class ApiError extends Error {
 }
 
 export async function apiFetch(path, { headers, ...options } ={} ) {
-  const token = localStorage.getItem("accessToken")
+  const token = localStorage.getItem("token")
 
   const response = await fetch(`${BASE_URL}${path}`, {
     headers: {

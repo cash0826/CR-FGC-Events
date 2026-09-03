@@ -16,7 +16,7 @@ function Login() {
     setError('')
     try {
       await authenticateUser({ email, password })
-      navigate('/profile')
+      navigate('/')
     } catch (error) {
       setError(error.message || 'unable to log in')
     } finally {

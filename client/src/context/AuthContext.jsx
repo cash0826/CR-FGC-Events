@@ -10,13 +10,13 @@ export function useAuthContext() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Load user profile if token exists
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (!token) {
-      setLoading(false)
+      setIsLoading(false)
       setUser(null)
       return
     }
@@ -26,20 +26,21 @@ export function AuthProvider({ children }) {
         localStorage.removeItem('token')
         setUser(null)
       })
-      .finally( () => setLoading(false))
+      .finally( () => setIsLoading(false))
   }, []);
 
   async function authenticateUser(credentials) {
-    const data = await login(credentials)
-    localStorage.setItem("token", data.token);
-    setUser(data.user)
-    return data.user
+    const { token: token, user: loggedInUser } = await login(credentials)
+    localStorage.setItem("token", token);
+    setUser(loggedInUser)
+    return loggedInUser
   }
 
-  async function createUser(newUser) {
-    const data = await signup(newUser)
-    localStorage.setItem("token", data.token);
-    setUser(data.user)
+  async function createUser(newUserDetails) {
+    const { token: token, user: newUser } = await signup(newUserDetails)
+    localStorage.setItem("token", token);
+    setUser(newUser)
+    return newUser
   }
 
   async function logout() {
@@ -48,7 +49,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{user, loading, authenticateUser, createUser, logout}}>
+    <AuthContext.Provider value={{user, isLoading, authenticateUser, createUser, logout}}>
       {children}
     </AuthContext.Provider>
   )

@@ -4,14 +4,14 @@ import EventListItem from "../components/eventitem/EventListItem";
 
 function Home() {
   const [events, setEvents] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect( ()=> {
     listEvents()
       .then((data) => {
         setEvents( data.events || [] );
-        setLoading(false)
+        setIsLoading(false)
       })
       .catch((error)=> {
         console.error("Error retrieving events: ", error )
@@ -19,7 +19,7 @@ function Home() {
       })
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   if (events.message) return <p>{events.message}</p>;
 

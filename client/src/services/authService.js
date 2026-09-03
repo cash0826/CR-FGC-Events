@@ -9,8 +9,8 @@ export function login(userData) {
   return api.post('/login', userData)
 }
 
-export function getCurrentUser() {
-  return api.get('/me')
+export function getCurrentUser(token) {
+  return api.get('/me', token)
 }
 
 // Profile (user) - GET/PATCH
