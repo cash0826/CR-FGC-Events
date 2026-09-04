@@ -22,7 +22,7 @@ function EventDetails() {
         setEvent(fetchedEvent)
         setTournaments(fetchedTournaments)
       })
-      .catch((err) => setError(err.message || 'unable to load'))
+      .catch((err) => setError(err.message || 'unable to load event details'))
       .finally(()=> setIsLoading(false))
   }, [eventId])
 

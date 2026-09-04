@@ -10,23 +10,9 @@ from models.schemas.match_schema import MatchSchema
 match_schema = MatchSchema()
 matches_schema = MatchSchema(many=True)
 
-class ViewMatches(Resource):
+class MatchDetails(Resource):
   
-  # GET /events/<event_id>/tournaments/<tournament_id>/matches
-  def get(self, event_id, tournament_id):
-    event = EventService.get_by_id(event_id)
-    if not event:
-      return {"error": "event_not_found"}, 404
-    tournament = TournamentService.get_by_id(tournament_id)
-    if not tournament:
-      return {"error": "tournament_not_found"}, 404
-    
-    matches = MatchService.get_all(filters={"tournament_id": tournament_id})
-    return matches_schema.dump(matches), 200
-
-class Matches(Resource):
-  
-  # GET /events/<event_id>/tournaments/<tournament_id>/matches/<match_id>
+  # GET 1 /events/<event_id>/tournaments/<tournament_id>/matches/<match_id>
   def get(self, event_id, tournament_id, match_id):
     event = EventService.get_by_id(event_id)
     if not event:
@@ -38,29 +24,6 @@ class Matches(Resource):
     if not match or match.tournament_id != tournament_id:
       return {"error": "match_not_found"}, 404
     return match_schema.dump(match), 200
-  
-  # POST /events/<event_id>/tournaments/<tournament_id>/matches
-  @jwt_required()
-  def post(self, event_id, tournament_id):
-    event = EventService.get_by_id(event_id)
-    if not event:
-      return {"error": "event_not_found"}, 404
-    tournament = TournamentService.get_by_id(tournament_id)
-    if not tournament:
-      return {"error": "tournament_not_found"}, 404
-    
-    AuthService.require_owner_or_admin(event.host_id)
-    
-    data = request.get_json()
-    if not data:
-      abort(400, description="Missing JSON data")
-    
-    data["tournament_id"] = tournament_id
-    
-    new_match, error = MatchService.create(data)
-    if error:
-      return {"error": error}, 400
-    return match_schema.dump(new_match), 201
   
   # PATCH /events/<event_id>/tournaments/<tournament_id>/matches/<match_id>
   @jwt_required()
@@ -108,3 +71,39 @@ class Matches(Resource):
       return {"error": error}, 400
     return {"message": "deleted"}, 200 
     
+class Matches(Resource):
+  
+  # GET /events/<event_id>/tournaments/<tournament_id>/matches
+  def get(self, event_id, tournament_id):
+    event = EventService.get_by_id(event_id)
+    if not event:
+      return {"error": "event_not_found"}, 404
+    tournament = TournamentService.get_by_id(tournament_id)
+    if not tournament:
+      return {"error": "tournament_not_found"}, 404
+    
+    matches = MatchService.get_all(filters={"tournament_id": tournament_id})
+    return matches_schema.dump(matches), 200
+
+  # POST /events/<event_id>/tournaments/<tournament_id>/matches
+  @jwt_required()
+  def post(self, event_id, tournament_id):
+    event = EventService.get_by_id(event_id)
+    if not event:
+      return {"error": "event_not_found"}, 404
+    tournament = TournamentService.get_by_id(tournament_id)
+    if not tournament:
+      return {"error": "tournament_not_found"}, 404
+    
+    AuthService.require_owner_or_admin(event.host_id)
+    
+    data = request.get_json()
+    if not data:
+      abort(400, description="Missing JSON data")
+    
+    data["tournament_id"] = tournament_id
+    
+    new_match, error = MatchService.create(data)
+    if error:
+      return {"error": error}, 400
+    return match_schema.dump(new_match), 201
