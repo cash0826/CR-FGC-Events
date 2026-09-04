@@ -25,11 +25,6 @@ export function getTournament(eventId, tournamentId) {
 
 /* Manage Competitors */
 
-// get tournament competitors (public)
-export function getTournamentCompetitors(eventId, tournamentId) {
-  return api.get(`/events/${eventId}/tournaments/${tournamentId}/competitors`)
-}
-
 // register as a competitor (public)
 export function register(eventId, tournamentId, userId) {
   return api.post(`/events/${eventId}/tournaments/${tournamentId}/competitors`, userId)
