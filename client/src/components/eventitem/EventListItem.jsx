@@ -1,13 +1,13 @@
-
+import { Link } from 'react-router-dom'
 
 function EventListItem({ event }) {
   return (
-    <li>
-      <strong>{event.name}</strong>({event.start})
-      <p>{event.description}</p>
-      <p>{event.tie_breaking_rule}</p>
-      <p>{event.host.username}</p>
-    </li>
+    <>
+      <Link to={`/events/${event.id}`}><strong>{event.name}</strong></Link>
+      <p>Start: {event.start}</p>
+      <p>Location: {event.location}</p>
+      <p>Host: {event.host.username}</p>
+    </>
   )
 }
 
