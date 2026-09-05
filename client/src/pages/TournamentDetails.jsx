@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { getTournament } from "../services/tournamentService";
 import CompetitorRow from "../components/competitors/CompetitorRow";
@@ -43,7 +43,7 @@ function TournamentDetails() {
       </div>
 
       <div className="tournament-attendee-list-container">
-        <h2>Registered Competitors:</h2>
+        <h2>Competitors:</h2>
         <ul>
           <li>
             {tournamentDetails.competitors.map((competitor) => {
@@ -54,6 +54,18 @@ function TournamentDetails() {
             })}
           </li>
         </ul>
+      </div>
+
+      <div>
+        <Link to={`/events/${eventId}/tournaments/${tournamentId}/matches`}><h2>Matches</h2></Link>
+      </div>
+
+      <div>
+        <Link to={`/events/${eventId}/tournaments/${tournamentId}/standings`}><h2>Standings</h2></Link>
+      </div>
+
+      <div>
+        <Link to={`/events/${eventId}/tournaments/${tournamentId}/bracket`}><h2>Bracket</h2></Link>
       </div>
     </>
   )

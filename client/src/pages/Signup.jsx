@@ -45,16 +45,6 @@ function Signup() {
         </label>
         <br/>
         <label>
-          Date of birth
-          <input
-            type="date"
-            value={dob}
-            onChange={(event) => setDob(event.target.value)}
-            required
-          />
-        </label>
-        <br/>
-        <label>
           Email
           <input
             type="email"
