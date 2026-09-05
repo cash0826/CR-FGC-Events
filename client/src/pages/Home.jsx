@@ -31,12 +31,10 @@ function Home() {
       <main>
         <ul>
           {events.map((event) => (
-            <li>
-              <EventListItem 
-                key={event.id}
-                event={event}
-              />
-            </li>
+            <EventListItem 
+              key={event.id}
+              event={event}
+            />
           ))}
         </ul>
       </main>

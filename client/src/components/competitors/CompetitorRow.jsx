@@ -1,9 +1,11 @@
 
 
-function CompetitorRow({competitor}) {
+function CompetitorRow({ competitor }) {
+  console.log(competitor.id)
+
   return (
     <>
-      <p>{competitor.username}</p>
+      <p>{competitor.user.username}</p>
     </>
   )
 }

@@ -11,18 +11,14 @@ function TournamentDetails() {
   const { eventId, tournamentId } = useParams();
   const { user } = useAuth();
   const [tournamentDetails, setTournamentDetails] = useState(null)
-  const [competitors, setCompetitors] = useState([])
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect( () => {
-    Promise.all([getTournament(eventId, tournamentId) ])
-    .then(([fetchedTournament, fetchedCompetitors]) => {
-      setTournamentDetails(fetchedTournament)
-      setCompetitors(fetchedCompetitors)
-    })
-    .catch((err) => setError(err.message || 'unable to load tournament details'))
-    .finally(() => setIsLoading(false))
+    getTournament(eventId, tournamentId)
+      .then((fetchedTournament) => setTournamentDetails(fetchedTournament))
+      .catch((err) => setError(err.message || 'unable to load tournament details'))
+      .finally(() => setIsLoading(false))
   }, [eventId, tournamentId])
 
   if (isLoading) return <p>Loading...</p>;
@@ -44,16 +40,12 @@ function TournamentDetails() {
 
       <div className="tournament-attendee-list-container">
         <h2>Competitors:</h2>
-        <ul>
-          <li>
-            {tournamentDetails.competitors.map((competitor) => {
-              <CompetitorRow
-                key={competitor.id}
-                competitor={competitor}
-              />
-            })}
-          </li>
-        </ul>
+        {tournamentDetails.competitors.map((competitor) => (
+          <CompetitorRow
+            key={competitor.id}
+            competitor={competitor}
+          />
+        ))}
       </div>
 
       <div>
