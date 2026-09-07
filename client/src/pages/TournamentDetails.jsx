@@ -52,11 +52,11 @@ function TournamentDetails() {
         <Link to={`/events/${eventId}/tournaments/${tournamentId}/matches`}><h2>Matches</h2></Link>
       </div>
 
-      <div>
+      <div className="tournament-standings-container">
         <Link to={`/events/${eventId}/tournaments/${tournamentId}/standings`}><h2>Standings</h2></Link>
       </div>
 
-      <div>
+      <div className="tournament-bracket-container">
         <Link to={`/events/${eventId}/tournaments/${tournamentId}/bracket`}><h2>Bracket</h2></Link>
       </div>
     </>
