@@ -7,9 +7,9 @@ import StandingRow from "../components/standings/StandingRow";
 function Standings() {
   const { eventId, tournamentId } = useParams();
   const { user } = useAuth();
-  const [standings, setStandings] = useState(null)
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
+  const [standings, setStandings] = useState(null);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     listStandings(eventId, tournamentId)
