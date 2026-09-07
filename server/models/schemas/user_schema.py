@@ -4,7 +4,7 @@ class UserSchema(Schema):
   id = fields.Int(dump_only=True)
   email = fields.Email(required=True, validate=validate.Length(max=255))
   username = fields.Str(required=True, validate=validate.Length(min=1, max=50))
-  full_name = fields.Str(required=True, validate=validate.Length(min=1, max=255))
+  full_name = fields.Str(allow_none=True, validate=validate.Length(max=255))
   bio = fields.Str(allow_none=True)
   profile_pic_url = fields.Str(validate=validate.Length(max=500))
   contact_number = fields.Str(validate=validate.Length(max=50))

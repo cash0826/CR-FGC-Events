@@ -64,6 +64,20 @@ def test_signup_login_and_me(client):
     assert me_data['email'] == 'alice@example.com'
 
 
+def test_signup_without_full_name(client):
+    response = client.post(
+        '/api/signup',
+        json={
+            'email': 'melanie@email.com',
+            'username': 'mrg0826',
+            'password': 'melaniepw',
+        },
+    )
+
+    assert response.status_code == 201
+    assert response.get_json()['user']['full_name'] is None
+
+
 def test_event_tournament_and_match_flow(client):
     # Signup a user and give them host role so they can create events
     r = signup(client, 'host@example.com', 'hostuser', 'password123')
