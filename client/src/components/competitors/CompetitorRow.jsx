@@ -1,7 +1,6 @@
 
 
 function CompetitorRow({ competitor }) {
-  console.log(competitor.id)
 
   return (
     <>

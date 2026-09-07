@@ -17,7 +17,7 @@ function TournamentDetails() {
   useEffect( () => {
     getTournament(eventId, tournamentId)
       .then((fetchedTournament) => setTournamentDetails(fetchedTournament))
-      .catch((err) => setError(err.message || 'unable to load tournament details'))
+      .catch((err) => setError(err.message || 'Unable to load tournament details'))
       .finally(() => setIsLoading(false))
   }, [eventId, tournamentId])
 
@@ -48,7 +48,7 @@ function TournamentDetails() {
         ))}
       </div>
 
-      <div>
+      <div className="tournament-matches-container">
         <Link to={`/events/${eventId}/tournaments/${tournamentId}/matches`}><h2>Matches</h2></Link>
       </div>
 
