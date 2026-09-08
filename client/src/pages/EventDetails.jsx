@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { getEvent, updateEvent, deleteEvent } from "../services/eventService"
 import { listEventTournaments } from "../services/tournamentService";
 import TournamentListItem from "../components/tournamentitem/TournamentListItem";
 import DateTimePicker from "../components/DateTimePicker"
 
-// Public (Read-only)
+// Public Page (Read-only)
 // If owner of the event or admin, Inline PATCH/DEL
 function EventDetails() {
   const { eventId } = useParams();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [event, setEvent] = useState(null)
   const [tournaments, setTournaments] = useState([])
@@ -58,7 +59,7 @@ function EventDetails() {
 
   function handleChange(e) {setFormData({...formData, [e.target.name]: e.target.value})}
   
-  async function handleUpdate(e) {
+  async function handleSave(e) {
     setIsSubmitting(true)
     try {
       const updated = await updateEvent(eventId, formData)
@@ -72,10 +73,13 @@ function EventDetails() {
   }
 
   async function handleDelete(e) {
+    setIsSubmitting(true)
     try {
       await deleteEvent(eventId)
+      navigate('/')
     } catch (err) {
       setError(err.message || 'Unable to delete event')
+      setIsSubmitting(false)
     }
   }
 
@@ -103,7 +107,7 @@ function EventDetails() {
               value={formData.location}
               onChange={handleChange}
             />
-            <button onClick={handleUpdate} disabled={isSubmitting}>
+            <button onClick={handleSave} disabled={isSubmitting}>
               {isSubmitting ? 'Saving...' : 'Save'}
             </button>
             <button onClick={() => setIsEditing(false)}>Cancel</button>
@@ -116,7 +120,9 @@ function EventDetails() {
             {(isOwner || isAdmin) && (
               <>
                 <button onClick={startEditing}>Edit</button>
-                <button onClick={handleDelete}>Delete</button>
+                <button onClick={handleDelete}>
+                  {isSubmitting ? 'Deleting...' : 'Delete'}
+                </button>
               </>
             )}
           </>

@@ -81,7 +81,7 @@ class EventDetails(Resource):
     if not event:
       return {"error": "not_found"}, 404
     
-    AuthService.require_owner_or_admin()
+    AuthService.require_owner_or_admin(event.host_id)
     
     success, error = EventService.delete(instance_id=id)
 
