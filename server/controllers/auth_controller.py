@@ -2,6 +2,7 @@ from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, create_access_token, jwt_required
 from services.users_service import UserService
+from services.user_roles_service import UserRoleService
 from models.schemas.user_schema import UserSchema
 from datetime import datetime
 
@@ -35,6 +36,7 @@ class Signup(Resource):
       return {"error": "invalid_data"}, 400
   
     token = create_access_token(identity=str(user.id))
+    player_role = UserRoleService.assign_role(user.id, "viewer")    #Auto-assigns default role as Viewer
     return {
       "message": "Registered",
       "token": token,

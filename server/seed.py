@@ -4,7 +4,7 @@ import datetime as dt
 from config import app, db
 from models import (
     User, Role, UserRole, 
-    Event, Tournament
+    Event, Tournament, TournamentCompetitor
 )
 
 fake = Faker()
@@ -17,6 +17,7 @@ with app.app_context():
   Role.query.delete()
   Event.query.delete()
   Tournament.query.delete()
+  TournamentCompetitor.query.delete()
   
   # Creates roles: admin, host, player, viewer
   print("Creating admin, host, player and viewer roles...")
@@ -42,8 +43,8 @@ with app.app_context():
   )
   db.session.add_all([role_admin, role_host, role_player, role_viewer])
   
-  # Creates 3 test Users
-  print("Creating test admin, host and player accounts... ")
+  # Creates admin and 2 host accounts
+  print("Creating a test admin account and two host accounts...")
   admin = User(
     email='admin@email.com',
     username='admin_user',
@@ -65,14 +66,26 @@ with app.app_context():
   )
   host2.password_hash = 'host2password'
   
-  player = User(
-    email= 'player@email.com',
-    username= 'player_user',
-    full_name= 'Player'
-  )
-  player.password_hash = 'playerpassword'
+  db.session.add_all([admin, host1, host2])
+  db.session.commit()
   
-  db.session.add_all([admin, host1, host2, player])
+  # Creates 30 players
+  print("Creating 30 test players...")
+  players = []
+  for i in range(30):
+    name = fake.unique.first_name()
+    email = name.lower() + '@email.com'
+    random_int = fake.random_int(min=1, max=399)
+    username = f"{name.lower()}{random_int}"
+    password = name.lower() + 'password'
+    player = User(
+      email=email,
+      username=username,
+      full_name=name
+    )
+    player.password_hash = password
+    players.append(player)
+  db.session.add_all(players)
   db.session.commit()
   
   # Assigns admin, host and player roles
@@ -84,11 +97,15 @@ with app.app_context():
   host_role_lookup = Role.query.filter_by(name="host").first()    # Assign host role
   host1_role = UserRole(user_id=host1.id, role_id=host_role_lookup.id)
   host2_role = UserRole(user_id=host2.id, role_id=host_role_lookup.id)  
-  
-  player_role_lookup = Role.query.filter_by(name="player").first()    # Assign player role
-  player_role = UserRole(user_id=player.id, role_id=player_role_lookup.id)
+
+  player_roles = []
+  player_role_lookup = Role.query.filter_by(name="player").first()    # Assign player role  
+  for player in players:
+    player_role = UserRole(user_id=player.id, role_id=player_role_lookup.id)
+    player_roles.append(player_role)
   
   db.session.add_all([admin_role, host1_role, host2_role, player_role])
+  db.session.add_all(player_roles)
   db.session.commit()
   
   # Creating 5 events
@@ -138,5 +155,23 @@ with app.app_context():
     tournaments.append(tournament)
   db.session.add_all(tournaments)
   db.session.commit()
+  
+  # Register players to tournaments
+  print("Registering random number of players to each tournament...")
+  competitors = []
+  for tournament in tournaments:
+    ran_total = fake.random_int(min=10, max=40)
+    for i in range(ran_total):
+      ran_player = rc(players)
+      competitor = TournamentCompetitor(user_id=ran_player.id, tournament_id=tournament.id)
+      competitors.append(competitor)
+  db.session.add_all(competitors)
+  db.session.commit()
+  
   print("Database seeded successfully! 🌱")
-  print("For accounts, use 'adminpassword', 'host1password', 'host2password' & 'playerpassword'.")
+  print("Use 'adminpassword', 'host1password', 'host2password'.")
+  print("Use player's name in lower case + 'password' for the password")
+  
+  
+
+  

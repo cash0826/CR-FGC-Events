@@ -10,9 +10,9 @@ from controllers import (
     Users, Profile,
     UserRoles,
     Events, ViewEventDetails,
-    EventTournaments, ViewTournamentDetails,
+    EventTournaments, TournamentDetails,
     Competitors,
-    ViewMatches, Matches,
+    Matches, MatchDetails,
     Standings, StandingDetails,
     Bracket, BracketDetails
 )
@@ -42,12 +42,11 @@ api.add_resource(ViewEventDetails, '/api/events/<int:id>')
 # --- Tournaments ---
 api.add_resource(
     EventTournaments, 
-    '/api/events/<int:event_id>/tournaments',
-    '/api/events/<int:event_id>/tournaments/<int:tournament_id>'
+    '/api/events/<int:event_id>/tournaments'    # GET(ALL) + POST
 )
 api.add_resource(
-    ViewTournamentDetails,
-    '/api/events/<int:event_id>/tournaments/<int:tournament_id>'
+    TournamentDetails,
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>'    # GET(BY_ID) + PATCH + DELETE
 )
 
 # --- Competitors ---
@@ -59,13 +58,12 @@ api.add_resource(
 
 # --- Matches ---
 api.add_resource(
-    ViewMatches,
-    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches',
+    Matches,
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches',   # GET(ALL) + POST
 )
 api.add_resource(
-    Matches,
-    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches',
-    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches/<int:match_id>'
+    MatchDetails,
+    '/api/events/<int:event_id>/tournaments/<int:tournament_id>/matches/<int:match_id>'     # GET(BY_ID) + PATCH + DELETE
 )
 
 # --- Standings ---

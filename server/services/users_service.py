@@ -26,8 +26,7 @@ class UserService:
     
     user = User(
       email=email,
-      username=username,
-      full_name=data.get('full_name'),
+      username=username
     )
     raw_password = data.get('password')
     user.password_hash = raw_password
@@ -36,7 +35,6 @@ class UserService:
       db.session.add(user)
       db.session.commit()
       return user, None
-      UserRolesService.assign_role(user.id, "viewer")
     except IntegrityError:
       db.session.rollback()
       return None, "duplicate"

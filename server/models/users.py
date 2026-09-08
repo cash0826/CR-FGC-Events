@@ -11,10 +11,10 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   email = db.Column(db.String(255), unique=True, nullable=False, index=True)
   username = db.Column(db.String(50), unique=True, nullable=False, index=True)
-  full_name = db.Column(db.String(255), nullable=False)
   _password_hash = db.Column(db.String(255), nullable=False)
   
   # Profile Information
+  full_name = db.Column(db.String(255), nullable=True)
   bio = db.Column(db.Text, nullable=True)
   profile_pic_url = db.Column(db.String(500), nullable=True)
   
@@ -84,13 +84,6 @@ class User(db.Model):
           raise ValueError("Username cannot be empty.")
       return value
     
-  # Full name validation
-  @validates("full_name")
-  def validate_full_name(self, key, value):
-      if not value or not value.strip():
-          raise ValueError("Full name cannot be empty.")
-      return value
-
   # Contact number validation
   @validates("contact_number")
   def validate_contact_number(self, key, number):

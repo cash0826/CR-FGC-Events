@@ -46,8 +46,8 @@ function App() {
         <Route path="/events/:eventId" element={<EventDetails />} />
         <Route path="/events/:eventId/tournaments/:tournamentId" element={<TournamentDetails />} />
         <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Matches />} />
-        <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Standings />} />
-        <Route path="/events/:eventId/tournaments/:tournamentId/matches" element={<Bracket />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId/standings" element={<Standings />} />
+        <Route path="/events/:eventId/tournaments/:tournamentId/bracket" element={<Bracket />} />
 
         <Route path="*" element={<NotFound/> }/>
       </Routes>

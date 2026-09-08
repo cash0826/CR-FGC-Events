@@ -7,7 +7,6 @@ function Signup() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [dob, setDob] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
@@ -15,6 +14,7 @@ function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsSubmitting(true)
     setError('')
     if (password !== confirmPassword) {
       setError('Passwords do not match')
@@ -22,7 +22,7 @@ function Signup() {
     }
     setIsSubmitting(true)
     try {
-      await createUser({ username, email, dob, password})
+      await createUser({ username, email, password})
       navigate('/')
     } catch (error) {
       setError(error.message || 'Unable to signup')
@@ -40,16 +40,6 @@ function Signup() {
           <input
             value={username}
             onChange={(event) => setUsername(event.target.value)}
-            required
-          />
-        </label>
-        <br/>
-        <label>
-          Date of birth
-          <input
-            type="date"
-            value={dob}
-            onChange={(event) => setDob(event.target.value)}
             required
           />
         </label>
