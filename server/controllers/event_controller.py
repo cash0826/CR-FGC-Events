@@ -9,10 +9,6 @@ from services.auth_service import AuthService
 event_schema = EventSchema()
 events_schema = EventSchema(many=True)
 
-# -------------------------
-# GET all events - public
-# Full CRUD - host or admin
-# -------------------------
 class Events(Resource):
   
   # get /events
@@ -49,6 +45,13 @@ class Events(Resource):
     if error:
       return {"error": "invalid_data"}, 400
     return event_schema.dump(new_event), 201
+
+class EventDetails(Resource):
+  
+  # get /events/<id>
+  def get(self, id):
+    event = EventService.get_by_id(instance_id=id)
+    return event_schema.dump(event), 200
   
   # patch /events/<id>
   @jwt_required()
@@ -63,7 +66,7 @@ class Events(Resource):
     if not data:
       abort(400, description="Missing JSON data")
     
-    updated_event, error = EventService.update(instance_id=id, data=data)
+    updated_event, error = EventService.update_event(event_id=event.id, data=data)
     
     if error == "duplicate":
       return {"error": "duplicate"}, 409
@@ -85,13 +88,3 @@ class Events(Resource):
     if error:
       return {"error": "delete_failed"}, 400
     return {"message": "deleted"}, 200
-
-# -------------------------
-# GET event details - public
-# -------------------------
-class ViewEventDetails(Resource):
-  
-  # get /events/<id>
-  def get(self, id):
-    event = EventService.get_by_id(instance_id=id)
-    return event_schema.dump(event), 200
