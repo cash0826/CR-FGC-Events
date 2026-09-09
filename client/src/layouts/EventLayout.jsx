@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Outlet } from "react-router-dom";
 import { getEvent } from "../services/eventService"
-
+import BackButton from "../components/BackButton";
 
 function EventLayout() {
   const { eventId } = useParams();
@@ -25,6 +25,7 @@ function EventLayout() {
 
   return (
     <>
+      <BackButton/>
       <Outlet context={{ event, setEvent }} />
     </>
   )

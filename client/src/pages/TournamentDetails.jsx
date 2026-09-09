@@ -30,7 +30,13 @@ function TournamentDetails() {
   const isOwner = Boolean(tournamentDetails && user && event.host_id === user.id)
   const isAdmin = Boolean(tournamentDetails && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
-  function handleRegister() {navigate(`/events/${eventId}/tournaments/${tournamentId}/register`)}    // Payment Page?
+  function handleRegister() {
+    { user ? (
+      navigate(`/events/${eventId}/tournaments/${tournamentId}/register`)
+    ): (
+      navigate('/signup')
+    )}
+  }
 
   // Inline Editing
   function startEditing() {
@@ -117,7 +123,7 @@ function TournamentDetails() {
           </>
         ) : (
           <>
-            <h2>{tournamentDetails.name}</h2>
+            <h2>{tournamentDetails.name} -- {event.name}</h2>
             <h3>{tournamentDetails.line_up_type}--{tournamentDetails.game}--{tournamentDetails.platform}</h3>
             <h3>{tournamentDetails.start_time}</h3>
             {(isOwner || isAdmin) && (
