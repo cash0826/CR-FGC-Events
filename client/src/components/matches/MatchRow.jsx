@@ -26,12 +26,15 @@ function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, 
     setIsSubmitting(true)
     try {
       const updatedMatch = await updateMatch(eventId, tournamentId, match.id, form)
-      setMatches((current) => [updatedMatch, ...current])
+      setMatches((current) =>
+        current.map((item) => item.id === updatedMatch.id ? updatedMatch : item)
+      )
     } catch (err) {
       setError(err.message || 'Unable to update match')
     } finally {
       setIsSubmitting(false)
     }
+    setIsEditing(false)
   }
 
   // Delete
