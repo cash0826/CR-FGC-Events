@@ -33,9 +33,10 @@ function TournamentDetails() {
       .finally(() => setIsLoading(false))
   }, [eventId, tournamentId])
 
-  // Edit + Delete (owner or admin)
-  const isOwner = Boolean(event && user && event.host_id === user.id)
-  const isAdmin = Boolean(event && user?.roles?.some(userRole => userRole.role?.name === "admin"))
+  function handleRegister() {navigate(`/events/${eventId}/tournaments/${tournamentId}/register`)}    // Payment Page?
+
+  const isOwner = Boolean(tournamentDetails && user && event_id.host_id === user.id)
+  const isAdmin = Boolean(tournamentDetails && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
   // Inline Editing
   function startEditing() {
@@ -150,6 +151,7 @@ function TournamentDetails() {
           <>
             <h2>Register now!</h2>
             <h3>Deadline: {tournamentDetails.registration_deadline}</h3>
+            <button onClick={handleRegister}>Register</button>
           </>
         )}
       </div>

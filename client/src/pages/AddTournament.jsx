@@ -8,7 +8,6 @@ function AddTournament() {
   const { eventId } = useParams();
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { user } = useAuth();
   const navigate = useNavigate();
   // Controlled input using form
   const [form, setForm] = useState({
@@ -95,6 +94,7 @@ function AddTournament() {
             required
           />
         </label>
+        {error && <p role="alert">{error}</p>}
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Adding...' : 'Add a new tournament'}
         </button>

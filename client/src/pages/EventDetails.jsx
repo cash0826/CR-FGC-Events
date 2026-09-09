@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { getEvent, updateEvent, deleteEvent } from "../services/eventService"
-import { listEventTournaments } from "../services/tournamentService";
+import { updateEvent, deleteEvent } from "../services/eventService"
 import TournamentListItem from "../components/tournamentitem/TournamentListItem";
 import DateTimePicker from "../components/DateTimePicker"
 
@@ -10,12 +9,9 @@ import DateTimePicker from "../components/DateTimePicker"
 // If owner of the event or admin, Inline PATCH/DEL
 function EventDetails() {
   const { eventId } = useParams();
-  const navigate = useNavigate();
   const { user } = useAuth();
-  const [event, setEvent] = useState(null)
-  const [tournaments, setTournaments] = useState([])
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
+  const { event } = useOutletContext()
+  const navigate = useNavigate();
   // Edit + Delete (owner or admin)
   const [isEditing, setIsEditing] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -28,17 +24,6 @@ function EventDetails() {
     description: '',
     tie_breaking_rule: ''
   })
-
-  // Retrieve events and list event tournaments (read)
-  useEffect( () => {
-    Promise.all([getEvent(eventId), listEventTournaments(eventId)])
-      .then(([fetchedEvent, fetchedTournaments]) => {
-        setEvent(fetchedEvent)
-        setTournaments(fetchedTournaments)
-      })
-      .catch((err) => setError(err.message || 'Unable to load event details'))
-      .finally(()=> setIsLoading(false))
-  }, [eventId])
 
   // Edit + Delete (owner or admin)
   const isOwner = Boolean(event && user && event.host_id === user.id)
@@ -86,23 +71,15 @@ function EventDetails() {
     }
   }
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-  if (!event) return <p>Event not found.</p>;
-
   return (
     <>
       <div className="event-header-details-container">
         {isEditing ? (
           <>
+            <label>Name:</label>
             <input
               name="name"
               value={form.name}
-              onChange={handleChange}
-            />
-            <input
-              name="location"
-              value={form.location}
               onChange={handleChange}
             />
             <button onClick={handleSave} disabled={isSubmitting}>
@@ -118,9 +95,9 @@ function EventDetails() {
             {(isOwner || isAdmin) && (
               <>
                 <button onClick={addTournament}>Add Tournament to Event</button>
-                <button onClick={startEditing}>Edit</button>
+                <button onClick={startEditing}>Edit Event Details</button>
                 <button onClick={handleDelete}>
-                  {isSubmitting ? 'Deleting...' : 'Delete'}
+                  {isSubmitting ? 'Deleting...' : 'Delete Event'}
                 </button>
               </>
             )}
@@ -131,7 +108,7 @@ function EventDetails() {
       <div className="event-tournaments-items-container">
         <ul>
           <li>
-            {tournaments.map((tournament) => (
+            {event.tournaments.map((tournament) => (
               <TournamentListItem
                 key={tournament.id}
                 event={event}
@@ -150,7 +127,7 @@ function EventDetails() {
               <DateTimePicker
                 name="start"
                 value={form.start}
-                onChange={(dt)=> setForm({...formD, start: dt})}
+                onChange={(dt)=> setForm({...form, start: dt})}
               />
             </label>
             <label>
