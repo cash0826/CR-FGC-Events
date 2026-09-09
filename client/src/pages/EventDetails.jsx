@@ -44,6 +44,8 @@ function EventDetails() {
   const isOwner = Boolean(event && user && event.host_id === user.id)
   const isAdmin = Boolean(event && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
+  function addTournament() {navigate(`/events/${eventId}/tournaments/create`)}
+
   function startEditing() {
     setFormData({
       name: event.name,
@@ -119,6 +121,7 @@ function EventDetails() {
             <h3>{event.location}</h3>
             {(isOwner || isAdmin) && (
               <>
+                <button onClick={addTournament}>Add Tournament to Event</button>
                 <button onClick={startEditing}>Edit</button>
                 <button onClick={handleDelete}>
                   {isSubmitting ? 'Deleting...' : 'Delete'}
@@ -151,7 +154,7 @@ function EventDetails() {
               <DateTimePicker
                 name="name"
                 value={formData.start}
-                onChange={handleChange}
+                onChange={(dt)=> setFormData({...formData, start: dt})}
               />
             </label>
             <label>
@@ -159,7 +162,7 @@ function EventDetails() {
               <DateTimePicker
                 name="end"
                 value={formData.end}
-                onChange={handleChange}
+                onChange={(dt)=> setFormData({...formData, end: dt})}
               />
             </label>
             <label>

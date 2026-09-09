@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Unauthorized from "./pages/Unauthorized";
 import CreateEvent from "./pages/CreateEvent";
+import AddTournament from "./pages/AddTournament";
 import EventDetails from "./pages/EventDetails";
 import TournamentDetails from "./pages/TournamentDetails";
 import Matches from "./pages/Matches";
@@ -40,6 +41,7 @@ function App() {
         {/* Host or admin */}
         <Route element={<RequireRole roles={["host", "admin"]} />}>
           <Route path="/events/create" element={<CreateEvent /> } />
+          <Route path="/events/:eventId/tournaments/create" element={<AddTournament/>}></Route>
         </Route>
 
         {/* Public event/tournament pages */}

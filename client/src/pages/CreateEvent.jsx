@@ -36,7 +36,7 @@ function CreateEvent() {
 
   return (
     <>
-      <h1>Create a new Event to host tournaments:</h1>
+      <h2>Create a new Event to host tournaments:</h2>
       <form onSubmit={handleSubmit}> 
         <label>
         Name of the event:
