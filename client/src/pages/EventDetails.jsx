@@ -19,7 +19,7 @@ function EventDetails() {
   // Edit + Delete (owner or admin)
   const [isEditing, setIsEditing] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     name: '',
     start: new Date(),
     end: new Date(),
@@ -47,7 +47,7 @@ function EventDetails() {
   function addTournament() {navigate(`/events/${eventId}/tournaments/create`)}
 
   function startEditing() {
-    setFormData({
+    setForm({
       name: event.name,
       start: event.start,
       end: event.end,
@@ -59,12 +59,12 @@ function EventDetails() {
     setIsEditing(true)
   }
 
-  function handleChange(e) {setFormData({...formData, [e.target.name]: e.target.value})}
+  function handleChange(e) {setForm({...form, [e.target.name]: e.target.value})}
   
   async function handleSave(e) {
     setIsSubmitting(true)
     try {
-      const updated = await updateEvent(eventId, formData)
+      const updated = await updateEvent(eventId, form)
       setEvent(updated)
     } catch (err) {
       setError(err.message || 'Unable to update event')
@@ -81,6 +81,7 @@ function EventDetails() {
       navigate('/')
     } catch (err) {
       setError(err.message || 'Unable to delete event')
+    } finally{
       setIsSubmitting(false)
     }
   }
@@ -96,17 +97,12 @@ function EventDetails() {
           <>
             <input
               name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <input
-              name="start"
-              value={formData.start}
+              value={form.name}
               onChange={handleChange}
             />
             <input
               name="location"
-              value={formData.location}
+              value={form.location}
               onChange={handleChange}
             />
             <button onClick={handleSave} disabled={isSubmitting}>
@@ -152,24 +148,24 @@ function EventDetails() {
             <label>
               Start
               <DateTimePicker
-                name="name"
-                value={formData.start}
-                onChange={(dt)=> setFormData({...formData, start: dt})}
+                name="start"
+                value={form.start}
+                onChange={(dt)=> setForm({...formD, start: dt})}
               />
             </label>
             <label>
               End
               <DateTimePicker
                 name="end"
-                value={formData.end}
-                onChange={(dt)=> setFormData({...formData, end: dt})}
+                value={form.end}
+                onChange={(dt)=> setForm({...form, end: dt})}
               />
             </label>
             <label>
               Location
               <input
                 name="location"
-                value={formData.location}
+                value={form.location}
                 onChange={handleChange}
               />
             </label>
@@ -177,7 +173,7 @@ function EventDetails() {
               Description
               <input
                 name="description"
-                value={formData.description}
+                value={form.description}
                 onChange={handleChange}
               />
             </label>
@@ -185,7 +181,7 @@ function EventDetails() {
               Rules
               <input
                 name="tie_breaking_rule"
-                value={formData.tie_breaking_rule}
+                value={form.tie_breaking_rule}
                 onChange={handleChange}
               />
             </label>

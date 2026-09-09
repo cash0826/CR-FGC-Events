@@ -1,18 +1,30 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { getTournament } from "../services/tournamentService";
+import { getTournament, updateEventTournament, deleteEventTournament } from "../services/tournamentService";
 import CompetitorRow from "../components/competitors/CompetitorRow";
+import DateTimePicker from "../components/DateTimePicker";
 
-// Public (Read and register to tournament)
-// If event owner or admin, POST/PATCH/DEL
-
+// Public Page. GET and POST (register) to tournament
+// If owner of the event or admin, Inline PATCH/DEL
 function TournamentDetails() {
   const { eventId, tournamentId } = useParams();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [tournamentDetails, setTournamentDetails] = useState(null)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(true)
+  // Edit + Delete if owner or admin
+  const [isEditing, setIsEditing] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [form, setForm] = useState({
+    name: '',
+    start_time: new Date(),
+    registration_deadline: new Date(),
+    game: '',
+    platform: '',
+    line_up_type: ''
+  })
 
   useEffect( () => {
     getTournament(eventId, tournamentId)
@@ -21,21 +33,125 @@ function TournamentDetails() {
       .finally(() => setIsLoading(false))
   }, [eventId, tournamentId])
 
+  // Edit + Delete (owner or admin)
+  const isOwner = Boolean(event && user && event.host_id === user.id)
+  const isAdmin = Boolean(event && user?.roles?.some(userRole => userRole.role?.name === "admin"))
+
+  // Inline Editing
+  function startEditing() {
+    setForm({
+    name: tournamentDetails.name,
+    start_time: tournamentDetails.start_time,
+    registration_deadline: tournamentDetails.registration_deadline,
+    game: tournamentDetails.game,
+    platform: tournamentDetails.platform,
+    line_up_type: tournamentDetails.line_up_type
+    })
+    setIsEditing(true)
+  }
+
+  // Update
+  async function handleSave(e) {
+    setIsSubmitting(true)
+    try {
+      const updated = await updateEventTournament(eventId, tournamentId, form)
+      setTournamentDetails(updated)
+    } catch (err) {
+      setError(err.message || 'Unable to update tournament')
+    } finally {
+      setIsEditing(false)
+      setIsSubmitting(false)
+    }
+  }
+
+  // Delete
+  async function handleDelete(e) {
+    setIsSubmitting(true)
+    try {
+      await deleteEventTournament(eventId, tournamentId)
+      navigate(`/events/${eventId}`)
+    } catch (err) {
+      setError(err.message || 'Unable to delete tournament')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   if (!tournamentDetails) return <p>Tournament Details not found</p>
-  
+
   return (
     <>
       <div className="tournament-header-details-container">
-        <h2>{tournamentDetails.name}</h2>
-        <h3>{tournamentDetails.line_up_type}--{tournamentDetails.game}--{tournamentDetails.platform}</h3>
-        <h3>{tournamentDetails.start_time}</h3>
+        { isEditing ? (
+          <>
+            <label>Name:</label>
+            <input
+              name="name"
+              value={form.name}
+              onChange={(e)=> setForm({...form, name: e.target.value})}
+            />
+            <label>Line Up Type:</label>
+            <input
+              name="line_up_type"
+              value={form.line_up_type}
+              onChange={(e)=> setForm({...form, line_up_type: e.target.value})}
+            />
+            <label>Game:</label>
+            <input
+              name="game"
+              value={form.game}
+              onChange={(e)=> setForm({...form, game: e.target.value})}
+            />
+            <label>Platform:</label>
+            <input
+              name="platform"
+              value={form.platform}
+              onChange={(e)=> setForm({...form, platform: e.target.value})}
+            />
+            <label>Start Time:</label>
+            <DateTimePicker
+              name="start_time"
+              value={form.start_time}
+              onChange={(e)=> setForm({...form, start_time: e.target.value})}
+            />
+            <button onClick={handleSave} disabled={isSubmitting}>
+              {isSubmitting ? 'Saving...' : 'Save'}  
+            </button>
+            <button onClick={() => setIsEditing(false)}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <h2>{tournamentDetails.name}</h2>
+            <h3>{tournamentDetails.line_up_type}--{tournamentDetails.game}--{tournamentDetails.platform}</h3>
+            <h3>{tournamentDetails.start_time}</h3>
+            {(isOwner || isAdmin) && (
+              <>
+                <button onClick={startEditing}>Edit</button>
+                <button onClick={handleDelete}>Delete</button>
+              </>
+            )}
+          </>
+        )}
       </div>
 
       <div className="tournament-registration-container">
-        <h2>Register now!</h2>
-        <h3>Deadline: {tournamentDetails.registration_deadline}</h3>
+        {isEditing ? (
+          <>
+            <label>Deadline to register:</label>
+            <DateTimePicker
+              name="registration_deadline"
+              value={form.registration_deadline}
+              onChange={(e)=> setForm({...form, registration_deadline: e.target.value})}
+            />
+          </>
+        ) : (
+          <>
+            <h2>Register now!</h2>
+            <h3>Deadline: {tournamentDetails.registration_deadline}</h3>
+          </>
+        )}
       </div>
 
       <div className="tournament-attendee-list-container">
