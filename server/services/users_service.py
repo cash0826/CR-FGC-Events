@@ -24,20 +24,22 @@ class UserService:
     if User.query.filter_by(username=username).first():
       return None, "duplicate_username"
     
-    user = User(
-      email=email,
-      username=username
-    )
-    raw_password = data.get('password')
-    user.password_hash = raw_password
-    
     try:
+      user = User(
+        email=email,
+        username=username
+      )
+      raw_password = data.get('password')
+      user.password_hash = raw_password
       db.session.add(user)
       db.session.commit()
       return user, None
     except IntegrityError:
       db.session.rollback()
       return None, "duplicate"
+    except ValueError as error:
+      db.session.rollback()
+      return None, str(error)
     except Exception:
       db.session.rollback()
       return None, "invalid_data"
@@ -85,6 +87,9 @@ class UserService:
     except IntegrityError:
       db.session.rollback()
       return None, "duplicate"
+    except ValueError as error:
+      db.session.rollback()
+      return None, str(error)
     except Exception:
       db.session.rollback()
       return None, "invalid_data"

@@ -15,15 +15,17 @@ class BaseService:
 
     @classmethod
     def create(cls, data):
-        instance = cls.model(**data)
-
         try:
+            instance = cls.model(**data)
             db.session.add(instance)
             db.session.commit()
             return instance, None
         except IntegrityError:
             db.session.rollback()
             return None, "duplicate"
+        except ValueError as error:
+            db.session.rollback()
+            return None, str(error)
         except Exception:
             db.session.rollback()
             return None, "invalid_data"
@@ -55,6 +57,9 @@ class BaseService:
         except IntegrityError:
             db.session.rollback()
             return None, "duplicate"
+        except ValueError as error:
+            db.session.rollback()
+            return None, str(error)
         except Exception:
             db.session.rollback()
             return None, "invalid_data"

@@ -1,12 +1,96 @@
+import { useState } from "react";
+import { updateMatch, deleteMatch } from "../../services/matchService";
+import DateTimePicker from "../../components/DateTimePicker";
 
+function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, ...props }) {
+  const [error, setError] = useState('')  
+  const [isEditing, setIsEditing] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [form, setForm] = useState({
+    round: '',
+    start_time: new Date(),
+    status: '',
+  })
 
-function MatchRow({ match }) {
+  function startEditing() {
+    setForm({
+      round: match.round,
+      start_time: match.start_time,
+      status: match.status
+    })
+    setIsEditing(true)
+  }
+
+  // Update
+  async function handleSave(e) {
+    setIsSubmitting(true)
+    try {
+      const updatedMatch = await updateMatch(eventId, tournamentId, match.id, form)
+      setMatches((current) => [updatedMatch, ...current])
+    } catch (err) {
+      setError(err.message || 'Unable to update match')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // Delete
+  async function handleDelete(e) {
+    setIsSubmitting(true)
+    try {
+      await deleteMatch(eventId, tournamentId, match.id)
+      setMatches((current) => current.filter((item) => item.id !== match.id))   // Removes match from list of matches
+    } catch (err) {
+      setError(err.message || 'Unable to delete match')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }  
 
   return (
-    <>
-      <p>{match.round}-{match.status}</p>
-      <p>{match.start_time}</p>
-    </>
+    <div className="match-row-container">
+      {isEditing ? (
+        <>
+          <label>Round:</label>
+          <input
+            name="round"
+            value={form.round}
+            onChange={(e)=> setForm({...form, round: e.target.value})}
+            required
+          />
+          <label>Start_time:</label>
+          <DateTimePicker
+            name="start_time"
+            value={form.start_time}
+            onChange={(dt)=> setForm({...form, start_time: dt})}
+            required
+          />
+          <label>Status:</label>
+          <input
+            name="status"
+            placeholder="pending, in_progress, cancelled, completed"
+            value={form.status}
+            onChange={(e)=> setForm({...form, status: e.target.value})}
+          />
+          <button onClick={handleSave} disabled={isSubmitting}>
+            {isSubmitting ? 'Saving...' : 'Save'}
+          </button>
+          <button onClick={() => setIsEditing(false)}>Cancel</button>
+        </>
+      ) : (
+        <>
+          <p>{match.round}-{match.status}</p>
+          <p>{match.start_time}</p>
+          {(isOwner || isAdmin) && (
+            <>
+              <button onClick={startEditing}>Edit</button>
+              <button onClick={handleDelete}>Delete</button>
+              {error && <p role="alert">{error}</p>}
+            </>
+          )}
+        </>
+      )}
+    </div>
   )
 }
 

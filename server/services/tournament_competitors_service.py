@@ -31,6 +31,9 @@ class TournamentCompetitorService(BaseService):
     except IntegrityError:
       db.session.rollback()
       return None, "duplicate"
+    except ValueError as error:
+      db.session.rollback()
+      return None, str(error)
     except Exception:
       db.session.rollback()
       return None, "invalid_data"

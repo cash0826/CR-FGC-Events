@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, useNavigate, useOutletContext, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { updateEventTournament, deleteEventTournament } from "../services/tournamentService";
@@ -113,7 +113,7 @@ function TournamentDetails() {
             <DateTimePicker
               name="start_time"
               value={form.start_time}
-              onChange={(e)=> setForm({...form, start_time: e.target.value})}
+              onChange={(dt)=> setForm({...form, start_time: dt})}
             />
             <button onClick={handleSave} disabled={isSubmitting}>
               {isSubmitting ? 'Saving...' : 'Save'}  
@@ -144,7 +144,7 @@ function TournamentDetails() {
             <DateTimePicker
               name="registration_deadline"
               value={form.registration_deadline}
-              onChange={(e)=> setForm({...form, registration_deadline: e.target.value})}
+              onChange={(dt)=> setForm({...form, registration_deadline: dt})}
             />
           </>
         ) : (
