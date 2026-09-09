@@ -30,6 +30,7 @@ function TournamentDetails() {
   const isOwner = Boolean(tournamentDetails && user && event.host_id === user.id)
   const isAdmin = Boolean(tournamentDetails && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
+  // Navigate to Register page or Signup Page depending on Authenticated User
   function handleRegister() {
     { user ? (
       navigate(`/events/${eventId}/tournaments/${tournamentId}/register`)
@@ -53,6 +54,7 @@ function TournamentDetails() {
 
   // Update
   async function handleSave(e) {
+    setError('')
     setIsSubmitting(true)
     try {
       const updated = await updateEventTournament(eventId, tournamentId, form)
@@ -67,6 +69,7 @@ function TournamentDetails() {
 
   // Delete
   async function handleDelete(e) {
+    setError('')
     setIsSubmitting(true)
     try {
       await deleteEventTournament(eventId, tournamentId)

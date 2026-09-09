@@ -22,6 +22,7 @@ function AddTournament() {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    setError('')
     setIsSubmitting(true)
     try {
       const newTournament = await createEventTournament(eventId, form)

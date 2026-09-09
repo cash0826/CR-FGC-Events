@@ -23,6 +23,7 @@ function CreateEvent() {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    setError('')
     setIsSubmitting(true)
     try {
       const newEvent = await createEvent(form)

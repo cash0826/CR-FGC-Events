@@ -25,6 +25,7 @@ function Matches() {
   const isAdmin = Boolean(tournament && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
   async function handleAdd(e) {
+    setError('')
     setIsSubmitting(true)
     try {
       const newMatch = await createMatch(eventId, tournamentId, form)
@@ -37,9 +38,9 @@ function Matches() {
     }
   }
 
-  const isEmpty = Boolean(matches.length === 0)
   if (!matches) return <p>Matches not found</p>
-
+  const isEmpty = Boolean(matches.length === 0)
+  
   return (
     <>
       <div className="matches-match-container">
@@ -62,44 +63,44 @@ function Matches() {
             ))}
           </>
         )}
-        <div className="matches-add-match">
-          {isOpen ? (
-            <>
-              <label>Round:</label>
-              <input
-                name="round"
-                value={form.round}
-                onChange={(e)=> setForm({...form, round: e.target.value})}
-                required
-              />
-              <label>Start_time:</label>
-              <DateTimePicker
-                name="start_time"
-                value={form.start_time}
-                onChange={(dt)=> setForm({...form, start_time: dt})}
-                required
-              />
-              <label>Status:</label>
-              <input
-                name="status"
-                placeholder="pending, in_progress, cancelled, completed"
-                value={form.status}
-                onChange={(e)=> setForm({...form, status: e.target.value})}
-              />
-              <button onClick={handleAdd} disabled={isSubmitting}>
-                {isSubmitting ? 'Adding...' : 'Confirm New Match'}
-              </button>
-              <button onClick={()=> setIsOpen(false)}>Cancel</button>
-              {error && <p role="alert">{error}</p>}
-            </>
-          ) : (
-            <>
-              {(isOwner || isAdmin) && (
-                <button onClick={()=> setIsOpen(true)}>Add a Match</button>
-              )}
-            </>
-          )}
-        </div>
+      </div>
+      <div className="matches-add-match">
+        {isOpen ? (
+          <>
+            <label>Round:</label>
+            <input
+              name="round"
+              value={form.round}
+              onChange={(e)=> setForm({...form, round: e.target.value})}
+              required
+            />
+            <label>Start_time:</label>
+            <DateTimePicker
+              name="start_time"
+              value={form.start_time}
+              onChange={(dt)=> setForm({...form, start_time: dt})}
+              required
+            />
+            <label>Status:</label>
+            <input
+              name="status"
+              placeholder="pending, in_progress, cancelled, completed"
+              value={form.status}
+              onChange={(e)=> setForm({...form, status: e.target.value})}
+            />
+            <button onClick={handleAdd} disabled={isSubmitting}>
+              {isSubmitting ? 'Adding...' : 'Confirm New Match'}
+            </button>
+            <button onClick={()=> setIsOpen(false)}>Cancel</button>
+            {error && <p role="alert">{error}</p>}
+          </>
+        ) : (
+          <>
+            {(isOwner || isAdmin) && (
+              <button onClick={()=> setIsOpen(true)}>Add a Match</button>
+            )}
+          </>
+        )}
       </div>
     </>
   )

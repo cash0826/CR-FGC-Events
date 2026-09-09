@@ -17,6 +17,7 @@ function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setError('')
     setIsSubmitting(true)
     try {
       const competitor = await register(eventId, tournamentId, user.id)

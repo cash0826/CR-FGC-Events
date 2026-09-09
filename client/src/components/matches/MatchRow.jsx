@@ -12,6 +12,7 @@ function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, 
     status: '',
   })
 
+  // Toggle Inline Editing (using existing data)
   function startEditing() {
     setForm({
       round: match.round,
@@ -23,6 +24,7 @@ function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, 
 
   // Update
   async function handleSave(e) {
+    setError('')
     setIsSubmitting(true)
     try {
       const updatedMatch = await updateMatch(eventId, tournamentId, match.id, form)
@@ -33,8 +35,8 @@ function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, 
       setError(err.message || 'Unable to update match')
     } finally {
       setIsSubmitting(false)
+      setIsEditing(false)
     }
-    setIsEditing(false)
   }
 
   // Delete
@@ -51,7 +53,7 @@ function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, 
   }  
 
   return (
-    <div className="match-row-container">
+    <div className="matches-match-row">
       {isEditing ? (
         <>
           <label>Round:</label>

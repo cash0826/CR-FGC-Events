@@ -12,8 +12,8 @@ function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsSubmitting(true)
     setError('')
+    setIsSubmitting(true)
     try {
       await authenticateUser({ email, password })
       navigate('/')

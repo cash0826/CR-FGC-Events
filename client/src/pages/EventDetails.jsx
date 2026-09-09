@@ -33,6 +33,7 @@ function EventDetails() {
   function addTournament() {navigate(`/events/${eventId}/tournaments/create`)}
 
   function startEditing() {
+    setError('')
     setForm({
       name: event.name,
       start: event.start,
@@ -48,6 +49,7 @@ function EventDetails() {
   function handleChange(e) {setForm({...form, [e.target.name]: e.target.value})}
   
   async function handleSave(e) {
+    setError('')
     setIsSubmitting(true)
     try {
       const updated = await updateEvent(eventId, form)
@@ -61,6 +63,7 @@ function EventDetails() {
   }
 
   async function handleDelete(e) {
+    setError('')
     setIsSubmitting(true)
     try {
       await deleteEvent(eventId)
