@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, useOutletContext, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { getTournament, updateEventTournament, deleteEventTournament } from "../services/tournamentService";
+import { updateEventTournament, deleteEventTournament } from "../services/tournamentService";
 import CompetitorRow from "../components/competitors/CompetitorRow";
 import DateTimePicker from "../components/DateTimePicker";
 
@@ -9,14 +9,15 @@ import DateTimePicker from "../components/DateTimePicker";
 // If owner of the event or admin, Inline PATCH/DEL
 function TournamentDetails() {
   const { eventId, tournamentId } = useParams();
-  const navigate = useNavigate();
   const { user } = useAuth();
-  const [tournamentDetails, setTournamentDetails] = useState(null)
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
+  const { event } = useOutletContext()
+  const [tournamentDetails, setTournamentDetails] = useState(event.tournaments.find((t) => String(t.id) === String(tournamentId)) || null)
+  const navigate = useNavigate();
+  
   // Edit + Delete if owner or admin
   const [isEditing, setIsEditing] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({
     name: '',
     start_time: new Date(),
@@ -26,17 +27,10 @@ function TournamentDetails() {
     line_up_type: ''
   })
 
-  useEffect( () => {
-    getTournament(eventId, tournamentId)
-      .then((fetchedTournament) => setTournamentDetails(fetchedTournament))
-      .catch((err) => setError(err.message || 'Unable to load tournament details'))
-      .finally(() => setIsLoading(false))
-  }, [eventId, tournamentId])
+  const isOwner = Boolean(tournamentDetails && user && event.host_id === user.id)
+  const isAdmin = Boolean(tournamentDetails && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
   function handleRegister() {navigate(`/events/${eventId}/tournaments/${tournamentId}/register`)}    // Payment Page?
-
-  const isOwner = Boolean(tournamentDetails && user && event_id.host_id === user.id)
-  const isAdmin = Boolean(tournamentDetails && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
   // Inline Editing
   function startEditing() {
@@ -78,8 +72,6 @@ function TournamentDetails() {
     }
   }
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
   if (!tournamentDetails) return <p>Tournament Details not found</p>
 
   return (
@@ -121,6 +113,7 @@ function TournamentDetails() {
               {isSubmitting ? 'Saving...' : 'Save'}  
             </button>
             <button onClick={() => setIsEditing(false)}>Cancel</button>
+            {error && <p role="alert">{error}</p>}
           </>
         ) : (
           <>
@@ -131,6 +124,7 @@ function TournamentDetails() {
               <>
                 <button onClick={startEditing}>Edit</button>
                 <button onClick={handleDelete}>Delete</button>
+                {error && <p role="alert">{error}</p>}
               </>
             )}
           </>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { listMatches } from "../services/matchService";
 import MatchRow from "../components/matches/MatchRow";
@@ -7,6 +7,7 @@ import MatchRow from "../components/matches/MatchRow";
 function Matches() {
   const { eventId, tournamentId } = useParams();
   const { user } = useAuth();
+  const { event } = useOutletContext()
   const [matches, setMatches] = useState(null)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(true)

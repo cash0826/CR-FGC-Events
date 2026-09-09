@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { listStandings } from "../services/standingService";
 import StandingRow from "../components/standings/StandingRow";
@@ -7,6 +7,7 @@ import StandingRow from "../components/standings/StandingRow";
 function Standings() {
   const { eventId, tournamentId } = useParams();
   const { user } = useAuth();
+  const { event } = useOutletContext()
   const [standings, setStandings] = useState(null);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);

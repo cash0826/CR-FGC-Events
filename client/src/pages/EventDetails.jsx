@@ -10,11 +10,12 @@ import DateTimePicker from "../components/DateTimePicker"
 function EventDetails() {
   const { eventId } = useParams();
   const { user } = useAuth();
-  const { event } = useOutletContext()
+  const { event, setEvent } = useOutletContext()
   const navigate = useNavigate();
   // Edit + Delete (owner or admin)
   const [isEditing, setIsEditing] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({
     name: '',
     start: new Date(),
@@ -86,6 +87,7 @@ function EventDetails() {
               {isSubmitting ? 'Saving...' : 'Save'}
             </button>
             <button onClick={() => setIsEditing(false)}>Cancel</button>
+            {error && <p role="alert">{error}</p>}
           </>
         ) : (
           <>
@@ -99,6 +101,7 @@ function EventDetails() {
                 <button onClick={handleDelete}>
                   {isSubmitting ? 'Deleting...' : 'Delete Event'}
                 </button>
+                {error && <p role="alert">{error}</p>}
               </>
             )}
           </>

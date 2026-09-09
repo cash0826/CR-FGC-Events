@@ -25,7 +25,7 @@ function EventLayout() {
 
   return (
     <>
-      <Outlet context={{ event }} />
+      <Outlet context={{ event, setEvent }} />
     </>
   )
 }

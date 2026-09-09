@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { getBracket } from "../services/bracketService";
 
 function Bracket() {
   const { eventId, tournamentId } = useParams();
   const { user } = useAuth();
+  const { event } = useOutletContext()
   const [bracket, setBracket] = useState(null);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true)
