@@ -6,16 +6,18 @@ import StandingRow from "../components/standings/StandingRow";
 
 function Standings() {
   const { eventId, tournamentId } = useParams();
-  const { event } = useOutletContext()
+  const { event } = useOutletContext();
   const { user } = useAuth();
   const tournament = event.tournaments.find((t) => String(t.id) === String(tournamentId)) || null
   const [standings, setStandings] = useState(tournament.standings);
-  const [isOpen, setIsOpen] = useState(false)
-  const [error, setError] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  // Controlled inputs
   const [competitorId, setCompetitorId] = useState('');  
   const [points, setPoints] = useState('');
 
+  // Authorization check: render button if admin or owner
   const isOwner = Boolean(tournament && user && event.host_id === user.id)
   const isAdmin = Boolean(tournament && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
