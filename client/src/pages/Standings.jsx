@@ -1,37 +1,104 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useParams, useOutletContext } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { listStandings } from "../services/standingService";
+import { createStanding } from "../services/standingService";
 import StandingRow from "../components/standings/StandingRow";
 
 function Standings() {
   const { eventId, tournamentId } = useParams();
+  const { event } = useOutletContext();
   const { user } = useAuth();
-  const [standings, setStandings] = useState(null);
+  const tournament = event.tournaments.find((t) => String(t.id) === String(tournamentId)) || null
+  const [standings, setStandings] = useState(tournament.standings);
+  const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  // Controlled inputs
+  const [competitorId, setCompetitorId] = useState('');  
+  const [points, setPoints] = useState('');
 
-  useEffect(() => {
-    listStandings(eventId, tournamentId)
-      .then((fetchedStandings) => setStandings(fetchedStandings))
-      .catch((err) => setError(err.message || 'Unable to load standings'))
-      .finally(() => setIsLoading(false))
-  }, [eventId, tournamentId])
+  // Authorization check: render button if admin or owner
+  const isOwner = Boolean(tournament && user && event.host_id === user.id)
+  const isAdmin = Boolean(tournament && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  async function handleAdd(e) {
+    setError('')
+    setIsSubmitting(true)
+    let data = {
+      competitor_id: parseInt(competitorId), 
+      points: parseInt(points), 
+      tournament_id: parseInt(tournamentId)
+    }
+    try {
+      const newStanding = await createStanding(eventId, tournamentId, data)
+      setStandings((current) => [newStanding, ...current])
+    } catch (err) {
+      setError(err.message || 'Unable to add a standing')
+    } finally {
+      setIsSubmitting(false)
+      setIsOpen(false)
+    }
+  }
+
   if (!standings) return <p>Standings not found</p>
-  if (standings.length === 0) return <p> No Standings posted yet</p>
+  const isEmpty = Boolean(standings.length === 0)
 
   return (
     <>
       <div className="standings-standing-container">
-        {standings.map((standing)=> (
-          <StandingRow
-            key={standing.id}
-            standing={standing}
-          />
-        ))}
+        {isEmpty ? (
+          <>
+            <p> No Standings posted yet</p>
+          </>
+        ) : (
+          <>
+            {standings.map((standing)=> (
+              <StandingRow
+                key={standing.id}
+                standing={standing}
+                eventId={eventId}
+                tournamentId={tournamentId}
+                isOwner={isOwner}
+                isAdmin={isAdmin}
+                setStandings={setStandings}
+              />
+            ))}
+          </>
+        )}
+      </div>
+      <div className="standings-add-standing">
+        {isOpen ? (
+          <>
+            <select
+              value={competitorId}
+              onChange={(e) => setCompetitorId(e.target.value)}
+              required
+            >
+              <option value="">Select a Competitor</option>
+              {tournament.competitors.map(competitor => (
+                <option key={competitor.id} value={competitor.id}>{competitor.user.username}</option>
+              ))}
+            </select>
+            <input
+              type="number"
+              placeholder="points"
+              value={points}
+              onChange={(e) => setPoints(e.target.value)}
+              required
+            />
+            <button onClick={handleAdd} disabled={isSubmitting}>
+              {isSubmitting ? 'Adding...' : 'Confirm New Standing'}
+            </button>
+            <button onClick={(e) => setIsOpen(false)}>Cancel</button>
+            {error && <p role="alert">{error}</p>}
+          </>
+        ) : (
+          <>
+            {(isOwner || isAdmin) && (
+              <button onClick={()=> setIsOpen(true)}>Add a Standing</button>
+            )}
+          </>
+        )}
       </div>
     </>
   )

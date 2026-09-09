@@ -2,9 +2,15 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 function NavBar() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
+  const roles = ["admin", "host"]  
 
-  // TODO If user has "admin" or "host" role, return a complete NavBar including create event
+  function getCreateEvent() {
+    if (user) {
+      const hasRole = user.roles.some(userRole => roles.includes(userRole.role?.name))
+      return hasRole ? <NavLink label="Create_Event" to="/events/create">Create Event</NavLink> : null
+    }
+  }
 
   return (
     <nav>
@@ -12,6 +18,7 @@ function NavBar() {
         <div>
           <NavLink label="Home" to="/" >Home</NavLink>
           <NavLink label="Profile" to="/profile" >Profile</NavLink>
+          {getCreateEvent()}
         </div>
       ) : (
         <div>

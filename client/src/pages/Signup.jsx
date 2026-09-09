@@ -14,8 +14,8 @@ function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsSubmitting(true)
     setError('')
+    setIsSubmitting(true)
     if (password !== confirmPassword) {
       setError('Passwords do not match')
       return

@@ -9,7 +9,7 @@ from controllers import (
     Me, Signup, Login,
     Users, Profile,
     UserRoles,
-    Events, ViewEventDetails,
+    Events, EventDetails,
     EventTournaments, TournamentDetails,
     Competitors,
     Matches, MatchDetails,
@@ -37,7 +37,7 @@ api.add_resource(
 
 # --- Events ---
 api.add_resource(Events, '/api/events')
-api.add_resource(ViewEventDetails, '/api/events/<int:id>')
+api.add_resource(EventDetails, '/api/events/<int:id>')
 
 # --- Tournaments ---
 api.add_resource(

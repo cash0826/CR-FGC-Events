@@ -1,9 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import { createEvent } from "../services/eventService";
 import DateTimePicker from "../components/DateTimePicker"
 
 function CreateEvent() {
-
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { user } = useAuth();
+  const navigate = useNavigate();
   // Controlled input for form
   const [form, setForm] = useState({
     name: '',
@@ -12,15 +17,27 @@ function CreateEvent() {
     in_person: false,
     location: '',
     description: '',
+    tie_breaking_rule: '',
+    host_id: user.id
   })
 
   async function handleSubmit(e) {
-    return
+    e.preventDefault()
+    setError('')
+    setIsSubmitting(true)
+    try {
+      const newEvent = await createEvent(form)
+      navigate(`/events/${newEvent.id}`)
+    } catch (err) {
+      setError(err.message || 'Unable to create event')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
     <>
-      <h1>Create a new Event to host tournaments:</h1>
+      <h2>Create a new Event to host tournaments:</h2>
       <form onSubmit={handleSubmit}> 
         <label>
         Name of the event:
@@ -68,6 +85,10 @@ function CreateEvent() {
             onChange={(e)=> setForm({...form, description: e.target.value})}
           />
         </label>
+        {error && <p role="alert">{error}</p>}
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Creating Event...' : 'Create New Event'}
+        </button>
       </form>
     </>
   )

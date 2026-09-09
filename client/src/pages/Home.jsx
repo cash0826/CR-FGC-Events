@@ -9,14 +9,9 @@ function Home() {
 
   useEffect( ()=> {
     listEvents()
-      .then((data) => {
-        setEvents( data.events || [] );
-        setIsLoading(false)
-      })
-      .catch((error)=> {
-        console.error("Error retrieving events: ", error )
-        setError("Unable to load Events")
-      })
+      .then((data) => setEvents( data.events || [] ))
+      .catch((err) => setError(err.message || 'Unable to load events'))
+      .finally(() => setIsLoading(false))
   }, []);
 
   if (isLoading) return <p>Loading...</p>;
