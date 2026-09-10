@@ -8,6 +8,7 @@
 
 footer, header, main, nav, section {
   display: block;
+  width: 100%;
 }
 
 #root {
@@ -74,26 +75,19 @@ button:focus {
  }
 }
 
-nav {
-  background: transparent;
-  padding: 0px;
-  border: 0px;
+nav, .navbar-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;   
+  padding-left: 15px; 
   border-radius: 0px;
   width: 100%;
+  max-width: 1140px;
   position: relative;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-
-  .navbar-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding-right: 15px;   
-    padding-left: 15px; 
-    margin-right: auto;
-    margin-left: auto;
-  }
+  background-color: #777777;
 
   .navbar-brand-logo {
     display: inline-block;
@@ -101,6 +95,7 @@ nav {
     padding-bottom: .3125rem;
     font-size: 1.25rem;
     line-height: inherit;
+    margin-right: 30px;
   }
 
   .navbar-toggler {
@@ -138,6 +133,15 @@ nav {
       margin-bottom: 0;
       a {
         margin-right: 45px;
+        font-size: 12px;
+        line-height: 100px;
+        text-transform: uppercase;
+        color: #fff;
+        padding: 0px;
+        display: inline-block;
+      }
+      a.active {
+        color: #3fcaff
       }
     }
     .navbar-toggler {

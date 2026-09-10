@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { register } from "../services/tournamentService";
+import NavBar from '../components/NavBar'
 
 // Leaving Register as page to add competitors for tournament
 // May develop into Payment Page in the future. Status paid? Methods of payment?
@@ -42,6 +43,10 @@ function Register() {
 
   return (
     <>
+      <header>
+        <NavBar/>
+      </header>
+
       <h1>Register to {tournament.name} for Event {event.name}</h1>
       <p>Event Registration Fee: c2,000 colones </p>
       <p>Tournament Competitor Registration Fee: c3,000 colones </p>

@@ -42,9 +42,9 @@ function AddTournament() {
     <>
       <header>
         <NavBar/>
-        <h1>Add a new tournament to an existing event:</h1>
       </header>
 
+      <h1>Add a new tournament to an existing event:</h1>
       <BackButton/>
       <form onSubmit={handleSubmit}>
         <label>

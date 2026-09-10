@@ -29,8 +29,9 @@ function Login() {
     <>
       <header>
         <NavBar/>
-        <h1>Log in</h1>
       </header>
+
+      <h1>Log in</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Email

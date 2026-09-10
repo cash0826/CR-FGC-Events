@@ -28,7 +28,6 @@ function EventLayout() {
     <>
       <header>
         <NavBar/>
-        <h1>CR FGC Upcoming Events</h1>
       </header>
       <BackButton/>
       <Outlet context={{ event, setEvent }} />

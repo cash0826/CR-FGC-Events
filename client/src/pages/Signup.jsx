@@ -36,8 +36,9 @@ function Signup() {
     <>
       <header>
         <NavBar/>
-        <h1>Sign up to join events!</h1>
       </header>
+
+      <h1>Sign up to join events!</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Username

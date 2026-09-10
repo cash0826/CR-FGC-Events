@@ -22,7 +22,7 @@ function NavBar() {
       </a>
 
       {/* Navbar Toggler */}
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false">
+      <button className="navbar-toggler" type="button" aria-controls="navbarLinks" aria-expanded="false">
         <span className="icon-bar"></span>
         <span className="icon-bar"></span>
         <span className="icon-bar"></span>

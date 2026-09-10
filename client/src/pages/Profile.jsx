@@ -96,8 +96,9 @@ function Profile() {
         <>
           <header>
             <NavBar/>
-            <h1>Your Profile</h1>
           </header>
+
+          <h1>Your Profile</h1>
           <div className="profile">
             {user.profile_pic_url ? <img src={user.profile_pic_url} alt={user.username}></img> : <p>No image</p> }
             <h2>Username:</h2><p>{user.username}</p>

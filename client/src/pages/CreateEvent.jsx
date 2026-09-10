@@ -41,9 +41,9 @@ function CreateEvent() {
     <>
       <header>
         <NavBar/>
-        <h1>Create a new event to host tournaments:</h1>
       </header>
       
+      <h1>Create a new event to host tournaments:</h1>
       <BackButton/>
       <form onSubmit={handleSubmit}> 
         <label>
