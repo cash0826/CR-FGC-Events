@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom'
 import { formatLongDate } from "../../utils/dateUtils"
 
-function EventListItem({ event }) {
+function EventItem({ event }) {
   return (
-    <li>
-      <Link to={`/events/${event.id}`}><strong>{event.name}</strong></Link>
+    <>
+      <Link to={`/events/${event.id}`}><h2><strong>{event.name}</strong></h2></Link>
       <p>Start: {formatLongDate(event.start)}</p>
       <p>Location: {event.location}</p>
       <p>Host: {event.host.username}</p>
-    </li>
+    </>
   )
 }
 
-export default EventListItem;
+export default EventItem;

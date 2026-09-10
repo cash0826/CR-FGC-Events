@@ -128,8 +128,8 @@ function TournamentDetails() {
           </>
         ) : (
           <>
-            <h2>{tournamentDetails.name} -- {event.name}</h2>
-            <h3>{tournamentDetails.line_up_type}--{tournamentDetails.game}--{tournamentDetails.platform}</h3>
+            <h1>{tournamentDetails.name} -- {event.name}</h1>
+            <h2>{tournamentDetails.line_up_type}--{tournamentDetails.game}--{tournamentDetails.platform}</h2>
             <h3>Start Time: {formatLongDateTime(tournamentDetails.start_time)}</h3>
             {(isOwner || isAdmin) && (
               <>

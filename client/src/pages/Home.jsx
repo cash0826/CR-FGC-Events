@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { listEvents } from "../services/eventService";
-import EventListItem from "../components/eventitem/EventListItem";
+import EventItem from "../components/eventitem/EventItem";
 import NavBar from '../components/NavBar'
 
 function Home() {
@@ -23,17 +23,16 @@ function Home() {
     <>
       <header>
         <NavBar/>
-        <h1>CR FGC Upcoming Events</h1>
       </header>
       <main>
-        <ul>
+        <section>
           {events.map((event) => (
-            <EventListItem 
+            <EventItem 
               key={event.id}
               event={event}
             />
           ))}
-        </ul>
+        </section>
       </main>
     </>
   )
