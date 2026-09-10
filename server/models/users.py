@@ -87,12 +87,14 @@ class User(db.Model):
   # Contact number validation
   @validates("contact_number")
   def validate_contact_number(self, key, number):
-    if number is None:
-        return number
+    if number is None or (isinstance(number, str) and not number.strip()):
+        return None
+    if not isinstance(number, str):
+        raise ValueError("Phone number must be a string.")
     # Basic phone validation: digits only, optional + at start
     pattern = r"^\+?\d{7,15}$"
     if not re.match(pattern, number):
-        raise ValueError("Phone number must be 7–15 digits, optional leading +.")
+        raise ValueError("Phone number must be 7–15 digits with no spaces or hyphens. Optional: leading +.")
     return number
 
   # Profile_Pic_URL Validation

@@ -43,7 +43,7 @@ class Events(Resource):
     if error == "duplicate":
       return {"error": "duplicate"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
     return event_schema.dump(new_event), 201
 
 class EventDetails(Resource):
@@ -66,12 +66,12 @@ class EventDetails(Resource):
     if not data:
       abort(400, description="Missing JSON data")
     
-    updated_event, error = EventService.update_event(event_id=event.id, data=data)
+    updated_event, error = EventService.update(instance_id=id, data=data)
     
     if error == "duplicate":
       return {"error": "duplicate"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
     return event_schema.dump(updated_event), 200
 
   # delete /events/<id>

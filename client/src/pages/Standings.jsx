@@ -22,6 +22,7 @@ function Standings() {
   const isAdmin = Boolean(tournament && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
   async function handleAdd(e) {
+    e.preventDefault()
     setError('')
     setIsSubmitting(true)
     let data = {

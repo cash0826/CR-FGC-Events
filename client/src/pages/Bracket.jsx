@@ -21,6 +21,7 @@ function Bracket() {
 
   // Add Bracket
   async function handleAdd(e) {
+    e.preventDefault()
     setError('')
     setIsSubmitting(true)
     let data = {

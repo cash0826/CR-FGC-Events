@@ -54,15 +54,16 @@ function TournamentDetails() {
 
   // Update
   async function handleSave(e) {
+    e.preventDefault()
     setError('')
     setIsSubmitting(true)
     try {
       const updated = await updateEventTournament(eventId, tournamentId, form)
       setTournamentDetails(updated)
+      setIsEditing(false)
     } catch (err) {
       setError(err.message || 'Unable to update tournament')
     } finally {
-      setIsEditing(false)
       setIsSubmitting(false)
     }
   }

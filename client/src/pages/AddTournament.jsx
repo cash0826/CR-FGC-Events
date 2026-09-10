@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { createEventTournament } from "../services/tournamentService";
 import DateTimePicker from "../components/DateTimePicker";
+import BackButton from "../components/BackButton";
 
 function AddTournament() {
   const { eventId } = useParams();
@@ -38,6 +39,7 @@ function AddTournament() {
 
   return (
     <>
+      <BackButton/>
       <h2>Add a new tournament to an existing event:</h2>
       <form onSubmit={handleSubmit}>
         <label>

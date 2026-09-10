@@ -28,7 +28,7 @@ class UserRoles(Resource):
     if error == "duplicate":
       return {"error": "duplicate"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
     
     roles = UserService.get_roles_for_user(user_id)
     return {"user_id": user_id, "roles": roles}, 201

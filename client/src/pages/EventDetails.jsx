@@ -49,15 +49,16 @@ function EventDetails() {
   function handleChange(e) {setForm({...form, [e.target.name]: e.target.value})}
   
   async function handleSave(e) {
+    e.preventDefault()
     setError('')
     setIsSubmitting(true)
     try {
       const updated = await updateEvent(eventId, form)
       setEvent(updated)
+      setIsEditing(false)
     } catch (err) {
       setError(err.message || 'Unable to update event')
     } finally {
-      setIsEditing(false)
       setIsSubmitting(false)
     }
   }

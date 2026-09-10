@@ -138,7 +138,7 @@ with app.app_context():
   print("Creating 20 test tournaments...")
   tournaments = []
   for i in range(20):
-    name = rc(["SF", "MK", "FF"])
+    name = rc(["Street Fighter 6", "Marvel Tōkon: Fighting Souls", "Fatal Fury: City of Wolves", "Guilty Gear Strive", "Tekken 8",  "The King of Fighters XV"])
     start_time = fake.date_time_between(start_date=dt.date(2026, 9, 19), end_date=dt.date(2026, 10, 3))
     registration_deadline = fake.date_between(start_date='-1w')
     platform = rc(["PS4", "PS5", "XBOX"])
