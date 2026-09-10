@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { createEventTournament } from "../services/tournamentService";
 import DateTimePicker from "../components/DateTimePicker";
+import BackButton from "../components/BackButton";
 
 function AddTournament() {
   const { eventId } = useParams();
@@ -17,7 +18,7 @@ function AddTournament() {
     game: '',
     platform: '',
     line_up_type: '',
-    event_id: eventId,
+    event_id: parseInt(eventId),
   })
 
   async function handleSubmit(e) {
@@ -38,6 +39,7 @@ function AddTournament() {
 
   return (
     <>
+      <BackButton/>
       <h2>Add a new tournament to an existing event:</h2>
       <form onSubmit={handleSubmit}>
         <label>

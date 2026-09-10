@@ -53,7 +53,7 @@ class Users(Resource):
     if error == "duplicate":
       return {"error": "duplicate"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
     return user_schema.dump(new_user), 201
   
   # patch /users/<id>
@@ -72,7 +72,7 @@ class Users(Resource):
     if error == "duplicate":
       return {"error": "duplicate"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
     return user_schema.dump(updated_user), 200
   
   # delete /users/<id>
@@ -115,5 +115,5 @@ class Profile(Resource):
     if error == "duplicate":
       return {"error": "duplicate"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
     return user_schema.dump(updated_user), 200

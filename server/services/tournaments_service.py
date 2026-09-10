@@ -10,7 +10,7 @@ class TournamentService(BaseService):
     return cls.model.query.filter_by(event_id=event_id).all()
   
   @classmethod
-  def create_tournament(cls, event_id, data):
+  def create(cls, event_id, data):
     # parse datetime strings
     try:
       if 'start_time' in data and isinstance(data['start_time'], str):
@@ -19,6 +19,18 @@ class TournamentService(BaseService):
         data['registration_deadline'] = datetime.fromisoformat(data['registration_deadline'])
     except Exception:
       return None, 'invalid_date'
-
-    data["event_id"] = event_id
-    return cls.create(data)
+    
+    return super().create(data)
+  
+  @classmethod
+  def update(cls, instance_id, data):
+    # parse datetime strings
+    try:
+      if 'start_time' in data and isinstance(data['start_time'], str):
+        data['start_time'] = datetime.fromisoformat(data['start_time'])
+      if 'registration_deadline' in data and isinstance(data['registration_deadline'], str):
+        data['registration_deadline'] = datetime.fromisoformat(data['registration_deadline'])
+    except Exception:
+      return None, 'invalid_date'
+    
+    return super().update(instance_id, data)

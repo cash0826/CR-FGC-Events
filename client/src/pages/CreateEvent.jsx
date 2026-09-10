@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { createEvent } from "../services/eventService";
 import DateTimePicker from "../components/DateTimePicker"
+import BackButton from "../components/BackButton";
 
 function CreateEvent() {
   const [error, setError] = useState('');
@@ -37,6 +38,7 @@ function CreateEvent() {
 
   return (
     <>
+      <BackButton/>
       <h2>Create a new Event to host tournaments:</h2>
       <form onSubmit={handleSubmit}> 
         <label>
@@ -81,6 +83,14 @@ function CreateEvent() {
         Description:
           <textarea
             placeholder="(Optional) Include all relevant details about the event..."
+            value={form.description}
+            onChange={(e)=> setForm({...form, description: e.target.value})}
+          />
+        </label>
+        <label>
+        Rules:
+          <textarea
+            placeholder="(Optional) Include any tie breaking rules or general code of conduct..."
             value={form.description}
             onChange={(e)=> setForm({...form, description: e.target.value})}
           />

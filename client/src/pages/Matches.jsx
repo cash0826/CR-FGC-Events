@@ -25,16 +25,17 @@ function Matches() {
   const isAdmin = Boolean(tournament && user?.roles?.some(userRole => userRole.role?.name === "admin"))
 
   async function handleAdd(e) {
+    e.preventDefault()
     setError('')
     setIsSubmitting(true)
     try {
       const newMatch = await createMatch(eventId, tournamentId, form)
       setMatches((current) => [newMatch, ...current])
+      setIsOpen(false)
     } catch (err) {
       setError(err.message || 'Unable to add a match')
     } finally {
       setIsSubmitting(false)
-      setIsOpen(false)
     }
   }
 

@@ -44,7 +44,7 @@ class Competitors(Resource):
     if error == "already_registered":
       return {"error": "already_registered"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
     return competitor_schema.dump(competitor), 201
   
   # DELETE /events/<event_id>/tournaments/<tournament_id>/competitors/<competitor_id>

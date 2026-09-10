@@ -33,7 +33,7 @@ class Signup(Resource):
     if error == "duplicate_username":
       return {"error": "duplicate_username"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
   
     token = create_access_token(identity=str(user.id))
     player_role = UserRoleService.assign_role(user.id, "viewer")    #Auto-assigns default role as Viewer

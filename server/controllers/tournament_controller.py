@@ -46,7 +46,7 @@ class TournamentDetails(Resource):
     if error == "duplicate":
       return {"error": "duplicate"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
     return tournament_schema.dump(updated_tournament), 200
 
   # delete /events/<event_id>/tournaments/<tournaments_id>
@@ -91,11 +91,11 @@ class EventTournaments(Resource):
     if not data:
       abort(400, description="Missing JSON data")
       
-    new_tournament, error = TournamentService.create_tournament(event_id=event_id, data=data)
+    new_tournament, error = TournamentService.create(event_id=event_id, data=data)
     
     if error == "duplicate":
       return {"error": "duplicate"}, 409
     if error:
-      return {"error": "invalid_data"}, 400
+      return {"error": error}, 400
     return tournament_schema.dump(new_tournament), 201
   

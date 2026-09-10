@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { updateMatch, deleteMatch } from "../../services/matchService";
+import { formatLongDateTime } from "../../utils/dateUtils"
 import DateTimePicker from "../../components/DateTimePicker";
 
 function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, ...props }) {
@@ -84,8 +85,8 @@ function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, 
         </>
       ) : (
         <>
-          <p>{match.round}-{match.status}</p>
-          <p>{match.start_time}</p>
+          <p>{match.round} | {match.status}</p>
+          <p>Time: {formatLongDateTime(match.start_time)}</p>
           {(isOwner || isAdmin) && (
             <>
               <button onClick={startEditing}>Edit</button>
