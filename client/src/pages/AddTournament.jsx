@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { createEventTournament } from "../services/tournamentService";
 import DateTimePicker from "../components/DateTimePicker";
 import BackButton from "../components/BackButton";
+import NavBar from '../components/NavBar'
 
 function AddTournament() {
   const { eventId } = useParams();
@@ -39,8 +40,12 @@ function AddTournament() {
 
   return (
     <>
+      <header>
+        <NavBar/>
+        <h1>Add a new tournament to an existing event:</h1>
+      </header>
+
       <BackButton/>
-      <h2>Add a new tournament to an existing event:</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Name of the tournament:

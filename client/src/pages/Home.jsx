@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { listEvents } from "../services/eventService";
 import EventListItem from "../components/eventitem/EventListItem";
+import NavBar from '../components/NavBar'
 
 function Home() {
   const [events, setEvents] = useState([])
@@ -21,6 +22,7 @@ function Home() {
   return (
     <>
       <header>
+        <NavBar/>
         <h1>CR FGC Upcoming Events</h1>
       </header>
       <main>

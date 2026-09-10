@@ -1,6 +1,7 @@
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import { updateProfile } from "../services/authService";
+import NavBar from '../components/NavBar'
 
 function Profile() {
   const { user, setUser, logout, isLoading } = useAuth();
@@ -49,7 +50,7 @@ function Profile() {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="profile">
+    <>
       {isEditing ? (
         <form>
           <label>Profile Picture</label>
@@ -93,28 +94,33 @@ function Profile() {
         </form>
       ) : (
         <>
-          <h2>Your Profile</h2>
-          {user.profile_pic_url ? <img src={user.profile_pic_url} alt={user.username}></img> : <p>No image</p> }
-          <h3>Username:</h3><p>{user.username}</p>
-          <h3>Name:</h3><p>{user.full_name}</p>
-          <h3>Email:</h3><p>{user.email}</p>
-          {user.contact_number && (
-            <>
-              <h3>Phone to Contact:</h3>
-              <p>{user.contact_number}</p>
-            </>
-          )}
-          {user.bio && (
-            <>
-              <h3>Biography:</h3>
-              <p>{user.bio}</p>
-            </>
-          )}
-          <button onClick={startEditing}>Edit Profile Details</button>
-          <button type="button" onClick={logout}>Log out</button>
+          <header>
+            <NavBar/>
+            <h1>Your Profile</h1>
+          </header>
+          <div className="profile">
+            {user.profile_pic_url ? <img src={user.profile_pic_url} alt={user.username}></img> : <p>No image</p> }
+            <h2>Username:</h2><p>{user.username}</p>
+            <h2>Name:</h2><p>{user.full_name}</p>
+            <h2>Email:</h2><p>{user.email}</p>
+            {user.contact_number && (
+              <>
+                <h2>Phone to Contact:</h2>
+                <p>{user.contact_number}</p>
+              </>
+            )}
+            {user.bio && (
+              <>
+                <h2>Biography:</h2>
+                <p>{user.bio}</p>
+              </>
+            )}
+            <button onClick={startEditing}>Edit Profile Details</button>
+            <button type="button" onClick={logout}>Log out</button>
+          </div>
         </>
       )}
-    </div>
+    </>
   )
 }
 

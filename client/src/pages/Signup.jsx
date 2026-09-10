@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import NavBar from '../components/NavBar'
 
 function Signup() {
   const { createUser } = useAuth();
@@ -33,7 +34,10 @@ function Signup() {
 
   return(
     <>
-      <h1>Sign up to join events!</h1>
+      <header>
+        <NavBar/>
+        <h1>Sign up to join events!</h1>
+      </header>
       <form onSubmit={handleSubmit}>
         <label>
           Username

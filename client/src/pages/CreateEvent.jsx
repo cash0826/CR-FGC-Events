@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { createEvent } from "../services/eventService";
 import DateTimePicker from "../components/DateTimePicker"
 import BackButton from "../components/BackButton";
+import NavBar from '../components/NavBar'
 
 function CreateEvent() {
   const [error, setError] = useState('');
@@ -38,8 +39,12 @@ function CreateEvent() {
 
   return (
     <>
+      <header>
+        <NavBar/>
+        <h1>Create a new event to host tournaments:</h1>
+      </header>
+      
       <BackButton/>
-      <h2>Create a new Event to host tournaments:</h2>
       <form onSubmit={handleSubmit}> 
         <label>
         Name of the event:

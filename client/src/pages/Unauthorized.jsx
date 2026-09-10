@@ -1,11 +1,14 @@
-
+import NavBar from '../components/NavBar'
 
 function Unauthorized() {
   return (
-    <div>
-      <h1>Unauthorized</h1>
+    <>
+      <header>
+        <NavBar/>
+        <h1>Unauthorized</h1>
+      </header>
       <p>You do not have permission to view this page.</p>
-    </div>
+    </>
   );
 }
 

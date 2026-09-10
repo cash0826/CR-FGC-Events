@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import NavBar from '../components/NavBar'
 
 function Login() {
   const { authenticateUser } = useAuth();
@@ -26,7 +27,10 @@ function Login() {
 
   return(
     <>
-      <h1>Log in</h1>
+      <header>
+        <NavBar/>
+        <h1>Log in</h1>
+      </header>
       <form onSubmit={handleSubmit}>
         <label>
           Email

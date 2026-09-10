@@ -16,7 +16,6 @@ import Bracket from "./pages/Bracket";
 import NotFound from "./pages/NotFound";
 
 // Components
-import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import ProtectedRoute from "./components/ProtectedRoute";
 import RequireRole from "./components/RequireRole";
@@ -28,8 +27,6 @@ function App() {
 
   return (
     <>
-      <NavBar/>
-
       {/* Public Routes */}
       <Routes>
         <Route path="/" element={<Home />} />
