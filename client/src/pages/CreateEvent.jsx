@@ -87,6 +87,14 @@ function CreateEvent() {
             onChange={(e)=> setForm({...form, description: e.target.value})}
           />
         </label>
+        <label>
+        Rules:
+          <textarea
+            placeholder="(Optional) Include any tie breaking rules or general code of conduct..."
+            value={form.description}
+            onChange={(e)=> setForm({...form, description: e.target.value})}
+          />
+        </label>
         {error && <p role="alert">{error}</p>}
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Creating Event...' : 'Create New Event'}

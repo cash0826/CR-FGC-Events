@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { updateEvent, deleteEvent } from "../services/eventService"
 import TournamentListItem from "../components/tournamentitem/TournamentListItem";
 import DateTimePicker from "../components/DateTimePicker"
+import { formatLongDate } from "../utils/dateUtils"
 
 // Public Page (Read-only)
 // If owner of the event or admin, Inline PATCH/DEL
@@ -96,8 +97,8 @@ function EventDetails() {
         ) : (
           <>
             <h2>{event.name}</h2>
-            <h3>{event.start}</h3>
-            <h3>{event.location}</h3>
+            <h3>Start 📅: {formatLongDate(event.start)}</h3>
+            <h3>📍{event.location}</h3>
             {(isOwner || isAdmin) && (
               <>
                 <button onClick={addTournament}>Add Tournament to Event</button>
@@ -155,7 +156,7 @@ function EventDetails() {
             </label>
             <label>
               Description
-              <input
+              <textarea
                 name="description"
                 value={form.description}
                 onChange={handleChange}
@@ -163,7 +164,7 @@ function EventDetails() {
             </label>
             <label>
               Rules
-              <input
+              <textarea
                 name="tie_breaking_rule"
                 value={form.tie_breaking_rule}
                 onChange={handleChange}
@@ -174,9 +175,9 @@ function EventDetails() {
           <>
             <h2>FAQ</h2>
             <h3>Start:  </h3>
-            <p>{event.start}</p>
+            <p>{formatLongDate(event.start)}</p>
             <h3>End:  </h3>
-            <p>{event.end}</p>
+            <p>{formatLongDate(event.end)}</p>
             <h3>Location:  </h3>
             <p>{event.location}</p>
             <h3>Description:  </h3>

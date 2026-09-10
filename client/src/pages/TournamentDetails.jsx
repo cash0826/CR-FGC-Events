@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { updateEventTournament, deleteEventTournament } from "../services/tournamentService";
 import CompetitorRow from "../components/competitors/CompetitorRow";
 import DateTimePicker from "../components/DateTimePicker";
+import { formatLongDateTime } from "../utils/dateUtils"
 
 // Public Page. GET and POST (register) to tournament
 // If owner of the event or admin, Inline PATCH/DEL
@@ -129,7 +130,7 @@ function TournamentDetails() {
           <>
             <h2>{tournamentDetails.name} -- {event.name}</h2>
             <h3>{tournamentDetails.line_up_type}--{tournamentDetails.game}--{tournamentDetails.platform}</h3>
-            <h3>{tournamentDetails.start_time}</h3>
+            <h3>Start Time: {formatLongDateTime(tournamentDetails.start_time)}</h3>
             {(isOwner || isAdmin) && (
               <>
                 <button onClick={startEditing}>Edit</button>
@@ -154,7 +155,7 @@ function TournamentDetails() {
         ) : (
           <>
             <h2>Register now!</h2>
-            <h3>Deadline: {tournamentDetails.registration_deadline}</h3>
+            <h3>Deadline: {formatLongDateTime(tournamentDetails.registration_deadline)}</h3>
             <button onClick={handleRegister}>Register</button>
           </>
         )}

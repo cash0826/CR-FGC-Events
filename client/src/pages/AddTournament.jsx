@@ -18,7 +18,7 @@ function AddTournament() {
     game: '',
     platform: '',
     line_up_type: '',
-    event_id: eventId,
+    event_id: parseInt(eventId),
   })
 
   async function handleSubmit(e) {
