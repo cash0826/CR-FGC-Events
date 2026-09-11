@@ -5,7 +5,6 @@ import { createEvent } from "../services/eventService";
 import DateTimePicker from "../components/DateTimePicker"
 import BackButton from "../components/BackButton";
 import NavBar from '../components/NavBar'
-import "../styles/forms.css"
 
 function CreateEvent() {
   const [error, setError] = useState('');
@@ -44,68 +43,65 @@ function CreateEvent() {
         <NavBar/>
       </header>
       
-      <h1>Create a new event to host tournaments:</h1>
-      <BackButton/>
-      <form onSubmit={handleSubmit}> 
-        <label>
-        Name of the event:
-          <input
-            value={form.name}
-            onChange={(e)=> setForm({...form, name: e.target.value})}
-            required
-          />
-        </label>
-        <label>
-        Start:
-          <DateTimePicker
-            value={form.start}
-            onChange={(dt)=> setForm({...form, start: dt})}
-          />
-        </label>
-        <label>
-        End:
-          <DateTimePicker
-            value={form.end}
-            onChange={(dt)=> setForm({...form, end: dt})}
-          />
-        </label>
-        <label>
-        In Person?:
-          <input
-            type="checkbox"
-            checked={form.in_person}
-            onChange={(e)=> setForm({...form, in_person: e.target.checked})}
-          />
-        </label>
-        <label>
-        Location if in person:
-          <input
-            placeholder="San Pedro"
-            value={form.location}
-            onChange={(e)=> setForm({...form, location: e.target.value})}
-          />
-        </label>
-        <label>
-        Description:
-          <textarea
-            placeholder="(Optional) Include all relevant details about the event..."
-            value={form.description}
-            onChange={(e)=> setForm({...form, description: e.target.value})}
-          />
-        </label>
-        <label>
-        Rules:
-          <textarea
-            placeholder="(Optional) Include any tie breaking rules or general code of conduct..."
-            value={form.description}
-            onChange={(e)=> setForm({...form, description: e.target.value})}
-          />
-        </label>
-        {error && <p role="alert">{error}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Creating Event...' : 'Create New Event'}
-        </button>
-      </form>
+      <main>
+        <section className="form">
+          <div className="container">
+            <div className="row-header">
+              <h1>New Event to host:</h1>
+            </div>
+
+            <div className="row-form">
+              <form onSubmit={handleSubmit}> 
+                <input
+                  placeholder="Name of the event"
+                  value={form.name}
+                  onChange={(e)=> setForm({...form, name: e.target.value})}
+                  required
+                />
+                <DateTimePicker
+                  placeholder="Start Date"
+                  value={form.start}
+                  onChange={(dt)=> setForm({...form, start: dt})}
+                  required
+                />
+                <DateTimePicker
+                  placeholder="Expected End Date"
+                  value={form.end}
+                  onChange={(dt)=> setForm({...form, end: dt})}
+                />
+                <br/>
+                In Person?:
+                <input
+                  type="checkbox"
+                  checked={form.in_person}
+                  onChange={(e)=> setForm({...form, in_person: e.target.checked})}
+                />
+                <input
+                  placeholder="Location"
+                  value={form.location}
+                  onChange={(e)=> setForm({...form, location: e.target.value})}
+                  required
+                />
+                <textarea
+                  placeholder="(Optional) Include all relevant details about the event..."
+                  value={form.description}
+                  onChange={(e)=> setForm({...form, description: e.target.value})}
+                />
+                <textarea
+                  placeholder="(Optional) Include any rules or general code of conduct..."
+                  value={form.description}
+                  onChange={(e)=> setForm({...form, description: e.target.value})}
+                />
+                {error && <p role="alert">{error}</p>}
+                <button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Creating Event...' : 'Create New Event'}
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+        <BackButton/>
+      </main>
     </>
   )
 }

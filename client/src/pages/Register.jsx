@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { register } from "../services/tournamentService";
-import NavBar from '../components/NavBar'
 
 // Leaving Register as page to add competitors for tournament
 // May develop into Payment Page in the future. Status paid? Methods of payment?

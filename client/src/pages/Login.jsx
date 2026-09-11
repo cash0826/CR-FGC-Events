@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import NavBar from '../components/NavBar'
-import "../styles/forms.css"
 
 function Login() {
   const { authenticateUser } = useAuth();

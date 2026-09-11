@@ -2,7 +2,6 @@ import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import { updateProfile } from "../services/authService";
 import NavBar from '../components/NavBar'
-import "../styles/forms.css"
 
 function Profile() {
   const { user, setUser, logout, isLoading } = useAuth();
