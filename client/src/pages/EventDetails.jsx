@@ -114,8 +114,8 @@ function EventDetails() {
       </div>
 
       <div className="event-tournaments-items-container">
-        <ul>
-          <li>
+        <div>
+          <div>
             {event.tournaments.map((tournament) => (
               <TournamentListItem
                 key={tournament.id}
@@ -123,8 +123,8 @@ function EventDetails() {
                 tournament={tournament}
               />
             ))} 
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
 
       <div className="event-FAQ-container">

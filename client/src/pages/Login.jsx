@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import NavBar from '../components/NavBar'
+import "../styles/forms.css"
 
 function Login() {
   const { authenticateUser } = useAuth();
@@ -31,36 +32,48 @@ function Login() {
         <NavBar/>
       </header>
 
-      <h1>Log in</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
-        </label>
-        {error && <p role="alert">{error}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Logging in…' : 'Log in'}
-        </button>
-      </form>
-      <p>
-        Need an account? <Link to="/signup">Signup</Link>
-      </p>
+      <main>
+        <section className="form">
+          <div className="container">
+            <div className="row-header">
+              <h1>Welcome Back</h1>
+            </div>
+
+            <div className="row-form">
+              <form onSubmit={handleSubmit}>
+                <input
+                  placeholder="Email"
+                  type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
+                <input
+                  placeholder="Password"
+                  type="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                />
+                {error && <p role="alert">{error}</p>}
+                <button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Logging in…' : 'Log in'}
+                </button>
+              </form>
+            </div>
+
+            <div className="row-link">
+              <p>
+                Joining us for the first time? <Link to="/signup">Signup</Link>
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
     </>
   )
 }
 
 export default Login;
+
+

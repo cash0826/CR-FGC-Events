@@ -5,6 +5,7 @@ import { createEventTournament } from "../services/tournamentService";
 import DateTimePicker from "../components/DateTimePicker";
 import BackButton from "../components/BackButton";
 import NavBar from '../components/NavBar'
+import "../styles/forms.css"
 
 function AddTournament() {
   const { eventId } = useParams();

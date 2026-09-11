@@ -2,6 +2,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import { updateProfile } from "../services/authService";
 import NavBar from '../components/NavBar'
+import "../styles/forms.css"
 
 function Profile() {
   const { user, setUser, logout, isLoading } = useAuth();
@@ -51,74 +52,105 @@ function Profile() {
 
   return (
     <>
+      <header>
+        <NavBar/>
+      </header>
+
+      <section>
+        <div className="container">
+          <div className="row-header">
+            <h1>Profile</h1>
+          </div>
+        </div>
+      </section>
+      
       {isEditing ? (
-        <form>
-          <label>Profile Picture</label>
-          <input
-            type="url"
-            value={form.profile_pic_url}
-            onChange={(e) => setForm({...form, profile_pic_url: e.target.value})}
-          />
-          <label>Username</label>
-          <input
-            value={form.username}
-            onChange={(e) => setForm({...form, username: e.target.value})}
-          />
-          <label>Name</label>
-          <input
-            value={form.full_name}
-            onChange={(e) => setForm({...form, full_name: e.target.value})}
-          />
-          <label>Email</label>
-          <input
-            type="email"
-            value={form.email}
-            onChange={(e) => setForm({...form, email: e.target.value})}
-          />
-          <label>Phone to Contact</label>
-          <input
-            type="tel"
-            value={form.contact_number}
-            onChange={(e) => setForm({...form, contact_number: e.target.value})}
-          />
-          <label>Biography</label>
-          <textarea
-            value={form.bio}
-            onChange={(e) => setForm({...form, bio: e.target.value})}
-          />
-          <button onClick={handleSave} disabled={isSubmitting}>
-            {isSubmitting ? 'Saving...' : 'Save'}
-          </button>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
-          {error && <p role="alert">{error}</p>}
-        </form>
+        <>
+          <section className="form">
+            <div className="container">
+              <div className="row-form">
+                <form>
+                  <input
+                    placeholder="Profile Picture URL"
+                    type="url"
+                    value={form.profile_pic_url}
+                    onChange={(e) => setForm({...form, profile_pic_url: e.target.value})}
+                  />
+                  <input
+                    placeholder="Username"
+                    value={form.username}
+                    onChange={(e) => setForm({...form, username: e.target.value})}
+                  />
+                  <input
+                    placeholder="Name to go by"
+                    value={form.full_name}
+                    onChange={(e) => setForm({...form, full_name: e.target.value})}
+                  />
+                  <input
+                    placeholder="Email"
+                    type="email"
+                    value={form.email}
+                    onChange={(e) => setForm({...form, email: e.target.value})}
+                    required
+                  />
+                  <input
+                    placeholder="Phone number to contact"
+                    type="tel"
+                    value={form.contact_number}
+                    onChange={(e) => setForm({...form, contact_number: e.target.value})}
+                  />
+                  <textarea
+                    placeholder="Biography"
+                    value={form.bio}
+                    onChange={(e) => setForm({...form, bio: e.target.value})}
+                  />
+                  <button onClick={handleSave} disabled={isSubmitting}>
+                    {isSubmitting ? 'Saving...' : 'Save'}
+                  </button>
+                  <button onClick={() => setIsEditing(false)}>Cancel</button>
+                  {error && <p role="alert">{error}</p>}
+                </form>
+              </div>
+            </div>
+          </section>
+        </>
       ) : (
         <>
-          <header>
-            <NavBar/>
-          </header>
+          <section className="profile">
+            <div className="container">
+              <div className="row">
+                <div className="profile-img">
+                  {user.profile_pic_url ? (
+                    <img src={user.profile_pic_url} alt={user.username}></img>
+                    ) : (
+                    <p>No image</p>
+                  )}
+                </div>
+              </div>
 
-          <h1>Your Profile</h1>
-          <div className="profile">
-            {user.profile_pic_url ? <img src={user.profile_pic_url} alt={user.username}></img> : <p>No image</p> }
-            <h2>Username:</h2><p>{user.username}</p>
-            <h2>Name:</h2><p>{user.full_name}</p>
-            <h2>Email:</h2><p>{user.email}</p>
-            {user.contact_number && (
-              <>
-                <h2>Phone to Contact:</h2>
-                <p>{user.contact_number}</p>
-              </>
-            )}
-            {user.bio && (
-              <>
-                <h2>Biography:</h2>
-                <p>{user.bio}</p>
-              </>
-            )}
-            <button onClick={startEditing}>Edit Profile Details</button>
-            <button type="button" onClick={logout}>Log out</button>
-          </div>
+              <div className="row">
+                <h3>Username:</h3><p>{user.username}</p>
+              </div>
+
+              <div className="row">
+                <h3>Name:</h3><p>{user.full_name}</p>
+              </div>
+
+              <div className="row">
+                <h3>Email:</h3><p>{user.email}</p>
+              </div>
+              
+              <div className="row">
+                <h3>Phone:</h3><p>{user.contact_number}</p>
+              </div>
+
+              <div className="row">
+                <h3>Bio:</h3><p>{user.bio}</p>
+              </div>
+              <button onClick={startEditing}>Edit Profile Details</button>
+              <button type="button" onClick={logout}>Log out</button>
+            </div>
+          </section>
         </>
       )}
     </>

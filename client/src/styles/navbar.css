@@ -95,6 +95,7 @@ nav {
     justify-content: flex-end;
     flex-basis: auto;
     flex-grow: 1;
+    gap: 60px;
     align-items: center;
     a {
       display: inline-block;
@@ -103,10 +104,10 @@ nav {
       margin-right: 28px;
       line-height: 100px;
       text-transform: uppercase;
-      color: #fff;
+      font-weight: 600;
     }
     a.active {
-      color: #3fcaff;
+      color: aliceblue;
     }
   }
 }

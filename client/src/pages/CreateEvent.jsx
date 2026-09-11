@@ -5,6 +5,7 @@ import { createEvent } from "../services/eventService";
 import DateTimePicker from "../components/DateTimePicker"
 import BackButton from "../components/BackButton";
 import NavBar from '../components/NavBar'
+import "../styles/forms.css"
 
 function CreateEvent() {
   const [error, setError] = useState('');

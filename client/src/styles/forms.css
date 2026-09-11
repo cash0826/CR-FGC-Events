@@ -1,0 +1,62 @@
+/* Signup, Login, Profile, CreateEvent, AddTournament */
+
+/* header
+main
+  section "form"
+    div "container"
+      div "row" */
+
+
+.form > .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .row-header {
+    padding-top: 20px;
+    background-color: transparent;
+    color: #1c1836;
+    gap: 10px;
+  }
+  form {
+    display: block;
+  }
+  input {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    line-height: 40px;
+    border: none;
+    background-color: #bcecff;
+    padding: 0 20px;
+    border-radius: 20px;
+  }
+  textarea {
+    margin-top: 10px;
+    display: block;
+    height: 200px;
+    width: 100%;
+    line-height: 40px;
+    border: none;
+    background-color: #bcecff;
+    padding: 0 20px;
+    border-radius: 20px;
+    overflow: none;
+    resize: none;
+  }
+  button {
+    display: inline-block;
+    line-height: 40px;
+    padding: 0 30px;
+    font-size: 0.8rm;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+    border: none;
+    border-radius: 20px;
+  }
+  .row-link {
+    margin-top: 10px;
+  }
+}
