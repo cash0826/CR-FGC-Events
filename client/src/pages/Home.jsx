@@ -26,15 +26,17 @@ function Home() {
         <NavBar/>
       </header>
       <main>
-        <section className="banner">
-          <div className="container">
-            <div className="row">
-              <div className="banner-img">
-                <img src={img}/>
-              </div>
-              <div className="banner-headers">
-                <h1>Join our upcoming events!</h1>
-                <h2>Street Fighter 6, Marvel Tokon, Fatal Fury and more...</h2>
+        <section>
+          <div className="inner-banner">
+            <div className="container">
+              <div className="row">
+                <div className="banner-img">
+                  <img src={img}/>
+                </div>
+                <div className="banner-headers">
+                  <h1>Join our upcoming events!</h1>
+                  <h2>Street Fighter 6, Marvel Tokon, Fatal Fury and more...</h2>
+                </div>
               </div>
             </div>
           </div>

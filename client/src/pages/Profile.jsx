@@ -54,19 +54,14 @@ function Profile() {
       <header>
         <NavBar/>
       </header>
-
-      <section>
-        <div className="container">
-          <div className="row-header">
-            <h1>Profile</h1>
-          </div>
-        </div>
-      </section>
       
       {isEditing ? (
         <>
           <section className="form">
             <div className="container">
+              <div className="row-header">
+                <h1>Profile</h1>
+              </div>
               <div className="row-form">
                 <form>
                   <input
@@ -115,39 +110,44 @@ function Profile() {
         </>
       ) : (
         <>
-          <section className="profile">
-            <div className="container">
-              <div className="row">
-                <div className="profile-img">
-                  {user.profile_pic_url ? (
-                    <img src={user.profile_pic_url} alt={user.username}></img>
-                    ) : (
-                    <p>No image</p>
-                  )}
+          <section>
+            <div className="profile">
+              <div className="container">
+                <div className="row">
+                  <div className="profile-img">
+                    {user.profile_pic_url ? (
+                      <>
+                        <img src={user.profile_pic_url} alt={user.username}></img>
+                        <h2>{user.full_name}</h2>
+                      </>
+                      ) : (
+                        <>
+                          <p>No image</p>
+                          <p>{user.full_name}</p>
+                        </>
+                    )}
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div>
+                    <div className="profile-details">
+                      <h3>Username:</h3><p>{user.username}</p>
+                    </div>
+                    <div className="profile-details">
+                      <h3>Email:</h3><p>{user.email}</p>
+                    </div>
+                    <div className="profile-details">
+                      <h3>Phone:</h3><p>{user.contact_number}</p>
+                    </div>
+                    <div className="profile-details">
+                      <h3>Bio:</h3><p>{user.bio}</p>
+                    </div>
+                    <button onClick={startEditing}>Edit Profile Details</button>
+                    <button type="button" onClick={logout}>Log out</button>
+                  </div>
                 </div>
               </div>
-
-              <div className="row">
-                <h3>Username:</h3><p>{user.username}</p>
-              </div>
-
-              <div className="row">
-                <h3>Name:</h3><p>{user.full_name}</p>
-              </div>
-
-              <div className="row">
-                <h3>Email:</h3><p>{user.email}</p>
-              </div>
-              
-              <div className="row">
-                <h3>Phone:</h3><p>{user.contact_number}</p>
-              </div>
-
-              <div className="row">
-                <h3>Bio:</h3><p>{user.bio}</p>
-              </div>
-              <button onClick={startEditing}>Edit Profile Details</button>
-              <button type="button" onClick={logout}>Log out</button>
             </div>
           </section>
         </>

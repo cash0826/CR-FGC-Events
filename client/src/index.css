@@ -12,7 +12,6 @@ footer, header, main, nav, section {
 }
 
 #root {
-  width: 1920px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -41,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {
 
 p, ul, ol, li {
   margin-top: 0;
-  margin-bottom: .25rem; 
+  margin-bottom: .25rem;
 }
 
 footer {
@@ -83,6 +82,8 @@ button {
   background-color: #fff;
   border-radius: 20px;
   margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 button:hover {
@@ -96,7 +97,7 @@ header {
 }
 
 /* ``````````````````````````````````````````````````````````````````````````````````` */
-/* Home Page Layout*/
+/* Global Attributes*/
 
 .container {
   width: 100%;
@@ -117,7 +118,10 @@ header {
   display: block;
 }
 
-.banner {
+/* ``````````````````````````````````````````````````````````````````````````````````` */
+/* Home Page Layout*/
+
+.inner-banner {
   background: url("./assets/home-banner.png") no-repeat center center; 
   background-size: cover;
   padding: 70px 0 100px 0px;
@@ -223,6 +227,9 @@ header {
     color: #1c1836;
     gap: 10px;
   }
+  .row-form {
+    min-width: 350px;
+  }
   form {
     display: block;
   }
@@ -255,3 +262,47 @@ header {
 }
 
 /* ``````````````````````````````````````````````````````````````````````````````````` */
+/* Profile */
+
+.profile > .container {
+  justify-content: center;
+
+  .row {
+    justify-content: center;
+    padding: 10px;
+    min-height: 375px;
+    width: 350px;
+    color: #1c1836;
+  }
+
+  .profile-img {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #1c183677;
+    border-radius: 50%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+    h2 {
+      text-align: center;
+    }
+  }
+  
+  .profile-details {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #d5cfff7a;
+    border-radius: 10px;
+  }
+
+  p, h3 {
+    text-align: left;
+  }
+}
