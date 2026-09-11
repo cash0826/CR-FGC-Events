@@ -28,7 +28,7 @@ nav {
   background-color: transparent;
 }
 
-/* Default (Toggle menu is visible, links are hidden) */
+/* Default: Toggle menu is visible, links are hidden */
 .navbar-toggler {
   display: flex;
   flex-direction: column;
@@ -67,6 +67,7 @@ nav {
   }
 }
 
+/* S screen startpoint */
 @media (min-width:768px) {
   .container {
     max-width: 720px;

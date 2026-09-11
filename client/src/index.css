@@ -76,3 +76,32 @@ header {
   margin-right: auto;
   margin-left: auto;
 }
+
+.section {
+  display: block;
+}
+
+.banner {
+  background: url(./assets/home-banner.png) no-repeat center center; 
+  background-size: cover;
+  padding: 70px 0 100px 0px;
+}
+
+@media (max-width: 575px) {
+  .banner {
+    min-height: 450px;
+  }
+}
+
+@media (max-width: 767px) {
+  .banner {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 991px) {
+  .banner {
+    padding: 70px 0px 100px 0px;
+  }
+}
+

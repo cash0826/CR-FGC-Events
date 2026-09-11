@@ -25,6 +25,7 @@ function Home() {
         <NavBar/>
       </header>
       <main>
+        <section className="banner"></section>
         <section>
           {events.map((event) => (
             <EventItem 
