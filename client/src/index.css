@@ -70,7 +70,25 @@ img {
 }
 
 button {
-  border-radius: 0;
+  display: inline-block;
+  outline: none;
+  line-height: 40px;
+  padding: 0 30px;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: #3fcaff;
+  border: 1px solid #3fcaff;
+  background-color: #fff;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+button:hover {
+  color: #fff;
+  background-color: #3fcaff;
+  border: 1px solid transparent;
 }
 
 header {
@@ -230,18 +248,6 @@ header {
     border-radius: 20px;
     overflow: none;
     resize: none;
-  }
-  button {
-    display: inline-block;
-    line-height: 40px;
-    padding: 0 30px;
-    font-size: 0.8rm;
-    text-align: center;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 10px;
-    border: none;
-    border-radius: 20px;
   }
   .row-link {
     margin-top: 10px;
