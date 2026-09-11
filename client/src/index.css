@@ -65,114 +65,14 @@ button:focus {
   outline: none;
 }
 
-/* .collapse:not(.show) {
-  display: none
-} */
-
-@media (width >= 48rem /* 768px */) {
-  .md\:hidden {
-    display: none;
- }
+header {
+  background-color: #2c2172
 }
 
-nav, .navbar-container {
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  padding-right: 15px;   
-  padding-left: 15px; 
-  border-radius: 0px;
-  width: 100%;
-  max-width: 1140px;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #777777;
-
-  .navbar-brand-logo {
-    display: inline-block;
-    padding-top: .3125rem;
-    padding-bottom: .3125rem;
-    font-size: 1.25rem;
-    line-height: inherit;
-    margin-right: 30px;
-  }
-
-  .navbar-toggler {
-    cursor: pointer;
-    color: rgba(0, 0, 0, .1);
-    font-size: 1.25rem;
-    line-height: 1;
-    background-color: transparent;
-  }
-  
-  .navbar-links-center-container {
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    .navbar-container {
-      max-width: 720px;
-    }
-  }
-
-  @media (min-width: 992px) {
-    nav {
-      flex-flow: row nowrap;
-      justify-content: flex-start;
-    }
-    .navbar-links-center-container {
-      display: flex;
-      flex-direction: row;
-      flex-basis: auto;
-      flex-grow: 1;
-      flex-wrap: wrap;
-      align-items: center;
-      padding-left: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-      a {
-        margin-right: 45px;
-        font-size: 12px;
-        line-height: 100px;
-        text-transform: uppercase;
-        color: #fff;
-        padding: 0px;
-        display: inline-block;
-      }
-      a.active {
-        color: #3fcaff
-      }
-    }
-    .navbar-toggler {
-      display: none;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .navbar-container {
-      max-width: 1140px;
-    }
-  }
-
-  @media (max-width: 991px) {
-    .navbar-container {
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-
-    .navbar-toggler {
-      border-width: medium;
-      border-image-outset: 0;
-      border-image-repeat: stretch;
-      border-image-slice: 100%;
-      border-image-source: none;
-      border-image-width: 1;
-      border-radius: 0px;
-      padding: 0px;
-      margin-top: 27px;
-      margin-bottom: 23px;
-    }
-  }
 }
-
