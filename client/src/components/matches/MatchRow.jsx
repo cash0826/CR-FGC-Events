@@ -54,37 +54,41 @@ function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, 
   }  
 
   return (
-    <div className="matches-match-row">
+    <>
       {isEditing ? (
-        <>
-          <label>Round:</label>
-          <input
-            name="round"
-            value={form.round}
-            onChange={(e)=> setForm({...form, round: e.target.value})}
-            required
-          />
-          <label>Start_time:</label>
-          <DateTimePicker
-            name="start_time"
-            value={form.start_time}
-            onChange={(dt)=> setForm({...form, start_time: dt})}
-            required
-          />
-          <label>Status:</label>
-          <input
-            name="status"
-            placeholder="pending, in_progress, cancelled, completed"
-            value={form.status}
-            onChange={(e)=> setForm({...form, status: e.target.value})}
-          />
-          <button onClick={handleSave} disabled={isSubmitting}>
-            {isSubmitting ? 'Saving...' : 'Save'}
-          </button>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
-        </>
+        <div className="form-container">
+          <form>
+            <div className="row-form">
+              Round:
+              <input
+                name="round"
+                value={form.round}
+                onChange={(e)=> setForm({...form, round: e.target.value})}
+                required
+              />
+              Start_time:
+              <DateTimePicker
+                name="start_time"
+                value={form.start_time}
+                onChange={(dt)=> setForm({...form, start_time: dt})}
+                required
+              />
+              Status:
+              <input
+                name="status"
+                placeholder="pending, in_progress, cancelled, completed"
+                value={form.status}
+                onChange={(e)=> setForm({...form, status: e.target.value})}
+              />
+              <button onClick={handleSave} disabled={isSubmitting}>
+                {isSubmitting ? 'Saving...' : 'Save'}
+              </button>
+              <button onClick={() => setIsEditing(false)}>Cancel</button>
+            </div>
+          </form>
+        </div>
       ) : (
-        <>
+        <div className="row">
           <p>{match.round} | {match.status}</p>
           <p>Time: {formatLongDateTime(match.start_time)}</p>
           {(isOwner || isAdmin) && (
@@ -94,9 +98,9 @@ function MatchRow({ match, eventId, tournamentId, isOwner, isAdmin, setMatches, 
               {error && <p role="alert">{error}</p>}
             </>
           )}
-        </>
+        </div>
       )}
-    </div>
+    </>
   )
 }
 

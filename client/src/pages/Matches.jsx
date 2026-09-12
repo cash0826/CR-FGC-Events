@@ -44,65 +44,74 @@ function Matches() {
   
   return (
     <>
-      <div className="matches-match-container">
-        {isEmpty ? (
-          <>
-            <p>No matches posted yet.</p>
-          </>
-        ) : (
-          <>
-            {matches.map((match) => (
-                <MatchRow
-                  key={match.id}
-                  match={match}
-                  eventId={eventId}
-                  tournamentId={tournamentId}
-                  isOwner={isOwner}
-                  isAdmin={isAdmin}
-                  setMatches={setMatches}
-                />
-            ))}
-          </>
-        )}
-      </div>
-      <div className="matches-add-match">
+      <section className="matches-match-container">
+        <div className="container">
+          {isEmpty ? (
+            <>
+              <h2>No matches posted yet.</h2>
+            </>
+          ) : (
+            <>
+              {matches.map((match) => (
+                  <MatchRow
+                    key={match.id}
+                    match={match}
+                    eventId={eventId}
+                    tournamentId={tournamentId}
+                    isOwner={isOwner}
+                    isAdmin={isAdmin}
+                    setMatches={setMatches}
+                  />
+              ))}
+            </>
+          )}
+        </div>
+      </section>
+
+      <section className="matches-add-match">
         {isOpen ? (
-          <>
-            <label>Round:</label>
-            <input
-              name="round"
-              value={form.round}
-              onChange={(e)=> setForm({...form, round: e.target.value})}
-              required
-            />
-            <label>Start_time:</label>
-            <DateTimePicker
-              name="start_time"
-              value={form.start_time}
-              onChange={(dt)=> setForm({...form, start_time: dt})}
-              required
-            />
-            <label>Status:</label>
-            <input
-              name="status"
-              placeholder="pending, in_progress, cancelled, completed"
-              value={form.status}
-              onChange={(e)=> setForm({...form, status: e.target.value})}
-            />
-            <button onClick={handleAdd} disabled={isSubmitting}>
-              {isSubmitting ? 'Adding...' : 'Confirm New Match'}
-            </button>
-            <button onClick={()=> setIsOpen(false)}>Cancel</button>
-            {error && <p role="alert">{error}</p>}
-          </>
+          <div className="form-container">
+            <form>
+              <div className="row-form">
+                Round:
+                <input
+                  name="round"
+                  value={form.round}
+                  onChange={(e)=> setForm({...form, round: e.target.value})}
+                  required
+                />
+                Start_time:
+                <DateTimePicker
+                  name="start_time"
+                  value={form.start_time}
+                  onChange={(dt)=> setForm({...form, start_time: dt})}
+                  required
+                />
+                Status:
+                <input
+                  name="status"
+                  placeholder="pending, in_progress, cancelled, completed"
+                  value={form.status}
+                  onChange={(e)=> setForm({...form, status: e.target.value})}
+                />
+                <button onClick={handleAdd} disabled={isSubmitting}>
+                  {isSubmitting ? 'Adding...' : 'Confirm New Match'}
+                </button>
+                <button onClick={()=> setIsOpen(false)}>Cancel</button>
+                {error && <p role="alert">{error}</p>}
+              </div>
+            </form>
+          </div>
         ) : (
-          <>
-            {(isOwner || isAdmin) && (
-              <button onClick={()=> setIsOpen(true)}>Add a Match</button>
-            )}
-          </>
+          <div className="nav-buttons">
+            <div className="container">
+              {(isOwner || isAdmin) && (
+                <button onClick={()=> setIsOpen(true)}>Add a Match</button>
+              )}
+            </div>
+          </div>
         )}
-      </div>
+      </section>
     </>
   )
 }
