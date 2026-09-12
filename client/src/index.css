@@ -230,6 +230,7 @@ header {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
+  padding-bottom: 10px;
   margin-right: auto;
   margin-left: auto;
   display: flex;
@@ -329,10 +330,8 @@ header {
 .title > .container {
   padding-top: 20px;
   flex-direction: column;
+  align-items: center;
   background-color: #d5cfff7a;
-  .row {
-    width: 400px;
-  } 
 }
 
 .details {
@@ -427,7 +426,58 @@ header {
 
 .nav-buttons > .container {
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
+.competitors {
+  h2 {
+    padding-top: 10px;
+    width: 100%;
+  }
+
+  .row {
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 150px;
+    min-height: 1px;
+    text-align: left;
+  }
+  p {
+    width: 100%;
+  }
+
+  @media (min-width: 567px) {
+    .container {
+      max-width: 540px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .container {
+      max-width: 960px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 1140px;
+    }
+  }
+
+}
+
+.tournament-links > .container {
+  padding: 20px 0;
+  background-color: #2c2172;
+  justify-content: space-evenly;
+}
+
+.tournament-registration-container > .title > .container {
+  padding-bottom: 10px;
+}

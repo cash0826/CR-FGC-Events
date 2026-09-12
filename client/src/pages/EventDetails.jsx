@@ -100,11 +100,11 @@ function EventDetails() {
             </div>
 
             <div className="row">
-              <h3>{formatLongDate(event.start)}</h3>
+              <p>{formatLongDate(event.start)}</p>
             </div>
 
             <div className="row">
-              <h3>📍{event.location}</h3>
+              <p>📍{event.location}</p>
             </div>
           </div>
         )}
@@ -185,27 +185,38 @@ function EventDetails() {
         )}
       </section>
 
-      <section>
-        <div className="tournaments-banner">
-          <div className="container">
-            <h2>Open Tournaments (Click to Register)</h2>
-          </div>
-        </div>
+      {event.tournaments.length !== 0 ? (
+        <>
+          <section>
+            <div className="tournaments-banner">
+              <div className="container">
+                <h2>Open Tournaments (Click to Register)</h2>
+              </div>
+            </div>
+            <div className="tournaments">
+              <div className="container">
+                {event.tournaments.map((tournament) => (
+                  <TournamentListItem
+                    key={tournament.id}
+                    event={event}
+                    tournament={tournament}
+                  />
+                ))} 
+              </div>
+            </div>
       </section>
+        </>
+      ) : (
+        <section>
+          <div className="tournaments-banner">
+            <div className="container">
+              <h2>No Tournaments Posted Yet</h2>
+            </div>
+          </div>
+        </section>
+      )}  
 
-      <section>
-        <div className="tournaments">
-          <div className="container">
-            {event.tournaments.map((tournament) => (
-              <TournamentListItem
-                key={tournament.id}
-                event={event}
-                tournament={tournament}
-              />
-            ))} 
-          </div>
-        </div>
-      </section>
+
       <section className="nav-buttons">
         <div className="container">
           {(isOwner || isAdmin) && (

@@ -87,101 +87,133 @@ function TournamentDetails() {
 
   return (
     <>
-      <div className="tournament-header-details-container">
+      <section className="title">
         { isEditing ? (
-          <>
-            <label>Name:</label>
-            <input
-              name="name"
-              value={form.name}
-              onChange={(e)=> setForm({...form, name: e.target.value})}
-            />
-            <label>Line Up Type:</label>
-            <input
-              name="line_up_type"
-              value={form.line_up_type}
-              onChange={(e)=> setForm({...form, line_up_type: e.target.value})}
-            />
-            <label>Game:</label>
-            <input
-              name="game"
-              value={form.game}
-              onChange={(e)=> setForm({...form, game: e.target.value})}
-            />
-            <label>Platform:</label>
-            <input
-              name="platform"
-              value={form.platform}
-              onChange={(e)=> setForm({...form, platform: e.target.value})}
-            />
-            <label>Start Time:</label>
-            <DateTimePicker
-              name="start_time"
-              value={form.start_time}
-              onChange={(dt)=> setForm({...form, start_time: dt})}
-            />
+          <div className="form-container">
+            <form>
+              <div className="row-form">
+                <label>Name:</label>
+                <input
+                  name="name"
+                  value={form.name}
+                  onChange={(e)=> setForm({...form, name: e.target.value})}
+                />
+                <label>Line Up Type:</label>
+                <input
+                  name="line_up_type"
+                  value={form.line_up_type}
+                  onChange={(e)=> setForm({...form, line_up_type: e.target.value})}
+                />
+                <label>Game:</label>
+                <input
+                  name="game"
+                  value={form.game}
+                  onChange={(e)=> setForm({...form, game: e.target.value})}
+                />
+                <label>Platform:</label>
+                <input
+                  name="platform"
+                  value={form.platform}
+                  onChange={(e)=> setForm({...form, platform: e.target.value})}
+                />
+                <label>Start Time:</label>
+                <DateTimePicker
+                  name="start_time"
+                  value={form.start_time}
+                  onChange={(dt)=> setForm({...form, start_time: dt})}
+                />
+              </div>
+            </form>
             <button onClick={handleSave} disabled={isSubmitting}>
               {isSubmitting ? 'Saving...' : 'Save'}  
             </button>
             <button onClick={() => setIsEditing(false)}>Cancel</button>
             {error && <p role="alert">{error}</p>}
-          </>
+          </div>
         ) : (
-          <>
-            <h1>{tournamentDetails.name} -- {event.name}</h1>
-            <h2>{tournamentDetails.line_up_type}--{tournamentDetails.game}--{tournamentDetails.platform}</h2>
-            <h3>Start Time: {formatLongDateTime(tournamentDetails.start_time)}</h3>
-            {(isOwner || isAdmin) && (
-              <>
-                <button onClick={startEditing}>Edit</button>
-                <button onClick={handleDelete}>Delete</button>
-                {error && <p role="alert">{error}</p>}
-              </>
-            )}
-          </>
+          <div className="container">
+            <div className="row">
+              <h1>{tournamentDetails.name}</h1>
+            </div>
+            <div className="row">
+              <h2>{event.name}</h2>
+            </div>
+            <div className="row">
+              <p>{tournamentDetails.line_up_type} - {tournamentDetails.game} - {tournamentDetails.platform}</p>
+            </div>
+            <div className="row">
+              <p>Start Time: {formatLongDateTime(tournamentDetails.start_time)}</p>
+            </div>
+          </div>
         )}
-      </div>
+      </section>
+      
+      <section className="tournament-links">
+        <div className="container">
+          <div className="row">
+            <Link to={`/events/${eventId}/tournaments/${tournamentId}/matches`}><h2>Matches</h2></Link>
+          </div>
 
-      <div className="tournament-registration-container">
+          <div className="row">
+            <Link to={`/events/${eventId}/tournaments/${tournamentId}/standings`}><h2>Standings</h2></Link>
+          </div>
+
+          <div className="row">
+            <Link to={`/events/${eventId}/tournaments/${tournamentId}/bracket`}><h2>Bracket</h2></Link>
+          </div>
+        </div>
+      </section>
+      
+      <section className="tournament-attendee-list-container">
+        <div className="competitors">
+          <div className="container">
+            <h2>Competitors:</h2>
+            {tournamentDetails.competitors.map((competitor) => (
+              <CompetitorRow
+                key={competitor.id}
+                competitor={competitor}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="tournament-registration-container">
         {isEditing ? (
-          <>
-            <label>Deadline to register:</label>
-            <DateTimePicker
-              name="registration_deadline"
-              value={form.registration_deadline}
-              onChange={(dt)=> setForm({...form, registration_deadline: dt})}
-            />
-          </>
+          <div className="form-container">
+            <form>
+              <div className="row-form">
+                <label>Deadline to register:</label>
+                <DateTimePicker
+                  name="registration_deadline"
+                  value={form.registration_deadline}
+                  onChange={(dt)=> setForm({...form, registration_deadline: dt})}
+                />
+              </div>
+            </form>
+          </div>
         ) : (
-          <>
-            <h2>Register now!</h2>
-            <h3>Deadline: {formatLongDateTime(tournamentDetails.registration_deadline)}</h3>
-            <button onClick={handleRegister}>Register</button>
-          </>
+          <div className="title">
+            <div className="container">
+              <h2>Register now!</h2>
+              <h3>Deadline: {formatLongDateTime(tournamentDetails.registration_deadline)}</h3>
+              <button onClick={handleRegister}>Register</button>
+            </div>
+          </div>
         )}
-      </div>
+      </section>
 
-      <div className="tournament-attendee-list-container">
-        <h2>Competitors:</h2>
-        {tournamentDetails.competitors.map((competitor) => (
-          <CompetitorRow
-            key={competitor.id}
-            competitor={competitor}
-          />
-        ))}
-      </div>
-
-      <div className="tournament-matches-container">
-        <Link to={`/events/${eventId}/tournaments/${tournamentId}/matches`}><h2>Matches</h2></Link>
-      </div>
-
-      <div className="tournament-standings-container">
-        <Link to={`/events/${eventId}/tournaments/${tournamentId}/standings`}><h2>Standings</h2></Link>
-      </div>
-
-      <div className="tournament-bracket-container">
-        <Link to={`/events/${eventId}/tournaments/${tournamentId}/bracket`}><h2>Bracket</h2></Link>
-      </div>
+      <section className="nav-buttons">
+        <div className="container">
+          {(isOwner || isAdmin) && (
+            <>
+              <button onClick={startEditing}>Edit</button>
+              <button onClick={handleDelete}>Delete</button>
+              {error && <p role="alert">{error}</p>}
+            </>
+          )}
+        </div>
+      </section>
     </>
   )
 }
