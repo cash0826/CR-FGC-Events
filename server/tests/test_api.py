@@ -108,7 +108,7 @@ def test_event_tournament_and_match_flow(client):
     event_id = new_event.id
 
     from datetime import datetime
-    new_tourn, err = TournamentService.create_tournament(event_id=event_id, data={
+    new_tourn, err = TournamentService.create(event_id=event_id, data={
         "name": "Test Tournament",
         "start_time": datetime.fromisoformat("2026-09-02T10:00:00"),
         "registration_deadline": datetime.fromisoformat("2026-09-01T12:00:00"),
@@ -215,7 +215,7 @@ def test_admin_and_controller_post_delete_flows(client):
     assert err is None
     event_id = new_event.id
 
-    new_tourn, err = TournamentService.create_tournament(event_id=event_id, data={
+    new_tourn, err = TournamentService.create(event_id=event_id, data={
         'name': 'Controller Tourney',
         'start_time': datetime.fromisoformat('2026-10-02T10:00:00'),
         'registration_deadline': datetime.fromisoformat('2026-10-01T12:00:00'),
