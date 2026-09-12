@@ -50,6 +50,17 @@ npm install
 npm run dev
 ```
 
+## Login With Seeded User
+
+You can view and navigate the app without logging in (viewer access). Create a player account or login with a seeded user.
+
+User | Email | Password |
+|---|---|---|
+| Admin | admin@email.com | adminpassword |
+| Host | host1@email.com | host1password |
+| Host | host2@email.com | host2password | 
+| Player | amy@email.com | amypassword |
+
 ## Key Features
 1. JWT-Based Authentication Flow
 2. Multi-role Authorization (admin, host, player or viewer)
