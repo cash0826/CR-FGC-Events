@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 import { createEventTournament } from "../services/tournamentService";
 import DateTimePicker from "../components/DateTimePicker";
 import BackButton from "../components/BackButton";
@@ -36,8 +35,6 @@ function AddTournament() {
     }
   }
 
-  function handleChange(e) {setForm({...form, [e.target.name]: e.target.value})}
-
   return (
     <>
       <header>
@@ -55,7 +52,7 @@ function AddTournament() {
                 <input
                   placeholder="Name"
                   value={form.name}
-                  onChange={handleChange}
+                  onChange={(e) => setForm({...form, name: e.target.value})}
                   required
                 />
                 <DateTimePicker
@@ -71,21 +68,22 @@ function AddTournament() {
                   required
                 />
                 <input
+                name
                   placeholder="Game"
                   value={form.game}
-                  onChange={handleChange}
+                  onChange={(e) => setForm({...form, game: e.target.value})}
                   required
                 />
                 <input
                   placeholder="Platform"
                   value={form.platform}
-                  onChange={handleChange}
+                  onChange={(e) => setForm({...form, platform: e.target.value})}
                   required
                 />
                 <input
                   placeholder="1v1 (Singles), Teams..."
                   value={form.line_up_type}
-                  onChange={handleChange}
+                  onChange={(e) => setForm({...form, line_up_type: e.target.value})}
                   required
                 />
                 {error && <p role="alert">{error}</p>}
