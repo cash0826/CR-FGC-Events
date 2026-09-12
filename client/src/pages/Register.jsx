@@ -42,7 +42,7 @@ function Register() {
 
   return (
     <>
-      <h2>Register to {tournament.name} for Event {event.name}</h2>
+      <h1>Register to {tournament.name} for Event {event.name}</h1>
       <p>Event Registration Fee: c2,000 colones </p>
       <p>Tournament Competitor Registration Fee: c3,000 colones </p>
       <p>Payment to be made to SINPE Movil: ####-####</p>

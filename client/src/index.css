@@ -1,7 +1,17 @@
+*, ::after, ::before {
+  box-sizing: border-box;
+}
 
+@-ms-viewport {
+    width: device-width
+}
+
+footer, header, main, nav, section {
+  display: block;
+  width: 100%;
+}
 
 #root {
-  width: 1920px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -12,7 +22,462 @@
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+body {
   margin: 0;
+  line-height: 24px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1c1836;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom:.5rem;
   padding: 0;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 1.4rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+}
+
+h3 {
+  font-size: 1.15rem;
+}
+
+p, ul, ol, li {
+  margin-top: 0;
+  margin-bottom: .25rem;
+}
+
+footer {
+  background-color: var(--black-default);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+a, a:visited {
+  color: #3fcaff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #d12ebb
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+  max-width: 100%;
+}
+
+button {
+  display: inline-block;
+  outline: none;
+  line-height: 40px;
+  padding: 0 30px;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: #3fcaff;
+  border: 1px solid #3fcaff;
+  background-color: #fff;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  max-width: 560px;
+}
+
+button:hover {
+  color: #fff;
+  background-color: #3fcaff;
+  border: 1px solid transparent;
+}
+
+.back-btn-container {
+  justify-content: center;
+}
+
+header {
+  background-color: #2c2172
+}
+
+/* ``````````````````````````````````````````````````````````````````````````````````` */
+/* Global Attributes*/
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+/* ``````````````````````````````````````````````````````````````````````````````````` */
+/* Home Page Layout*/
+
+.inner-banner {
+  background: url("./assets/home-banner.png") no-repeat center center; 
+  background-size: cover;
+  padding: 70px 0 100px 0px;
+}
+
+.banner-headers {
+  text-align: left;
+  min-height: 1px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-right: 15px;
+  padding-left: 15px;
+  color: aliceblue;
+}
+
+.upcoming-games {
+  padding: 50px 0 80px;
+  
+  .container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  .row {
+    color: aliceblue;
+    padding: 10px;
+    gap: 0px;
+    width: 225px;
+    height: 350px;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
+    background-color: #2c2172;
+    border-radius: 25rem;
+
+    a:hover {
+      color:#d12ebb;
+    }
+
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .banner {
+    min-height: 350px;
+  }
+  .banner-img {
+    display: none;
+  }
+  .upcoming-games {
+    padding: 20px 0 20px;
+  }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .banner {
+    min-height: 400px;
+  }
+  .banner-img {
+    display: none;
+  }
+  .upcoming-games {
+    padding: 30px 0 20px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .banner {
+    padding: 70px 0px 100px 0px;
+  }
+  .banner-img {
+    display: none;
+  }
+  .upcoming-games {
+    padding: 30px 0 20px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .banner-img {
+    display: none;
+  }
+}
+
+/* ``````````````````````````````````````````````````````````````````````````````````` */
+/* Forms: Signup, Login, Profile, CreateEvent, AddTournament-*/
+
+.form-container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 550px;
+
+  .row-header {
+    padding-top: 20px;
+    background-color: transparent;
+    color: #1c1836;
+    gap: 10px;
+  }
+  .row-form {
+    min-width: 350px;
+  }
+  form {
+    display: block;
+  }
+  input {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    line-height: 40px;
+    border: none;
+    background-color: #bcecff;
+    padding: 0 20px;
+    border-radius: 20px;
+  }
+  textarea {
+    margin-top: 10px;
+    display: block;
+    height: 200px;
+    width: 100%;
+    line-height: 40px;
+    border: none;
+    background-color: #bcecff;
+    padding: 0 20px;
+    border-radius: 20px;
+    overflow: none;
+    resize: none;
+  }
+  .row-link {
+    margin-top: 10px;
+  }
+}
+
+/* ``````````````````````````````````````````````````````````````````````````````````` */
+/* Profile */
+
+.profile > .container {
+  justify-content: center;
+
+  .row {
+    justify-content: center;
+    padding: 10px;
+    min-height: 375px;
+    width: 350px;
+    color: #1c1836;
+  }
+
+  .profile-img {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #1c183677;
+    border-radius: 50%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+    h2 {
+      text-align: center;
+    }
+  }
+  
+  .profile-details {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #d5cfff7a;
+    border-radius: 10px;
+  }
+
+  p, h3 {
+    text-align: left;
+  }
+}
+
+/* ``````````````````````````````````````````````````````````````````````````````````` */
+/* Event/Tournament */
+
+.title > .container {
+  padding-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #d5cfff7a;
+}
+
+.details {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+
+  h2 {
+    padding: 20px 0;
+    width: 100%;
+    background-color: #bcecff;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 0 15px;
+
+  }
+
+  @media (min-width: 567px) {
+    .container {
+      max-width: 540px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .container {
+      max-width: 960px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 1140px;
+    }
+  }
+
+  .row {
+    flex-direction: column;
+    width: 350px;
+    min-height: 1px;
+    text-align: left;
+    h3 {
+      color: #2c2172;
+      padding-left: 40px;
+      padding-top: 40px;
+      margin: 0;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    p {
+      color: #777777;
+      padding: 16px 20px 0px 40px;
+    }
+  }
+}
+
+.tournaments-banner > .container {
+  padding: 20px 0;
+  justify-content: center;
+}
+
+.tournaments > .container {
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 25px;
+
+  .row {
+    color: aliceblue;
+    padding: 10px;
+    width: 225px;
+    height: 250px;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    gap: 0;
+    background-color: #2c2172;
+    border-radius: 10em;
+  }
+  a {
+    padding: 10px;
+  }
+}
+
+.nav-buttons > .container {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.competitors {
+  h2 {
+    padding-top: 10px;
+    width: 100%;
+  }
+
+  .row {
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 150px;
+    min-height: 1px;
+    text-align: left;
+  }
+  p {
+    width: 100%;
+  }
+
+  @media (min-width: 567px) {
+    .container {
+      max-width: 540px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .container {
+      max-width: 960px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 1140px;
+    }
+  }
+
+}
+
+.tournament-links > .container {
+  padding: 20px 0;
+  background-color: #2c2172;
+  justify-content: space-evenly;
+}
+
+.tournament-registration-container > .title > .container {
+  padding-bottom: 10px;
 }

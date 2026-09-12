@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { createEventTournament } from "../services/tournamentService";
 import DateTimePicker from "../components/DateTimePicker";
 import BackButton from "../components/BackButton";
+import NavBar from '../components/NavBar'
 
 function AddTournament() {
   const { eventId } = useParams();
@@ -39,69 +40,64 @@ function AddTournament() {
 
   return (
     <>
-      <BackButton/>
-      <h2>Add a new tournament to an existing event:</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name of the tournament:
-          <input
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Start Time:
-          <DateTimePicker
-            name="start_time"
-            value={form.start_time}
-            onChange={(dt)=> setForm({...form, start_time: dt})}
-            required
-          />
-        </label>
-        <label>
-          Registration Deadline:
-          <DateTimePicker
-            name="registration_deadline"
-            value={form.registration_deadline}
-            onChange={(dt)=> setForm({...form, registration_deadline: dt})}
-            required
-          />
-        </label>
-        <label>
-          Game:
-          <input
-            name="game"
-            value={form.game}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Platform:
-          <input
-            name="platform"
-            value={form.platform}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Line Up Type:
-          <input
-            name="line_up_type"
-            placeholder="1v1, Teams..."
-            value={form.line_up_type}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        {error && <p role="alert">{error}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Adding...' : 'Add a new tournament'}
-        </button>
-      </form>
+      <header>
+        <NavBar/>
+      </header>
+
+      <main>
+        <section >
+          <div className="form-container">
+            <div className="row-header">
+              <h1>Add a tournament:</h1>
+            </div>
+            <div className="row-form">
+              <form onSubmit={handleSubmit}>
+                <input
+                  placeholder="Name"
+                  value={form.name}
+                  onChange={handleChange}
+                  required
+                />
+                <DateTimePicker
+                  placeholder="Start Time"
+                  value={form.start_time}
+                  onChange={(dt)=> setForm({...form, start_time: dt})}
+                  required
+                />
+                <DateTimePicker
+                  placeholder="Registration Deadline"
+                  value={form.registration_deadline}
+                  onChange={(dt)=> setForm({...form, registration_deadline: dt})}
+                  required
+                />
+                <input
+                  placeholder="Game"
+                  value={form.game}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  placeholder="Platform"
+                  value={form.platform}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  placeholder="1v1 (Singles), Teams..."
+                  value={form.line_up_type}
+                  onChange={handleChange}
+                  required
+                />
+                {error && <p role="alert">{error}</p>}
+                <button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Adding...' : 'Add a new tournament'}
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+        <BackButton/>
+      </main>
     </>
   )
 }

@@ -79,120 +79,158 @@ function EventDetails() {
 
   return (
     <>
-      <div className="event-header-details-container">
+      <section className="title">
         {isEditing ? (
-          <>
-            <label>Name:</label>
-            <input
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-            />
-            <button onClick={handleSave} disabled={isSubmitting}>
-              {isSubmitting ? 'Saving...' : 'Save'}
-            </button>
-            <button onClick={() => setIsEditing(false)}>Cancel</button>
-            {error && <p role="alert">{error}</p>}
-          </>
+          <div className="form-container">
+            <form>
+              <div className="row-form">
+                <input
+                  placeholder="Name"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                />
+              </div>
+            </form>
+          </div>
         ) : (
-          <>
-            <h2>{event.name}</h2>
-            <h3>Start 📅: {formatLongDate(event.start)}</h3>
-            <h3>📍{event.location}</h3>
-            {(isOwner || isAdmin) && (
-              <>
-                <button onClick={addTournament}>Add Tournament to Event</button>
-                <button onClick={startEditing}>Edit Event Details</button>
-                <button onClick={handleDelete}>
-                  {isSubmitting ? 'Deleting...' : 'Delete Event'}
+          <div className="container">
+            <div className="row">
+              <h2>{event.name}</h2>
+            </div>
+
+            <div className="row">
+              <p>{formatLongDate(event.start)}</p>
+            </div>
+
+            <div className="row">
+              <p>📍{event.location}</p>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="event-FAQ-container">
+        {isEditing ? (
+          <div className="form-container">
+            <form>
+              <div className="row-form"></div>
+                Start:
+                <DateTimePicker
+                  name="start"
+                  value={form.start}
+                  onChange={(dt)=> setForm({...form, start: dt})}
+                />
+                <br/>
+                End:
+                <DateTimePicker
+                  name="end"
+                  value={form.end}
+                  onChange={(dt)=> setForm({...form, end: dt})}
+                />
+                <br/>
+                Location
+                <input
+                  name="location"
+                  value={form.location}
+                  onChange={handleChange}
+                />
+                Description
+                <textarea
+                  name="description"
+                  value={form.description}
+                  onChange={handleChange}
+                />
+                Rules
+                <textarea
+                  name="tie_breaking_rule"
+                  value={form.tie_breaking_rule}
+                  onChange={handleChange}
+                />
+                <button onClick={handleSave} disabled={isSubmitting}>
+                  {isSubmitting ? 'Saving...' : 'Save'}
                 </button>
+                <button onClick={() => setIsEditing(false)}>Cancel</button>
                 {error && <p role="alert">{error}</p>}
-              </>
-            )}
-          </>
-        )}
-      </div>
-
-      <div className="event-tournaments-items-container">
-        <ul>
-          <li>
-            {event.tournaments.map((tournament) => (
-              <TournamentListItem
-                key={tournament.id}
-                event={event}
-                tournament={tournament}
-              />
-            ))} 
-          </li>
-        </ul>
-      </div>
-
-      <div className="event-FAQ-container">
-        {isEditing ? (
-          <>
-            <label>
-              Start
-              <DateTimePicker
-                name="start"
-                value={form.start}
-                onChange={(dt)=> setForm({...form, start: dt})}
-              />
-            </label>
-            <label>
-              End
-              <DateTimePicker
-                name="end"
-                value={form.end}
-                onChange={(dt)=> setForm({...form, end: dt})}
-              />
-            </label>
-            <label>
-              Location
-              <input
-                name="location"
-                value={form.location}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Description
-              <textarea
-                name="description"
-                value={form.description}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Rules
-              <textarea
-                name="tie_breaking_rule"
-                value={form.tie_breaking_rule}
-                onChange={handleChange}
-              />
-            </label>
-          </>
+            </form>
+          </div>
         ) : (
-          <>
-            <h2>FAQ</h2>
-            <h3>Start:  </h3>
-            <p>{formatLongDate(event.start)}</p>
-            <h3>End:  </h3>
-            <p>{formatLongDate(event.end)}</p>
-            <h3>Location:  </h3>
-            <p>{event.location}</p>
-            <h3>Description:  </h3>
-            <p>{event.description}</p>
-            {event.tie_breaking_rule ? (
-              <>
-                <h3>Rules: </h3>
-                <p>{event.tie_breaking_rule}</p>
-              </>
-            ) : (
-              null
-            )}
-          </>
+          <div className="details">
+            <div className="container">
+              <h2>Event Details</h2>
+              <div className="row">
+                <h3>Start</h3>
+                <p>{formatLongDate(event.start)}</p>
+              </div>
+              <div className="row">
+                <h3>End</h3>
+                <p>{formatLongDate(event.start)}</p>
+              </div>
+              <div className="row">
+                <h3>Location</h3>
+                <p>{event.location}</p>
+              </div>
+              <div className="row">
+                <h3>Description</h3>
+                <p>{event.description}</p>
+              </div>
+              {event.tie_breaking_rule && (
+                <div className="row">
+                  <h3>Rules</h3>
+                  <p>{event.tie_breaking_rule}</p>
+                </div>
+              )}
+            </div>
+          </div>
         )}
-      </div>
+      </section>
+
+      {event.tournaments.length !== 0 ? (
+        <>
+          <section>
+            <div className="tournaments-banner">
+              <div className="container">
+                <h2>Open Tournaments (Click to Register)</h2>
+              </div>
+            </div>
+            <div className="tournaments">
+              <div className="container">
+                {event.tournaments.map((tournament) => (
+                  <TournamentListItem
+                    key={tournament.id}
+                    event={event}
+                    tournament={tournament}
+                  />
+                ))} 
+              </div>
+            </div>
+      </section>
+        </>
+      ) : (
+        <section>
+          <div className="tournaments-banner">
+            <div className="container">
+              <h2>No Tournaments Posted Yet</h2>
+            </div>
+          </div>
+        </section>
+      )}  
+
+
+      <section className="nav-buttons">
+        <div className="container">
+          {(isOwner || isAdmin) && (
+            <>
+              <button onClick={addTournament}>Add Tournament to Event</button>
+              <button onClick={startEditing}>Edit Event Details</button>
+              <button onClick={handleDelete}>
+                {isSubmitting ? 'Deleting...' : 'Delete Event'}
+              </button>
+              {error && <p role="alert">{error}</p>}
+            </>
+          )}
+        </div>
+      </section>
     </>
   )
 }

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { listEvents } from "../services/eventService";
-import EventListItem from "../components/eventitem/EventListItem";
+import EventItem from "../components/eventitem/EventItem";
+import NavBar from '../components/NavBar'
+import img from "../assets/banner-img.png";
 
 function Home() {
   const [events, setEvents] = useState([])
@@ -21,17 +23,34 @@ function Home() {
   return (
     <>
       <header>
-        <h1>CR FGC Upcoming Events</h1>
+        <NavBar/>
       </header>
       <main>
-        <ul>
-          {events.map((event) => (
-            <EventListItem 
-              key={event.id}
-              event={event}
-            />
+        <section>
+          <div className="inner-banner">
+            <div className="container">
+              <div className="row">
+                <div className="banner-img">
+                  <img src={img}/>
+                </div>
+                <div className="banner-headers">
+                  <h1>Join our upcoming events!</h1>
+                  <h2>Street Fighter 6, Marvel Tokon, Fatal Fury and more...</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="upcoming-games">
+          <div className="container">
+            {events.map((event) => (
+              <EventItem 
+                key={event.id}
+                event={event}
+              />
           ))}
-        </ul>
+          </div>
+        </section>
       </main>
     </>
   )

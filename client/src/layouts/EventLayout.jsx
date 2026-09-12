@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Outlet } from "react-router-dom";
 import { getEvent } from "../services/eventService"
 import BackButton from "../components/BackButton";
+import NavBar from '../components/NavBar'
 
 function EventLayout() {
   const { eventId } = useParams();
@@ -25,8 +26,13 @@ function EventLayout() {
 
   return (
     <>
-      <BackButton/>
+      <header>
+        <NavBar/>
+      </header>
       <Outlet context={{ event, setEvent }} />
+      <div className="back-btn-container">
+        <BackButton/>
+      </div>
     </>
   )
 }
