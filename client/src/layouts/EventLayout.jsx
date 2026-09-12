@@ -30,7 +30,9 @@ function EventLayout() {
         <NavBar/>
       </header>
       <Outlet context={{ event, setEvent }} />
-      <BackButton/>
+      <div className="back-btn-container">
+        <BackButton/>
+      </div>
     </>
   )
 }
