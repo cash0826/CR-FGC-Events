@@ -45,8 +45,8 @@ function AddTournament() {
       </header>
 
       <main>
-        <section className="form">
-          <div className="container">
+        <section >
+          <div className="form-container">
             <div className="row-header">
               <h1>Add a tournament:</h1>
             </div>

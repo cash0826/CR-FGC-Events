@@ -29,8 +29,8 @@ function EventLayout() {
       <header>
         <NavBar/>
       </header>
-      <BackButton/>
       <Outlet context={{ event, setEvent }} />
+      <BackButton/>
     </>
   )
 }

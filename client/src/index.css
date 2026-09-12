@@ -112,10 +112,8 @@ header {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
-
-.section {
-  display: block;
+  margin-right: -15px;
+  margin-left: -15px;
 }
 
 /* ``````````````````````````````````````````````````````````````````````````````````` */
@@ -216,10 +214,16 @@ header {
 /* ``````````````````````````````````````````````````````````````````````````````````` */
 /* Forms: Signup, Login, Profile, CreateEvent, AddTournament-*/
 
-.form > .container {
+.form-container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 550px;
 
   .row-header {
     padding-top: 20px;
@@ -306,3 +310,6 @@ header {
     text-align: left;
   }
 }
+
+/* ``````````````````````````````````````````````````````````````````````````````````` */
+/* Event/Tournament */

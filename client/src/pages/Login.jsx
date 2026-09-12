@@ -32,8 +32,8 @@ function Login() {
       </header>
 
       <main>
-        <section className="form">
-          <div className="container">
+        <section>
+          <div className="form-container">
             <div className="row-header">
               <h1>Welcome Back</h1>
             </div>

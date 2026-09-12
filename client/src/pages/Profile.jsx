@@ -57,8 +57,8 @@ function Profile() {
       
       {isEditing ? (
         <>
-          <section className="form">
-            <div className="container">
+          <section>
+            <div className="form-container">
               <div className="row-header">
                 <h1>Profile</h1>
               </div>

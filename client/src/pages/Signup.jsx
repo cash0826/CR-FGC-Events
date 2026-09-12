@@ -39,8 +39,8 @@ function Signup() {
       </header>
 
       <main>
-        <section className="form">
-          <div className="container">
+        <section>
+          <div className="form-container">
             <div className="row-header">
               <h1>Sign up and join our events!</h1>
             </div>
@@ -48,7 +48,7 @@ function Signup() {
             <div className="row-form">
               <form onSubmit={handleSubmit}>
                 <input
-                  placeholder="Username"
+                  placeholder="Desired Username"
                   value={username}
                   onChange={(event) => setUsername(event.target.value)}
                   required

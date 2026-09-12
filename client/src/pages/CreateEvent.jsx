@@ -44,8 +44,8 @@ function CreateEvent() {
       </header>
       
       <main>
-        <section className="form">
-          <div className="container">
+        <section>
+          <div className="form-container">
             <div className="row-header">
               <h1>New Event to host:</h1>
             </div>
@@ -58,14 +58,15 @@ function CreateEvent() {
                   onChange={(e)=> setForm({...form, name: e.target.value})}
                   required
                 />
+                Start:
                 <DateTimePicker
-                  placeholder="Start Date"
                   value={form.start}
                   onChange={(dt)=> setForm({...form, start: dt})}
                   required
                 />
+                <br/>
+                (Optional) End:
                 <DateTimePicker
-                  placeholder="Expected End Date"
                   value={form.end}
                   onChange={(dt)=> setForm({...form, end: dt})}
                 />
