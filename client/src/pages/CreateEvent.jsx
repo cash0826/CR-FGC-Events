@@ -90,8 +90,8 @@ function CreateEvent() {
                 />
                 <textarea
                   placeholder="(Optional) Include any rules or general code of conduct..."
-                  value={form.description}
-                  onChange={(e)=> setForm({...form, description: e.target.value})}
+                  value={form.tie_breaking_rule}
+                  onChange={(e)=> setForm({...form, tie_breaking_rule: e.target.value})}
                 />
                 {error && <p role="alert">{error}</p>}
                 <button type="submit" disabled={isSubmitting}>
