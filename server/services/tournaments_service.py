@@ -19,7 +19,8 @@ class TournamentService(BaseService):
         data['registration_deadline'] = datetime.fromisoformat(data['registration_deadline'])
     except Exception:
       return None, 'invalid_date'
-    
+
+    data["event_id"] = event_id
     return super().create(data)
   
   @classmethod
